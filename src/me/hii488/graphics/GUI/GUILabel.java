@@ -23,8 +23,8 @@ public class GUILabel extends GUIElement {
 		
 		if(outlineColor != null){
 			g.setColor(outlineColor);
-			if(fill) g.fillRect(position.getX(), position.getY(), dimensions.getX(), dimensions.getY());
-			else g.drawRect(position.getX(), position.getY(), dimensions.getX(), dimensions.getY());
+			if(fill) g.fillRect(position.getIX(), position.getIY(), dimensions.getIX(), dimensions.getIY());
+			else g.drawRect(position.getIX(), position.getIY(), dimensions.getIX(), dimensions.getIY());
 		}
 		
 		g.setColor(textColor);
@@ -37,13 +37,13 @@ public class GUILabel extends GUIElement {
 		int x,y;
 		
 		for(int i = 0; i < s.length; i++){
-			if(horizontalJustification == 0)       x = position.getX() + (dimensions.getX() - metrics.stringWidth(s[i])) / 2;
-			else if(horizontalJustification == -1) x = position.getX();
-			else                                   x = position.getX() + dimensions.getX() - metrics.stringWidth(s[i]);
+			if(horizontalJustification == 0)       x = position.getIX() + (dimensions.getIX() - metrics.stringWidth(s[i])) / 2;
+			else if(horizontalJustification == -1) x = position.getIX();
+			else                                   x = position.getIX() + dimensions.getIX() - metrics.stringWidth(s[i]);
 			
-			if(verticalJustificaton == 0)       y = position.getY() + ((dimensions.getY() - metrics.getHeight()) / 2) + ((i-s.length/2) * metrics.getHeight()) + metrics.getAscent(); // TODO: Make this center better
-			else if(verticalJustificaton == -1) y = position.getY() + dimensions.getY() + metrics.getHeight() * (i-s.length+1); 
-			else                                y = position.getY() - metrics.getHeight() * (i-s.length+1); 
+			if(verticalJustificaton == 0)       y = position.getIY() + ((dimensions.getIY() - metrics.getHeight()) / 2) + ((i-s.length/2) * metrics.getHeight()) + metrics.getAscent(); // TODO: Make this center better
+			else if(verticalJustificaton == -1) y = position.getIY() + dimensions.getIY() + metrics.getHeight() * (i-s.length+1); 
+			else                                y = position.getIY() - metrics.getHeight() * (i-s.length+1); 
 			g.drawString(s[i], x, y);
 		}
 		

@@ -20,7 +20,7 @@ public class GUIPicture extends GUIElement{
 	@Override
 	public void render(Graphics g) {
 		if(hidden) return;
-		g.drawImage(TextureHandler.getTexture(textureKey + "_" + currentState), position.getX(), position.getY(), null);
+		g.drawImage(TextureHandler.getTexture(textureKey + "_" + currentState), position.getIX(), position.getIY(), null);
 	}
 	
 	public void setupTextures() {

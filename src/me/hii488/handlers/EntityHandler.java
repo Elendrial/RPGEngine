@@ -39,7 +39,7 @@ public class EntityHandler {
 	}
 
 	public static boolean isOutOfContainer(BaseEntity e) {
-		if(e.position.getAbsX() < 0 || e.position.getAbsY() < 0) return true;
+		if(e.position.getX() < 0 || e.position.getY() < 0) return true;
 		
 		BaseContainer c = ContainerHandler.getContainer(e.containerIdentifier);
 		if(e.position.getX() > c.grid.dimensions.getX() * Settings.Texture.tileSize || e.position.getY() > c.grid.dimensions.getY() * Settings.Texture.tileSize) return true;

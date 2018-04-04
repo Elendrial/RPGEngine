@@ -31,13 +31,13 @@ public abstract class BaseEntity extends TexturedObject implements ITickable{
 	
 	protected BaseEntity(BaseEntity t){
 		super(t);
-		this.position = t.position.clone();
+		this.position = t.position.getLocation();
 		this.collisionBox = new Rectangle(t.collisionBox);
 		this.showCollisionBox = t.showCollisionBox;
 	}
 	
 	public void updateOnTick() {
-		collisionBox = new Rectangle(position.getX(), position.getY(), getTexture().getWidth(), getTexture().getHeight());
+		collisionBox = new Rectangle(position.getIX(), position.getIY(), getTexture().getWidth(), getTexture().getHeight());
 		if(destroyIfOutside && EntityHandler.isOutOfContainer(this)) this.destroy();
 	}
 	
@@ -48,8 +48,8 @@ public abstract class BaseEntity extends TexturedObject implements ITickable{
 	public void updateRenderPosition() {
 		renderPosA.setX(position.getX() - Camera.getPosition().getX());
 		renderPosA.setY(position.getY() - Camera.getPosition().getY());
-		renderPosB.setX(renderPosA.getAbsX() + (getTexture().getWidth() * Camera.scale));
-		renderPosB.setY(renderPosA.getAbsY() + (getTexture().getHeight() * Camera.scale));
+		renderPosB.setX(renderPosA.getX() + (getTexture().getWidth() * Camera.scale));
+		renderPosB.setY(renderPosA.getY() + (getTexture().getHeight() * Camera.scale));
 	}
 	
 	public boolean shouldRender() {
@@ -60,13 +60,13 @@ public abstract class BaseEntity extends TexturedObject implements ITickable{
 	protected Vector renderPosA = new Vector(); // Upper left corner
 	protected Vector renderPosB = new Vector(); // Lower right corner
 	public void render(Graphics g) {
-		g.drawImage(getTexture(), renderPosA.getX(), renderPosA.getY(), null);
+		g.drawImage(getTexture(), renderPosA.getIX(), renderPosA.getIY(), null);
 		
 		if(Settings.Logging.debug || this.showCollisionBox){
 			Color c = g.getColor();
 			g.setColor(Color.red);
-			g.drawRect(this.collisionBox.x  - Camera.getPosition().getX(), this.collisionBox.y - Camera.getPosition().getY(), this.collisionBox.width, this.collisionBox.height);
-			g.drawString(this.currentState + ":" + this.textureName, renderPosA.getX(), renderPosA.getY());
+			g.drawRect(this.collisionBox.x  - Camera.getPosition().getIX(), this.collisionBox.y - Camera.getPosition().getIY(), this.collisionBox.width, this.collisionBox.height);
+			g.drawString(this.currentState + ":" + this.textureName, renderPosA.getIX(), renderPosA.getIY());
 			g.setColor(c);
 		}
 	}

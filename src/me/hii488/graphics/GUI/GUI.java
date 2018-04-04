@@ -18,7 +18,7 @@ public class GUI implements IInputUser{
 		for(GUIElement e : elements) {
 			if(Settings.Logging.debug) {
 				g.setColor(Color.RED);
-				g.drawRect(e.position.getX()-1, e.position.getY()-1, e.dimensions.getX()+2, e.dimensions.getY()+2);
+				g.drawRect(e.position.getIX()-1, e.position.getIY()-1, e.dimensions.getIX()+2, e.dimensions.getIY()+2);
 			}
 			e.render(g);
 		}

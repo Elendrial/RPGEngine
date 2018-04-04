@@ -21,7 +21,7 @@ public class Camera {
 	}
 	
 	public static Vector getPosition() {
-		return oldPosition.clone();
+		return oldPosition.getLocation();
 	}
 	
 }
