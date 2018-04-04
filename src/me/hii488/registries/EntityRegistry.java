@@ -8,14 +8,21 @@ import me.hii488.objects.entities.Player;
 public class EntityRegistry {
 	public static Player player;
 	
-	protected static HashMap<String, BaseEntity> entities = new HashMap<String, BaseEntity>();
+	protected static HashMap<String, Class<? extends BaseEntity>> entities = new HashMap<String, Class<? extends BaseEntity>>();
 	
 	public static void registerEntity(BaseEntity b){
-		if(!entities.containsValue(b)) entities.put(b.identifier, b);
+		if(!entities.containsKey(b.identifier)) entities.put(b.identifier, b.getClass());
 	}
 	
 	public static BaseEntity getEntity(String identifier){
-		return (BaseEntity) entities.get(identifier).clone();
+		try {
+			return (BaseEntity) entities.get(identifier).newInstance();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public static boolean contains(String identifier){

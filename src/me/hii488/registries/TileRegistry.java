@@ -7,18 +7,33 @@ import me.hii488.objects.tiles.BlankTile;
 
 public class TileRegistry{
 	
-	protected static HashMap<String, BaseTile> tiles = new HashMap<String, BaseTile>();
+	protected static HashMap<String, Class<? extends BaseTile>> tiles = new HashMap<String,  Class<? extends BaseTile>>();
 	
 	public static void registerTile(BaseTile b){
-		if(!tiles.containsValue(b)) tiles.put(b.identifier, b);
+		if(!tiles.containsKey(b.identifier)) tiles.put(b.identifier, b.getClass());
 	}
 	
 	public static BlankTile getBlankTile(){
-		return (BlankTile) tiles.get("blankTile").clone();
+		try {
+			return (BlankTile) tiles.get("blankTile").newInstance();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public static BaseTile getTile(String identifier){
-		return (BaseTile) tiles.get(identifier).clone();
+		try {
+			return (BaseTile) tiles.get(identifier).newInstance();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		
+		return getBlankTile();
 	}
 	
 	public static boolean contains(String identifier){
