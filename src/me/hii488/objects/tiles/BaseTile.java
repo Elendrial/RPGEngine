@@ -9,7 +9,6 @@ import me.hii488.interfaces.ITickable;
 import me.hii488.misc.Settings;
 import me.hii488.misc.Vector;
 import me.hii488.objects.TexturedObject;
-import me.hii488.registries.TileRegistry;
 
 public abstract class BaseTile extends TexturedObject implements ITickable{
 	public Vector gridPosition = new Vector(0,0);
@@ -17,7 +16,6 @@ public abstract class BaseTile extends TexturedObject implements ITickable{
 	
 	public BaseTile(){
 		super();
-		TileRegistry.registerTile(this);
 	}
 	
 	protected BaseTile(BaseTile t){
@@ -55,5 +53,10 @@ public abstract class BaseTile extends TexturedObject implements ITickable{
 			g.setColor(Color.red);
 			g.drawRect(renderPosA.getIX(), renderPosA.getIY(), (int)(Settings.Texture.tileSize * Camera.scale), (int)(Settings.Texture.tileSize * Camera.scale));
 		}		
+	}
+	
+	@Override
+	public void setupTextures() {
+		this.setupTextures("tile");
 	}
 }

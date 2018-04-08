@@ -11,9 +11,11 @@ import me.hii488.registries.TileRegistry;
 public class Grid implements ITickable{
 
 	public BaseTile[][] grid;
-	public Vector dimensions = new Vector(0,0);
+	public Vector dimensions;
 	
-	public Grid() {}
+	public Grid() {
+		dimensions = new Vector(0,0);
+	}
 
 	public Grid(Grid g) {
 		this.dimensions = g.dimensions;
@@ -26,13 +28,7 @@ public class Grid implements ITickable{
 	}
 
 	public void setupGrid(int size) {
-		dimensions.setX(size); dimensions.setY(size);
-		grid = new BaseTile[size][size];
-		for (int i = 0; i < dimensions.getX(); i++) {
-			for (int j = 0; j < dimensions.getY(); j++) {
-				grid[i][j] = TileRegistry.getBlankTile();
-			}
-		}
+		setupGrid(size, size);
 	}
 	
 	public void setupGrid(int sizeX, int sizeY) {

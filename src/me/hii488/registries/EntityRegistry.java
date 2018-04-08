@@ -14,6 +14,10 @@ public class EntityRegistry {
 		if(!entities.containsKey(b.identifier)) entities.put(b.identifier, b.getClass());
 	}
 	
+	public static void registerEntity(String s, Class<? extends BaseEntity> b) {
+		if(!entities.containsKey(s)) entities.put(s, b);
+	}
+	
 	public static BaseEntity getEntity(String identifier){
 		try {
 			return (BaseEntity) entities.get(identifier).newInstance();
