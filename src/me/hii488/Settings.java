@@ -1,6 +1,8 @@
-package me.hii488.misc;
+package me.hii488;
 
 import java.awt.Color;
+
+import me.hii488.misc.Vector;
 
 public class Settings {
 

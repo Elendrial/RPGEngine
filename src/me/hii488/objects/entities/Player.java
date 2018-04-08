@@ -2,11 +2,11 @@ package me.hii488.objects.entities;
 
 import java.awt.event.KeyEvent;
 
+import me.hii488.Settings;
 import me.hii488.handlers.ContainerHandler;
 import me.hii488.handlers.InputHandler;
 import me.hii488.interfaces.IInputUser;
 import me.hii488.misc.Grid;
-import me.hii488.misc.Settings;
 import me.hii488.misc.Vector;
 import me.hii488.objects.TexturedObject;
 

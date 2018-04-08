@@ -3,7 +3,7 @@ package me.hii488.handlers;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
-import me.hii488.misc.Settings;
+import me.hii488.Settings;
 import me.hii488.objects.containers.BaseContainer;
 import me.hii488.objects.entities.BaseEntity;
 
