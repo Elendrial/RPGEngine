@@ -1,7 +1,9 @@
 ###To do list:
 
-- Make a "choice" gui
-- Rewrite parts completely? (probably not)
+- Rewrite guis to allow for easier formatting
+    - Allow for all gui elements to have a background picture
+    - Use a 'gui style' to set text justification, colour, font etc etc etc
+    - Add an "onShow" method, similar to onLoad, maybe have guis hidden by default until show is called?
 - Inventory support
 - Quest/task support
 - Image to level support (low priority)
@@ -9,8 +11,11 @@
 - Possibly add support for tile/entity textures made from multiple images
 - Vastly improve saving system
 - Add "grid entity" (must stay on the grid)
-      - Maybe make it so all non-grid entities have to have a grid entity parent? (probably not idk)
+    - Maybe make it so all non-grid entities have to have a grid entity parent? (probably not idk)
 - Add onInteraction
 - Add an event for when a player does anything (allows for turnbased games)
 - Easy keybinds
 - Make a pokemon clone in it. I demand future self makes a pokemon clone
+- Go through and rewrite almost everything? (Maybe as a v2 once it's working)
+    - Remove almost all cloning, its not actually needed (like with the registries)
+    - Clean code-base and make it work more coherently
