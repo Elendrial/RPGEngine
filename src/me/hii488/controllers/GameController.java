@@ -6,7 +6,6 @@ import me.hii488.graphics.Window;
 import me.hii488.objects.entities.Player;
 import me.hii488.objects.tiles.BlankTile;
 import me.hii488.registries.EntityRegistry;
-import me.hii488.registries.TileRegistry;
 
 public class GameController {
 	
@@ -16,7 +15,7 @@ public class GameController {
 	public static Random rand = new Random();
 	
 	public static void setupEngine(){ //This may grow, it may not
-		TileRegistry.registerEntity("blankTile", BlankTile.class);
+		new BlankTile();
 	}
 	
 	public static void loadWindow(String windowTitle, int windowWidth, int windowHeight){

@@ -9,15 +9,15 @@ public class InitialisationController{
 	protected static ArrayList<IInitialiser> initList = new ArrayList<IInitialiser>();
 
 	public static void preInitAll(){
-		initList.forEach(i -> i.preInit());
+		for(IInitialiser i : initList) i.preInit();
 	}
 	
 	public static void initAll(){
-		initList.forEach(i -> i.init());
+		for(IInitialiser i : initList) i.init();
 	}
 	
 	public static void postInitAll(){
-		initList.forEach(i -> i.postInit());
+		for(IInitialiser i : initList) i.postInit();
 	}
 
 	public static void addInitialiser(IInitialiser i) {

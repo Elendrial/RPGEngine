@@ -12,6 +12,7 @@ import me.hii488.interfaces.ITickable;
 import me.hii488.misc.Settings;
 import me.hii488.misc.Vector;
 import me.hii488.objects.TexturedObject;
+import me.hii488.registries.EntityRegistry;
 
 public abstract class BaseEntity extends TexturedObject implements ITickable{
 	public String containerIdentifier;
@@ -25,6 +26,7 @@ public abstract class BaseEntity extends TexturedObject implements ITickable{
 	
 	public BaseEntity(){
 		super();
+		EntityRegistry.registerEntity(this);
 	}
 	
 	protected BaseEntity(BaseEntity t){
@@ -77,10 +79,5 @@ public abstract class BaseEntity extends TexturedObject implements ITickable{
 	
 	public RenderEntity createRenderEntity(){
 		return new RenderEntity(this);
-	}
-	
-	@Override
-	public void setupTextures() {
-		this.setupTextures("entity");
 	}
 }

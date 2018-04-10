@@ -13,10 +13,6 @@ public class TileRegistry{
 		if(!tiles.containsKey(b.identifier)) tiles.put(b.identifier, b.getClass());
 	}
 	
-	public static void registerEntity(String s, Class<? extends BaseTile> b) {
-		if(!tiles.containsKey(s)) tiles.put(s, b);
-	}
-	
 	public static BlankTile getBlankTile(){
 		try {
 			return (BlankTile) tiles.get("blankTile").newInstance();

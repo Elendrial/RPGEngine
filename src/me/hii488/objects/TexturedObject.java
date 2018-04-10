@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import me.hii488.handlers.TextureHandler;
+import me.hii488.objects.entities.BaseEntity;
+import me.hii488.objects.tiles.BaseTile;
 
 public abstract class TexturedObject {
 	
@@ -27,7 +29,10 @@ public abstract class TexturedObject {
 		this.identifier = t.identifier;
 	}
 	
-	public abstract void setupTextures();
+	public void setupTextures() {
+		if     (this instanceof BaseTile)   setupTextures("tiles");
+		else if(this instanceof BaseEntity) setupTextures("entities");
+	}
 	
 	public void setupTextures(String customFile){
 		sanitizedName = textureName.split("\\.")[0];

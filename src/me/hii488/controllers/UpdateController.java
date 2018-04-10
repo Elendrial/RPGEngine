@@ -48,39 +48,30 @@ public class UpdateController implements Runnable{
 		tickController.markForSecTick();
 	}
 	
-	public void setTickRate(int tps) {
-		Settings.WorldSettings.TargetTPS = tps;
-		updateTickRate();
-	}
-	
-	public void updateTickRate() {
-		if(targetTPS != (int) (Settings.WorldSettings.TargetTPS * Settings.WorldSettings.currentSpeed)){
-			targetTPS = (int) (Settings.WorldSettings.TargetTPS * Settings.WorldSettings.currentSpeed);
-			nsPerTick = (1D / targetTPS) * 1000000000D;
-			actualTPS = targetTPS;
-			System.err.println("Target TPS changed to: " + targetTPS);
-		}
-	}
-	
 	public int TPS = 0;
 	public int actualTPS;
-	
-	private double nsPerTick;
-	private int targetTPS;
 	
 	@Override
 	public void run() {
 		int tick = 0;
 		
-		targetTPS = (int) (Settings.WorldSettings.TargetTPS * Settings.WorldSettings.currentSpeed);
+		int targetTPS = (int) (Settings.WorldSettings.TargetTPS * Settings.WorldSettings.currentSpeed);
 		actualTPS = targetTPS;
 		double fpsTimer = System.currentTimeMillis();
-		nsPerTick = (1D / targetTPS) * 1000000000D;
+		double secondsPerTick = 1D / targetTPS;
+		double nsPerTick = secondsPerTick * 1000000000D;
 		double then = System.nanoTime();
 		double now;
 		double unprocessed = 0;
 		
 		while (GameController.isRunning) {
+			if(targetTPS != (int) (Settings.WorldSettings.TargetTPS * Settings.WorldSettings.currentSpeed)){
+				targetTPS = (int) (Settings.WorldSettings.TargetTPS * Settings.WorldSettings.currentSpeed);
+				nsPerTick = (1D / targetTPS) * 1000000000D;
+				actualTPS = targetTPS;
+				System.err.println("Target TPS changed to: " + targetTPS);
+			}
+			
 			now = System.nanoTime();
 			unprocessed += (now - then) / nsPerTick;
 			then = now;
@@ -108,7 +99,7 @@ public class UpdateController implements Runnable{
 					actualTPS -= actualTPS * 0.05D;
 					nsPerTick = (1D / actualTPS) * 1000000000D;
 					System.err.println("Target TPS lowered to: " + actualTPS + " in order to avoid runaway.");
-					System.err.println("Skipped " + (int)unprocessed + " ticks in the process.");
+					System.err.println("Skipped " + (int)unprocessed + " in the process.");
 					unprocessed = 0;
 					fpsTimer = System.currentTimeMillis() + 1000;
 				}
