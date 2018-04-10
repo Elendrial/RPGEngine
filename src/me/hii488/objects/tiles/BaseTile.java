@@ -3,10 +3,10 @@ package me.hii488.objects.tiles;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import me.hii488.Settings;
 import me.hii488.controllers.GameController;
 import me.hii488.graphics.Camera;
 import me.hii488.interfaces.ITickable;
+import me.hii488.misc.Settings;
 import me.hii488.misc.Vector;
 import me.hii488.objects.TexturedObject;
 

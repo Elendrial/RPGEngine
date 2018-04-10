@@ -1,7 +1,7 @@
 package me.hii488.controllers;
 
-import me.hii488.Settings;
 import me.hii488.handlers.ContainerHandler;
+import me.hii488.misc.Settings;
 
 public class UpdateController implements Runnable{
 	protected static TickController tickController = new TickController();

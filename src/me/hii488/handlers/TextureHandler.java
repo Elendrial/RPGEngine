@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
-import me.hii488.Settings;
+import me.hii488.misc.Settings;
 import me.hii488.objects.entities.BaseEntity;
 
 public class TextureHandler {

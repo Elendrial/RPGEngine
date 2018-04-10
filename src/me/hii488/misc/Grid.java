@@ -3,7 +3,6 @@ package me.hii488.misc;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import me.hii488.Settings;
 import me.hii488.graphics.Camera;
 import me.hii488.interfaces.ITickable;
 import me.hii488.objects.tiles.BaseTile;

@@ -7,8 +7,8 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import me.hii488.Settings;
 import me.hii488.interfaces.IInputUser;
+import me.hii488.misc.Settings;
 
 public class GUI implements IInputUser{
 	protected ArrayList<GUIElement> elements = new ArrayList<GUIElement>();

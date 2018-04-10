@@ -3,8 +3,8 @@ package me.hii488.graphics;
 import java.awt.Canvas;
 import java.awt.Graphics;
 
-import me.hii488.Settings;
 import me.hii488.handlers.ContainerHandler;
+import me.hii488.misc.Settings;
 
 @SuppressWarnings("serial")
 public class Display extends Canvas{
