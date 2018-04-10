@@ -1,6 +1,7 @@
 package me.hii488;
 
 import java.awt.Color;
+import java.util.HashMap;
 
 import me.hii488.misc.Vector;
 
@@ -34,6 +35,14 @@ public class Settings {
 		public static final String defaultEntityTextureLocation = "textures/errorTextures/edefault.png";
 		public static int tileSize = 16;
 		public static Color background = Color.BLACK;
+	}
+	
+	public static class KeyBinds{ // TODO: Maybe change from String to a custom type?
+		public static HashMap<String, Integer> keyBinds = new HashMap<String, Integer>();
+		
+		public static void setupDefaultKeyBinds() {
+			
+		}
 	}
 	
 }
