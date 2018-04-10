@@ -8,7 +8,7 @@ public class RenderEntity extends BaseEntity {
 		this.textureName = e.textureName;
 		this.currentState = e.currentState;
 		this.states = e.states;
-		this.position = e.position.getLocation();
+		this.position = e.position.clone();
 	}
 	
 	public float randTickChance() {return 0;}

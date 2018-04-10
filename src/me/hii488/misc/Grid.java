@@ -17,7 +17,7 @@ public class Grid implements ITickable{
 
 	public Grid(Grid g) {
 		this.dimensions = g.dimensions;
-		grid = new BaseTile[dimensions.getIX()][dimensions.getIY()];
+		grid = new BaseTile[dimensions.getX()][dimensions.getY()];
 		for (int i = 0; i < dimensions.getX(); i++) {
 			for (int j = 0; j < dimensions.getY(); j++) {
 				setTile(g.getTile(i, j), i, j);
@@ -84,7 +84,7 @@ public class Grid implements ITickable{
 	
 	public BaseTile getTile(Vector p) {
 		try{
-			return grid[p.getIX()][p.getIY()];
+			return grid[p.getX()][p.getY()];
 		}
 		catch(Exception e){
 			return null;
@@ -92,7 +92,7 @@ public class Grid implements ITickable{
 	}
 
 	public void setTile(String identifier, Vector p) {
-		this.setTile(identifier, p.getIX(), p.getIY());
+		this.setTile(identifier, p.getX(), p.getY());
 	}
 	
 	public void setTile(String identifier, int x, int y) {
@@ -101,7 +101,7 @@ public class Grid implements ITickable{
 	}
 	
 	public void setTile(String identifier, int state, Vector p) {
-		this.setTile(identifier, state, p.getIX(), p.getIY());
+		this.setTile(identifier, state, p.getX(), p.getY());
 	}
 	
 	public void setTile(String identifier, int state, int x, int y) {
@@ -111,7 +111,7 @@ public class Grid implements ITickable{
 	}
 
 	public void setTile(BaseTile tile, Vector p) {
-		this.setTile(tile, p.getIX(), p.getIY());
+		this.setTile(tile, p.getX(), p.getY());
 	}
 	
 	public void setTile(BaseTile tile, int x, int y) {
@@ -204,7 +204,7 @@ public class Grid implements ITickable{
 	}
 	
 	public BaseTile getTileAtVector(Vector p){
-		return this.getTile((int) Math.floor((p.getX())/Settings.Texture.tileSize), (int) Math.floor((p.getY())/Settings.Texture.tileSize));
+		return this.getTile((int) Math.floor((p.getAbsX())/Settings.Texture.tileSize), (int) Math.floor((p.getAbsY())/Settings.Texture.tileSize));
 	}
 	
 	public static Vector getGridPosAtVector(int x, int y){
@@ -212,7 +212,7 @@ public class Grid implements ITickable{
 	}
 	
 	public static Vector getGridPosAtVector(Vector p){
-		return new Vector((float) Math.floor((p.getX())/Settings.Texture.tileSize), (float) Math.floor((p.getY())/Settings.Texture.tileSize));
+		return new Vector((float) Math.floor((p.getAbsX())/Settings.Texture.tileSize), (float) Math.floor((p.getAbsY())/Settings.Texture.tileSize));
 	}
 	
 	public static Vector getVectorAtGridPos(int x, int y) {

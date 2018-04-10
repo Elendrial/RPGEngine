@@ -36,40 +36,40 @@ public class Player extends BaseEntity implements IInputUser{
 	@Override
 	public void updateOnTick() {
 		super.updateOnTick();
-		if (usesEngineMovement && queuedMovement.magnitude() != 0D){
-			position.translate(allowedMovement(queuedMovement));
+		if (usesEngineMovement && !queuedMovement.isZeroVector()) {
+			position.addToLocation(allowedMovement(queuedMovement));
 		}
 	}
 	
 	protected Vector allowedMovement(Vector queuedMovement) { // TODO: Fix corner case (heh), where going ur or ul into a corner tps you away.
 		Grid g = ContainerHandler.getLoadedContainer().grid;
-		Vector p = position.getLocation(), a;
+		Vector p = position.clone(), a;
 		
-		Vector out = queuedMovement.getLocation();
+		Vector out = queuedMovement.clone();
 		
-		if(out.getY() < 0){
-			a = p.getLocation().translate(0, out.getY()); // Test -ve y movement
-			if(g.getTileAtVector(a).isCollidable || g.getTileAtVector(a.getLocation().translate(collisionBox.width-1, 0)).isCollidable){
-				out.setY((position.getIY())%Settings.Texture.tileSize); // Get dist between top of player and above tile.
+		if(out.getAbsY() < 0){
+			a = p.clone().addToLocation(0, out.getAbsY()); // Test -ve y movement
+			if(g.getTileAtVector(a).isCollidable || g.getTileAtVector(a.clone().addToLocation(collisionBox.width-1, 0)).isCollidable){
+				out.setY((position.getY())%Settings.Texture.tileSize); // Get dist between top of player and above tile.
 			}
 		}
-		else if(out.getY() > 0){
-			a = p.getLocation().translate(0, out.getY()); // Test +ve y movement
-			if(g.getTileAtVector(a.getLocation().translate(0, collisionBox.height-1)).isCollidable || g.getTileAtVector(a.getLocation().translate(collisionBox.width-1, collisionBox.height-1)).isCollidable){
-				out.setY(Settings.Texture.tileSize - collisionBox.height - (position.getIY()) % Settings.Texture.tileSize); // Get dist between bottom of player and tile below.
+		else if(out.getAbsY() > 0){
+			a = p.clone().addToLocation(0, out.getAbsY()); // Test +ve y movement
+			if(g.getTileAtVector(a.clone().addToLocation(0, collisionBox.height-1)).isCollidable || g.getTileAtVector(a.clone().addToLocation(collisionBox.width-1, collisionBox.height-1)).isCollidable){
+				out.setY(Settings.Texture.tileSize - collisionBox.height - (position.getY()) % Settings.Texture.tileSize); // Get dist between bottom of player and tile below.
 			}
 		}
 		
-		if(out.getX() < 0){
-			a = p.getLocation().translate(out.getX(), 0); // Test -ve x movement
-			if(g.getTileAtVector(a).isCollidable || g.getTileAtVector(a.getLocation().translate(0, collisionBox.height-1)).isCollidable){
-				out.setX((position.getIX()) % Settings.Texture.tileSize); // Get dist between left of player and left tile.
+		if(out.getAbsX() < 0){
+			a = p.clone().addToLocation(out.getAbsX(), 0); // Test -ve x movement
+			if(g.getTileAtVector(a).isCollidable || g.getTileAtVector(a.clone().addToLocation(0, collisionBox.height-1)).isCollidable){
+				out.setX((position.getX()) % Settings.Texture.tileSize); // Get dist between left of player and left tile.
 			}
 		}
-		else if(out.getX() > 0){
-			a = p.getLocation().translate(out.getX(), 0); // Test +ve x movement
-			if(g.getTileAtVector(a.getLocation().translate(collisionBox.width-1, 0)).isCollidable || g.getTileAtVector(a.getLocation().translate(collisionBox.width-1, collisionBox.height-1)).isCollidable){
-				out.setX(Settings.Texture.tileSize - collisionBox.width - (position.getIX()) % Settings.Texture.tileSize); // Get dist between right of player and right tile.
+		else if(out.getAbsX() > 0){
+			a = p.clone().addToLocation(out.getAbsX(), 0); // Test +ve x movement
+			if(g.getTileAtVector(a.clone().addToLocation(collisionBox.width-1, 0)).isCollidable || g.getTileAtVector(a.clone().addToLocation(collisionBox.width-1, collisionBox.height-1)).isCollidable){
+				out.setX(Settings.Texture.tileSize - collisionBox.width - (position.getX()) % Settings.Texture.tileSize); // Get dist between right of player and right tile.
 			}
 		}
 		

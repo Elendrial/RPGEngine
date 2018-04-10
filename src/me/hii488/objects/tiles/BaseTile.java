@@ -24,7 +24,7 @@ public abstract class BaseTile extends TexturedObject implements ITickable{
 		super(t);
 		this.isCollidable = t.isCollidable;
 		this.gridPosition = t.gridPosition;
-		this.gridPosition = t.gridPosition.getLocation();
+		this.gridPosition = t.gridPosition.clone();
 	}
 	
 	
@@ -35,10 +35,10 @@ public abstract class BaseTile extends TexturedObject implements ITickable{
 	protected Vector renderPosB = new Vector(); // Lower right corner
 	
 	public void updateRenderPosition() {
-		renderPosA.setX(gridPosition.getX() * Camera.scale * Settings.Texture.tileSize - Camera.getPosition().getX());
-		renderPosA.setY(gridPosition.getY() * Camera.scale * Settings.Texture.tileSize - Camera.getPosition().getY());
-		renderPosB.setX(renderPosA.getX() + (Settings.Texture.tileSize * Camera.scale));
-		renderPosB.setY(renderPosA.getY() + (Settings.Texture.tileSize * Camera.scale));
+		renderPosA.setX(gridPosition.getAbsX() * Camera.scale * Settings.Texture.tileSize - Camera.getPosition().getAbsX());
+		renderPosA.setY(gridPosition.getAbsY() * Camera.scale * Settings.Texture.tileSize - Camera.getPosition().getAbsY());
+		renderPosB.setX(renderPosA.getAbsX() + (Settings.Texture.tileSize * Camera.scale));
+		renderPosB.setY(renderPosA.getAbsY() + (Settings.Texture.tileSize * Camera.scale));
 	}
 	
 	public boolean shouldRender() {
@@ -49,11 +49,11 @@ public abstract class BaseTile extends TexturedObject implements ITickable{
 	public void render(Graphics g) {
 		super.render(g);
 		
-		g.drawImage(getTexture(), renderPosA.getIX(), renderPosA.getIY(), null);
+		g.drawImage(getTexture(), renderPosA.getX(), renderPosA.getY(), null);
 				
 		if(Settings.Logging.debug && isCollidable){
 			g.setColor(Color.red);
-			g.drawRect(renderPosA.getIX(), renderPosA.getIY(), (int)(Settings.Texture.tileSize * Camera.scale), (int)(Settings.Texture.tileSize * Camera.scale));
+			g.drawRect(renderPosA.getX(), renderPosA.getY(), (int)(Settings.Texture.tileSize * Camera.scale), (int)(Settings.Texture.tileSize * Camera.scale));
 		}		
 	}
 }
