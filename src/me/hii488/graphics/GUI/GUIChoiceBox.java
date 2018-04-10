@@ -16,7 +16,10 @@ public class GUIChoiceBox extends GUILabel{
 	
 	public GUIChoiceBox(String... choices) {
 		this();
-		addChoices(choices);
+		
+		for(String s : choices) {
+			options.add(s);
+		}
 	}
 	
 	public void onKeyTyped(KeyEvent e) {
@@ -32,18 +35,18 @@ public class GUIChoiceBox extends GUILabel{
 	
 	public GUIChoiceBox setChoices(String... choices) {
 		options.clear();
-		addChoices(choices);
+		
+		for(String s : choices) {
+			options.add(s);
+		}
+		
 		return this;
 	}
 	
 	public GUIChoiceBox addChoices(String... choices) {
-		for(String s : choices)
+		for(String s : choices) {
 			options.add(s);
-		
-		text = "";
-		for(int i = 0; i < options.size(); i++)
-			text += ( i == selected ? ">" : " ") + "  " + options.get(i);
-		
+		}
 		
 		return this;
 	}
