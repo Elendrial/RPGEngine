@@ -3,6 +3,7 @@ package me.hii488.controllers;
 import java.util.Random;
 
 import me.hii488.graphics.Window;
+import me.hii488.logging.Logger;
 import me.hii488.registries.KeyBindRegistry;
 
 public class GameController {
@@ -22,6 +23,7 @@ public class GameController {
 	
 	public static void setupEngine(){
 		KeyBindRegistry.setupDefault();
+		Logger.createDefaultLogger(System.out);
 	}
 	
 	public static void loadWindow(String windowTitle, int windowWidth, int windowHeight){
