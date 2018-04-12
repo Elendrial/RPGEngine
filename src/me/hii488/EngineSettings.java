@@ -1,9 +1,7 @@
 package me.hii488;
 
 import java.awt.Color;
-import java.util.HashMap;
 
-import me.hii488.dataTypes.KeyBind;
 import me.hii488.dataTypes.Vector;
 
 public class EngineSettings {
@@ -35,13 +33,5 @@ public class EngineSettings {
 		public static final String defaultEntityTextureLocation = "textures/errorTextures/edefault.png";
 		public static int tileSize = 16;
 		public static Color background = Color.BLACK;
-	}
-	
-	public static class KeyBinds { // TODO: Maybe change from String to a custom type?
-		public static HashMap<KeyBind, Integer> keyBinds = new HashMap<KeyBind, Integer>();
-		
-		public static void setupDefaultKeyBinds() {
-			
-		}
 	}
 }

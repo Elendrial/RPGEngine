@@ -3,6 +3,7 @@ package me.hii488.controllers;
 import java.util.Random;
 
 import me.hii488.graphics.Window;
+import me.hii488.registries.KeyBindRegistry;
 
 public class GameController {
 	
@@ -11,15 +12,23 @@ public class GameController {
 	
 	public static Random rand = new Random();
 	
-	public static void setupEngine(){ //This may grow, it may not
-		
+	
+	public static void loadAndStartGame(String title, int width, int height) {
+		loadWindow(title, width, height);
+		setupEngine();
+		startGame();
+	}
+	
+	
+	public static void setupEngine(){
+		KeyBindRegistry.setupDefault();
 	}
 	
 	public static void loadWindow(String windowTitle, int windowWidth, int windowHeight){
 		loadWindow(new Window(windowTitle, windowWidth, windowHeight));
 	}
 	
-	public static void loadWindow(Window w){ // Separate this <- current me: separate what? What do you mean past self?! What do you meeaaannnn???!?
+	public static void loadWindow(Window w){
 		UpdateController.renderController.window = w;
 	}
 	
