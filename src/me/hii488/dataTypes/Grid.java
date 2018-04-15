@@ -3,6 +3,8 @@ package me.hii488.dataTypes;
 import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Stream;
 
 import me.hii488.interfaces.IGameObject;
 import me.hii488.interfaces.IRenderable;
@@ -10,12 +12,14 @@ import me.hii488.interfaces.ITicking;
 
 public class Grid<T> implements ITicking, IGameObject, IRenderable{
 	
-	private Map<Vector, T> map;
+	// TODO: Might need to change this as I may need multiple entities in the same location
+	private Map<Vector, T> map, updatedMap;
 	private Vector dimensions;
 	
 	public Grid() {
 		dimensions = new Vector(0,0);
 		map = new HashMap<Vector, T>();
+		updatedMap = new HashMap<Vector, T>();
 	}
 	
 	public Grid(Grid<T> g) {
@@ -46,6 +50,12 @@ public class Grid<T> implements ITicking, IGameObject, IRenderable{
 	public void updateOnSec() {
 		map.values().forEach(t -> {if(t instanceof ITicking) ((ITicking) t).updateOnSec();});
 	}
+	
+	@Override
+	public void endOfTick() {
+		updatedMap.entrySet().stream().forEach(e -> map.put(e.getKey(), e.getValue()));
+		updatedMap.clear();
+	}
 
 	@Override
 	public void onLoad() {
@@ -64,10 +74,22 @@ public class Grid<T> implements ITicking, IGameObject, IRenderable{
 	public T getObjectAt(Vector v) {
 		return map.get(v);
 	}
+	
+	public void setObjectAt(T t, int x, int y) {
+		setObjectAt(t, new Vector(x,y));
+	}
+	
+	public void setObjectAt(T t, Vector v) {
+		updatedMap.put(v, t);
+	}
 
 	@Override
 	public void render(Graphics g) {
-		
+		map.entrySet().stream().forEach(e -> {if(e.getValue() instanceof IRenderable) ((IRenderable) e.getValue()).render(g, e.getKey());});
+	}
+	
+	public Stream<Entry<Vector, T>> stream() {
+		return map.entrySet().stream();
 	}
 
 }
