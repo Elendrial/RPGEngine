@@ -16,7 +16,7 @@ public class Display extends Canvas{
 		g.setColor(EngineSettings.Texture.background);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		try{
-			//ContainerHandler.getRenderContainer().render(g);
+			// LevelHandler.getRenderContainer().render(g);
 		}
 		catch(Exception e){
 			System.err.println("Error rendering current world container:");

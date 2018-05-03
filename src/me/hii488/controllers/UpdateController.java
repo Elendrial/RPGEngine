@@ -1,5 +1,7 @@
 package me.hii488.controllers;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 import me.hii488.EngineSettings;
 
 public class UpdateController implements Runnable{
@@ -8,6 +10,8 @@ public class UpdateController implements Runnable{
 	public static UpdateController instance = new UpdateController();
 	
 	private boolean tickNotify = false, renderNotify = false;
+
+	protected ReentrantLock isntanceLock = new ReentrantLock();
 	
 	public static void start(){
 		renderController.start();

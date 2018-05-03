@@ -9,6 +9,8 @@ public class TickController implements Runnable {
 	public ArrayList<ITickable> additionalEarlyTicking = new ArrayList<ITickable>();
 	public ArrayList<ITickable> additionalLateTicking = new ArrayList<ITickable>();
 	
+	private boolean loadingNewLevel = false;
+	
 	public static void addEarlyTicker(ITickable e){
 		UpdateController.tickController.additionalEarlyTicking.add(e);
 	}
@@ -37,13 +39,20 @@ public class TickController implements Runnable {
 		// TICK ADDITIONAL AFTER
 		for(ITickable toTick: additionalLateTicking) toTick.updateOnSec();
 	}
-
 	
 	
 	public void endOfTick(){
 		LevelHandler.getCurrentLevel().endOfTick();
+		
+		if(loadingNewLevel) {
+			LevelHandler.endOfTick();
+			loadingNewLevel = false;
+		}
 	}
 	
+	public void setLoadingNewLevel() {
+		loadingNewLevel = true;
+	}
 	
 	public void start(){
 		new Thread(this).start();

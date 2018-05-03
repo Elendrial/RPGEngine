@@ -12,7 +12,7 @@ import me.hii488.interfaces.ITicking;
 
 public class Grid<T> implements ITicking, IGameObject, IRenderable{
 	
-	// TODO: Might need to change this as I may need multiple entities in the same location
+	// TODO: Might need to change this as I may need multiple T's in the same location
 	private Map<Vector, T> map, updatedMap;
 	private Vector dimensions;
 	

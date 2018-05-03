@@ -5,6 +5,8 @@ import me.hii488.dataTypes.Vector;
 
 public class Camera {
 	
+	// TODO: Maybe make separate cameras with each level? Then you can set the camera per level to
+	
 	private static Vector cameraPosition = new Vector(0,0);
 	private static Vector oldPosition = new Vector(0,0);
 	public static float scale = 1;

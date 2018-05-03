@@ -2,6 +2,7 @@ package me.hii488.gameObjects.levels;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.concurrent.locks.ReentrantLock;
 
 import me.hii488.dataTypes.Grid;
 import me.hii488.gameObjects.entities.BaseEntity;
@@ -21,7 +22,7 @@ public abstract class BaseLevel implements ITicking, IGameObject, IRenderable{
 	// ENTITY GRID - TODO: determine if this is really necessary, the constraints could be in GridEntity itself?
 	private Grid<GridEntity> entityGrid;
 	
-	// FREE FLOATING ENTITIES
+	// FREE FLOATING ENTITIES - TODO: possibly split entities into ticking and non-ticking?
 	private ArrayList<FreeEntity> entities;
 	private ArrayList<FreeEntity> entitiesToAdd;
 	private ArrayList<FreeEntity> entitiesToDelete;
@@ -70,6 +71,8 @@ public abstract class BaseLevel implements ITicking, IGameObject, IRenderable{
 		entities.forEach(e -> {if(e instanceof ITickable) ((ITicking) e).endOfTick();});
 		
 		entities.removeAll(entitiesToDelete);
+		entitiesToDelete.forEach(e -> e.setParentLevel(null));
+		
 		entities.addAll(entitiesToAdd);
 		
 		entitiesToAdd.clear();
@@ -79,6 +82,8 @@ public abstract class BaseLevel implements ITicking, IGameObject, IRenderable{
 	public void addEntity(BaseEntity e) {
 		if(e instanceof FreeEntity)	entitiesToAdd.add((FreeEntity) e);
 		else entityGrid.setObjectAt((GridEntity) e, ((GridEntity) e).getPosition());
+		
+		e.setParentLevel(this);
 	}
 	
 	public void removeEntity(BaseEntity e) {
