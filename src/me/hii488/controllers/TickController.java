@@ -65,13 +65,27 @@ public class TickController implements Runnable {
 	public boolean isRunning = true;
 	
 	public void tick(){
-		try{updateTickableOnTick();}catch(Exception e){e.printStackTrace();}
-		try{endOfTick();}catch(Exception e){e.printStackTrace();}
+		UpdateController.instance.instancelock.lock();
+		
+		try {
+			try{updateTickableOnTick();}catch(Exception e){e.printStackTrace();}
+			try{endOfTick();}catch(Exception e){e.printStackTrace();}
+		}
+		finally {
+			UpdateController.instance.instancelock.unlock();
+		}
 	}
 	
-	public void sec(){ // This is not called currently to simplify the ticking process while I redo it.
-		try{updateTickableOnSec();}catch(Exception e){e.printStackTrace();}
-		try{endOfTick();} catch(Exception e){e.printStackTrace();}
+	public void sec(){
+		UpdateController.instance.instancelock.lock();
+		
+		try {
+			try{updateTickableOnSec();}catch(Exception e){e.printStackTrace();}
+			try{endOfTick();} catch(Exception e){e.printStackTrace();}
+		}
+		finally {
+			UpdateController.instance.instancelock.unlock();
+		}
 	}
 
 	public synchronized void update(){

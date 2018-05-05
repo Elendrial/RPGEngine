@@ -38,7 +38,14 @@ public class RenderController implements Runnable{
 
 		g.clearRect(0, 0, window.width, window.height);
 		
-		window.display.render(g);
+		UpdateController.instance.instancelock.lock();
+		
+		try{
+			window.display.render(g);
+		}
+		finally {
+			UpdateController.instance.instancelock.unlock();
+		}
 
 		g.dispose();
 		bs.show();

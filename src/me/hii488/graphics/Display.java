@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Graphics;
 
 import me.hii488.EngineSettings;
+import me.hii488.handlers.LevelHandler;
 
 @SuppressWarnings("serial")
 public class Display extends Canvas{
@@ -16,10 +17,10 @@ public class Display extends Canvas{
 		g.setColor(EngineSettings.Texture.background);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		try{
-			// LevelHandler.getRenderContainer().render(g);
+			LevelHandler.getCurrentLevel().render(g);
 		}
 		catch(Exception e){
-			System.err.println("Error rendering current world container:");
+			System.err.println("Error rendering current level:");
 			e.printStackTrace();
 		}
 	}

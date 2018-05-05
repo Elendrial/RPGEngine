@@ -5,13 +5,16 @@ import java.util.concurrent.locks.ReentrantLock;
 import me.hii488.EngineSettings;
 
 public class UpdateController implements Runnable{
+	// TODO: Think about completely rewriting this, it works, but does it work as well as it could? Not sure
+	// Will probably need a complete rewrite from scratch if I do change it.
+	
 	protected static TickController tickController = new TickController();
 	protected static RenderController renderController = new RenderController();
 	public static UpdateController instance = new UpdateController();
 	
 	private boolean tickNotify = false, renderNotify = false;
 
-	protected ReentrantLock isntanceLock = new ReentrantLock();
+	protected ReentrantLock instancelock = new ReentrantLock();
 	
 	public static void start(){
 		renderController.start();
@@ -44,7 +47,6 @@ public class UpdateController implements Runnable{
 		tickController.update();
 		renderController.update();
 		waitForEnd();
-	//	ContainerHandler.updateRenderContainer();
 	}
 	
 	public void updateSecond(){

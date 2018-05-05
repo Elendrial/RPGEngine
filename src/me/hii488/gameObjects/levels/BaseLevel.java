@@ -2,7 +2,6 @@ package me.hii488.gameObjects.levels;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
-import java.util.concurrent.locks.ReentrantLock;
 
 import me.hii488.dataTypes.Grid;
 import me.hii488.gameObjects.entities.BaseEntity;
