@@ -12,8 +12,17 @@ public class TextureRegistry {
 	// TODO: Clean up usage of texture and image.
 	private static HashMap<String, ImageData> allTextures = new HashMap<String, ImageData>();
 	private static HashMap<String, ImageData> loadedTextures = new HashMap<String, ImageData>(); // If any states are loaded, all will be.
-	private static int textureUnloadPoint = 120; // 4 seconds at 30fps
+	private static int textureUnloadPoint = 120; // 4 seconds at 30fps, since fps == tps we can use fps as a time reference, bc it makes more sense in this context than tps.
 	
+	public static void afterRender() {
+		loadedTextures.entrySet().forEach(e ->{
+			e.getValue().framesSinceLastRequested++;
+			if(e.getValue().framesSinceLastRequested > textureUnloadPoint) {
+				e.getValue().image = null;
+				loadedTextures.remove(e.getKey());
+			}
+		});
+	}
 	
 	public static Image getTexture(String key, int state) {
 		if(loadedTextures.containsKey(key)) {
@@ -32,12 +41,23 @@ public class TextureRegistry {
 		i.image = loadTexture(i);
 		i.framesSinceLastRequested = 0;
 		
+		loadedTextures.put(key, i);
+		
 		return i.image[state];
 	}
 	
 	// No real reason to not use the location as a key, maybe I should? Not sure, maybe you want image loading in a completely different place to what uses it.
 	public static void addTexture(String location, String key, int maxStates) {
 		// Just telling the registry that there's a texture somewhere does not automatically load it, it just stores the info of where it is.
+		if(allTextures.containsKey(key)) {
+			Logger.getDefault().print(LogSeverity.WARNING, "A texture with key \"" + key + "\" has already been registered. Ignoring overwrite. Use overwriteTexture if this is your intention.");
+			return;
+		}
+		allTextures.put(key, new ImageData(location, maxStates));
+	}
+	
+	public static void overwriteTexture(String location, String key, int maxStates) {
+		if(!allTextures.containsKey(key)) Logger.getDefault().print(LogSeverity.DETAIL, "No texture with key \"" + key + "\" has already been registered but trying to overwrite. Will still register texture.");
 		allTextures.put(key, new ImageData(location, maxStates));
 	}
 	
@@ -99,7 +119,7 @@ public class TextureRegistry {
 		public Image[] image;
 		public String imageLocation;
 		
-		public int states; // Starts at 1.
+		public int states; // number of states, works like array length or collection size(), (ie is 1 higher than the highest you can request)
 		public int framesSinceLastRequested;
 		
 		public ImageData(String location, int states) {

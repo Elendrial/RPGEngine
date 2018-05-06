@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 import me.hii488.EngineSettings;
 import me.hii488.handlers.LevelHandler;
+import me.hii488.registries.TextureRegistry;
 
 @SuppressWarnings("serial")
 public class Display extends Canvas{
@@ -18,6 +19,7 @@ public class Display extends Canvas{
 		g.fillRect(0, 0, getWidth(), getHeight());
 		try{
 			LevelHandler.getCurrentLevel().render(g);
+			TextureRegistry.afterRender();
 		}
 		catch(Exception e){
 			System.err.println("Error rendering current level:");
