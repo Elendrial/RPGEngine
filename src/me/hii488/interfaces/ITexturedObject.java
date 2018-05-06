@@ -11,12 +11,13 @@ public interface ITexturedObject extends IRenderable {
 	}
 	
 	// Highest state should be the highest state you request (starting from 0)
-	public default void initTexture(int highestState) {
-		TextureRegistry.addTexture(getTextureLocation(), getTextureKey(), highestState+1);
+	public default void initTexture() {
+		TextureRegistry.addTexture(getTextureLocation(), getTextureKey(), getHighestState());
 	}
 	
 	public String getTextureKey();
 	public String getTextureLocation();
 	public int getTextureState();
+	public int getHighestState();
 	
 }

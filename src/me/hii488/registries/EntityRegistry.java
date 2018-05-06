@@ -10,11 +10,17 @@ public class EntityRegistry {
 	protected static HashMap<String, Class<? extends BaseEntity>> entities = new HashMap<String, Class<? extends BaseEntity>>();
 	
 	public static void registerEntity(BaseEntity b){
-		if(!entities.containsKey(b.getEntityName())) entities.put(b.getEntityName(), b.getClass());
+		if(!entities.containsKey(b.getEntityName())) {
+			entities.put(b.getEntityName(), b.getClass());
+			b.initTexture();
+		}
 	}
 	
 	public static void registerEntity(String s, Class<? extends BaseEntity> b) {
-		if(!entities.containsKey(s)) entities.put(s, b);
+		if(!entities.containsKey(s)) {
+			entities.put(s, b);
+			getEntity(s).initTexture();
+		}
 	}
 	
 	public static BaseEntity getEntity(String identifier){

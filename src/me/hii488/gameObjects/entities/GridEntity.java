@@ -5,6 +5,10 @@ import me.hii488.dataTypes.Vector;
 public abstract class GridEntity extends BaseEntity{
 	protected Vector position;
 
+	public GridEntity() {
+		super();
+	}
+	
 	public Vector getPosition() {
 		return position.getLocation();
 	}

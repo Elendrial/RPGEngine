@@ -9,11 +9,17 @@ public class TileRegistry{
 	protected static HashMap<String, Class<? extends BaseTile>> tiles = new HashMap<String,  Class<? extends BaseTile>>();
 	
 	public static void registerTile(BaseTile b){
-		if(!tiles.containsKey(b.getTileName())) tiles.put(b.getTileName(), b.getClass());
+		if(!tiles.containsKey(b.getTileName())) {
+			tiles.put(b.getTileName(), b.getClass());
+			b.initTexture();
+		}
 	}
 	
 	public static void registerTile(String s, Class<? extends BaseTile> b) {
-		if(!tiles.containsKey(s)) tiles.put(s, b);
+		if(!tiles.containsKey(s)) {
+			tiles.put(s, b);
+			getTile(s).initTexture();
+		}
 	}
 	
 	public static BaseTile getTile(String identifier){

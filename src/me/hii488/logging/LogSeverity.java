@@ -1,7 +1,9 @@
 package me.hii488.logging;
 
 public enum LogSeverity {
-	ERROR(5),
+	// Some may be a bit redundant, but oh well.
+	ERROR(6),
+	GENERAL_INFO(5),
 	WARNING(4),
 	MESSAGE(3),
 	DETAIL(2),

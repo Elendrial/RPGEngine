@@ -16,3 +16,7 @@
     - Add an "onShow" method, similar to onLoad, maybe have guis hidden by default until show is called?
 - Make a pokemon clone in it. I demand future self makes a pokemon clone
 - Add an event for when a player does anything (allows for turnbased games)
+
+### Notes:
+
+- Entity and Tile textures are automatically loaded when they are added to their registries.
