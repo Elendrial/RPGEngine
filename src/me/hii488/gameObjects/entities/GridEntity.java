@@ -17,4 +17,6 @@ public abstract class GridEntity extends BaseEntity{
 		this.position = position.getLocation();
 	}
 	
+	// will probably have to render these "bottom up". IE: position + tileSize - thisTextureSize
+	
 }

@@ -26,8 +26,14 @@ public class LevelHandler {
 	}
 	
 	public static void loadLevel(String levelName) {
-		toLoad = levels.get(levelName);
-		loadingLevel();
+		if(currentLevel != null) {
+			toLoad = levels.get(levelName);
+			loadingLevel();
+		}
+		else {
+			currentLevel = levels.get(levelName);
+			currentLevel.onLoad();
+		}
 	}
 	
 	public static void loadLevel(BaseLevel level) {

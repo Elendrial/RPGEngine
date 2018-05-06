@@ -20,3 +20,4 @@
 ### Notes:
 
 - Entity and Tile textures are automatically loaded when they are added to their registries.
+- Players are implemented entirely by the user, rather than partially by the engine (Allows for more control/multiple players etc)

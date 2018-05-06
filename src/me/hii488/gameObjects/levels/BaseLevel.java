@@ -13,6 +13,7 @@ import me.hii488.interfaces.IRenderable;
 import me.hii488.interfaces.ITickable;
 import me.hii488.interfaces.ITicking;
 
+// Does this need to be abstract?
 public abstract class BaseLevel implements ITicking, IGameObject, IRenderable{
 	
 	// GRID
