@@ -13,7 +13,7 @@ public class SIBackGroundTile extends BaseTile{
 
 	@Override
 	public String getTextureLocation() {
-		return null;
+		return "siTextures/tiles/black.png";
 	}
 
 	@Override
@@ -27,18 +27,12 @@ public class SIBackGroundTile extends BaseTile{
 	}
 
 	@Override
-	public void render(Graphics g) {
-		
-	}
+	public void render(Graphics g) {}
 
 	@Override
-	public void onLoad() {
-		
-	}
+	public void onLoad() {}
 
 	@Override
-	public void onUnload() {
-		
-	}
+	public void onUnload() {}
 
 }

@@ -1,5 +1,7 @@
 package me.hii488.gameObjects.entities;
 
+import java.awt.Graphics;
+
 import me.hii488.dataTypes.Vector;
 
 public abstract class FreeEntity extends BaseEntity{
@@ -16,5 +18,12 @@ public abstract class FreeEntity extends BaseEntity{
 	public void setPosition(Vector position) {
 		this.position = position.getLocation();
 	}
+	
+	@Override
+	public void render(Graphics g) {
+		g.drawImage(getTexture(), position.getIX(), position.getIY(), null);
+	}
+	
+	// TODO: Centre on x pos, y pos, pos functions.
 	
 }

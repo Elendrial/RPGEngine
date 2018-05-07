@@ -1,44 +1,59 @@
 package me.example.spaceinvaders.gameObjects.entities;
 
-import java.awt.Graphics;
-
+import me.hii488.dataTypes.VectorBox;
 import me.hii488.gameObjects.entities.FreeEntity;
 
 public class SIBullet extends FreeEntity{
 
+	public double normalVelocity = 3;
+	public int bulletType, bulletState, timeUntilStateChange;
+	
+	@Override
+	public void onLoad() {
+		bulletState = 0;
+		timeUntilStateChange = 5;
+	}
+	
+	public void setBulletType(int i) {
+		bulletType = i; // -1 = player shot, 1 = enemy shot, 2 = enemy fast shot 
+	}
+	
+	@Override
+	public void updateOnTick() {
+		this.position.translate(0, normalVelocity * bulletType);
+		
+		// TODO: Collision check
+	}
+
 	@Override
 	public String getTextureKey() {
-		return null;
+		return "bullet";
 	}
 
 	@Override
 	public String getTextureLocation() {
-		return null;
+		return "siTextures/entities/bullet.png";
 	}
 
 	@Override
 	public int getTextureState() {
-		return 0;
+		return bulletType == -1 ? 0 : bulletType * 2 + bulletState;
 	}
 
 	@Override
 	public int getHighestState() {
-		return 0;
+		return 4;
 	}
 
 	@Override
-	public void render(Graphics g) {
-		
-	}
+	public void onUnload() {}
+	
+	@Override
+	public void updateOnSec() {}
 
 	@Override
-	public void onLoad() {
-		
-	}
-
-	@Override
-	public void onUnload() {
-		
+	public VectorBox getCollisionArea() {
+		return null;
 	}
 
 }

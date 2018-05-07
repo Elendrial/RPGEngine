@@ -3,6 +3,7 @@ package me.example.spaceinvaders;
 import me.example.spaceinvaders.gameObjects.SILevel;
 import me.example.spaceinvaders.gameObjects.entities.SIBullet;
 import me.example.spaceinvaders.gameObjects.entities.SIEnemy;
+import me.example.spaceinvaders.gameObjects.entities.SIMotherShip;
 import me.example.spaceinvaders.gameObjects.entities.SIPlayer;
 import me.example.spaceinvaders.gameObjects.tiles.SIBackGroundTile;
 import me.example.spaceinvaders.gameObjects.tiles.SIWallTile;
@@ -29,6 +30,7 @@ public class SpaceInvaders implements IInitialiser{
 		EntityRegistry.registerEntity("bullet", SIBullet.class);
 		EntityRegistry.registerEntity("player", SIPlayer.class);
 		EntityRegistry.registerEntity("enemy", SIEnemy.class);
+		EntityRegistry.registerEntity("mothership", SIMotherShip.class);
 		
 		TileRegistry.registerTile("background", SIBackGroundTile.class);
 		TileRegistry.registerTile("wall", SIWallTile.class);

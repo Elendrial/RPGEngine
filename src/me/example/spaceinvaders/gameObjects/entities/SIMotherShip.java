@@ -1,21 +1,9 @@
 package me.example.spaceinvaders.gameObjects.entities;
 
 import me.hii488.dataTypes.VectorBox;
-import me.hii488.gameObjects.entities.GridEntity;
+import me.hii488.gameObjects.entities.FreeEntity;
 
-public class SIEnemy extends GridEntity{
-
-	private boolean armsUp = false;
-	
-	@Override
-	public void updateOnSec() {
-		armsUp = !armsUp;
-	}
-	
-	@Override
-	public void updateOnTick() {
-		
-	}
+public class SIMotherShip extends FreeEntity {
 	
 	@Override
 	public String getTextureKey() {
@@ -24,17 +12,17 @@ public class SIEnemy extends GridEntity{
 
 	@Override
 	public String getTextureLocation() {
-		return "siTextures/entities/bullet.png";
+		return "siTextures/entities/mothership.png";
 	}
 
 	@Override
 	public int getTextureState() {
-		return armsUp ? 1 : 0;
+		return 0;
 	}
 
 	@Override
 	public int getHighestState() {
-		return 1; // Their arms go up/down
+		return 0;
 	}
 
 	@Override
@@ -48,8 +36,18 @@ public class SIEnemy extends GridEntity{
 	}
 
 	@Override
+	public void updateOnTick() {
+		
+	}
+
+	@Override
+	public void updateOnSec() {
+		
+	}
+
+	@Override
 	public VectorBox getCollisionArea() {
 		return null;
 	}
-
+	
 }

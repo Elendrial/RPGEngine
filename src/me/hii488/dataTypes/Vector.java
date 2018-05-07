@@ -37,6 +37,10 @@ public class Vector {
 		return (int) y;
 	}
 	
+	public Vector getIV() {
+		return new Vector(getIX(), getIY());
+	}
+	
 	public void setY(double y) {
 		this.y = y;
 	}

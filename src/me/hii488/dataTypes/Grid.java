@@ -25,7 +25,7 @@ public class Grid<T> implements ITicking, IGameObject, IRenderable{
 	public Grid(Grid<T> g) {
 		this.dimensions = g.dimensions;
 				
-		g.map.forEach((v, t) -> map.put(v.getLocation(), t)); 
+		g.map.forEach((v, t) -> map.put(v.getIV(), t)); 
 	}
 	
 	public Grid(int x, int y) {
@@ -80,7 +80,7 @@ public class Grid<T> implements ITicking, IGameObject, IRenderable{
 	}
 	
 	public void setObjectAt(Vector v, T t) {
-		updatedMap.put(v, t);
+		updatedMap.put(v.getIV(), t);
 	}
 
 	@Override
