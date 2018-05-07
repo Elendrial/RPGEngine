@@ -81,14 +81,17 @@ public abstract class BaseLevel implements ITicking, IGameObject, IRenderable{
 	
 	public void addEntity(BaseEntity e) {
 		if(e instanceof FreeEntity)	entitiesToAdd.add((FreeEntity) e);
-		else entityGrid.setObjectAt((GridEntity) e, ((GridEntity) e).getPosition());
+		else {
+			entityGrid.setObjectAt(((GridEntity) e).getGridPosition(), (GridEntity) e);
+			((GridEntity) e).setGrid(entityGrid);
+		}
 		
 		e.setParentLevel(this);
 	}
 	
 	public void removeEntity(BaseEntity e) {
 		if(e instanceof FreeEntity)	entitiesToDelete.add((FreeEntity) e);
-		else entityGrid.setObjectAt((GridEntity) e, ((GridEntity) e).getPosition());
+		else entityGrid.setObjectAt(((GridEntity) e).getGridPosition(), null);
 	}
 	
 	public void render(Graphics g) {

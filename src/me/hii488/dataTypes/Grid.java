@@ -75,11 +75,11 @@ public class Grid<T> implements ITicking, IGameObject, IRenderable{
 		return map.get(v);
 	}
 	
-	public void setObjectAt(T t, int x, int y) {
-		setObjectAt(t, new Vector(x,y));
+	public void setObjectAt(int x, int y, T t) {
+		setObjectAt(new Vector(x,y), t);
 	}
 	
-	public void setObjectAt(T t, Vector v) {
+	public void setObjectAt(Vector v, T t) {
 		updatedMap.put(v, t);
 	}
 
