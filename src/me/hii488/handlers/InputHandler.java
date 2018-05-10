@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import me.hii488.interfaces.IInputListener;
 
 public class InputHandler implements MouseListener, KeyListener{
-
+	
+	// TODO: Possibly replace part of this with a lookup? eg from another class: InputHandler.isKeyDown((KeyBind) k);
+	
 	public static InputHandler instance = new InputHandler();
 	public static ArrayList<IInputListener> inputUsers = new ArrayList<IInputListener>();
 	

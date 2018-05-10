@@ -5,8 +5,8 @@ import me.hii488.gameObjects.entities.FreeEntity;
 
 public class SIBullet extends FreeEntity{
 
-	public double normalVelocity = 3;
-	public int bulletType, bulletState, timeUntilStateChange;
+	private double normalVelocity = 3;
+	private int bulletType, bulletState, timeUntilStateChange;
 	
 	@Override
 	public void onLoad() {
@@ -21,6 +21,12 @@ public class SIBullet extends FreeEntity{
 	@Override
 	public void updateOnTick() {
 		this.position.translate(0, normalVelocity * bulletType);
+		
+		timeUntilStateChange--;
+		if(timeUntilStateChange <= 0) {
+			timeUntilStateChange = 5;
+			bulletState = bulletState == 1 ? 0 : 1;
+		}
 		
 		// TODO: Collision check
 	}

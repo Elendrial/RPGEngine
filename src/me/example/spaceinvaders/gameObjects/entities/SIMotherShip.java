@@ -5,9 +5,21 @@ import me.hii488.gameObjects.entities.FreeEntity;
 
 public class SIMotherShip extends FreeEntity {
 	
+	private int direction = 0;
+	private double speed = 0.7;
+	
+	public void setDirection(int i) {
+		direction = i;
+	}
+	
+	@Override
+	public void updateOnTick() {
+		position.translate(direction * speed, 0);
+	}
+	
 	@Override
 	public String getTextureKey() {
-		return null;
+		return "mothership";
 	}
 
 	@Override
@@ -26,24 +38,13 @@ public class SIMotherShip extends FreeEntity {
 	}
 
 	@Override
-	public void onLoad() {
-		
-	}
+	public void onLoad() {}
 
 	@Override
-	public void onUnload() {
-		
-	}
+	public void onUnload() {}
 
 	@Override
-	public void updateOnTick() {
-		
-	}
-
-	@Override
-	public void updateOnSec() {
-		
-	}
+	public void updateOnSec() {}
 
 	@Override
 	public VectorBox getCollisionArea() {

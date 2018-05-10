@@ -32,7 +32,7 @@ public abstract class GridEntity extends BaseEntity{
 	}
 	
 	public Vector getAbsPosition() {
-		// TODO
+		// TODO: (make sure to return a copy, not actual location)
 		return null;
 	}
 	

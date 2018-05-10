@@ -65,6 +65,14 @@ public class VectorBox {
 		return new Rectangle(cornerA.getIX(), cornerB.getIY(), cornerB.getIX()-cornerA.getIX(), cornerA.getIY()-cornerB.getIY());
 	}
 	
+	public double getWidth() {
+		return cornerB.getX() - cornerA.getX();
+	}
+	
+	public double getHeight() {
+		return cornerA.getY() - cornerB.getY();
+	}
+	
 	
 	// TODO
 	public boolean intersectsArea(Rectangle r) {

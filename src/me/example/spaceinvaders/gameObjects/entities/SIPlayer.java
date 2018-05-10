@@ -1,13 +1,43 @@
 package me.example.spaceinvaders.gameObjects.entities;
 
-import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 
+import me.hii488.dataTypes.KeyBind;
 import me.hii488.dataTypes.VectorBox;
 import me.hii488.gameObjects.entities.FreeEntity;
 import me.hii488.interfaces.IInputListener;
+import me.hii488.registries.KeyBindRegistry;
 
 public class SIPlayer extends FreeEntity implements IInputListener{
 
+	private boolean leftPressed = false, rightPressed = false, shootPressed = false;
+	private double moveSpeed = 0.4;
+	private int shootCooldown, cooldownTime;
+	
+	@Override
+	public void onLoad() {
+		cooldownTime = 15;
+		shootCooldown = 0;
+	}
+	
+	@Override
+	public void updateOnTick() {
+		if(leftPressed && !rightPressed) position.translate(-moveSpeed, 0);
+		else if(rightPressed && !leftPressed) position.translate(moveSpeed, 0);
+		
+		if(shootCooldown <= 0) {
+			if(shootPressed) {
+				shootCooldown = cooldownTime;
+				
+				SIBullet bullet = new SIBullet();
+				bullet.setBulletType(-1);
+				bullet.setPosition(getPosition().translate(getCollisionArea().getWidth()/2 - bullet.getCollisionArea().getWidth()/2, -bullet.getCollisionArea().getHeight() - 1));
+				parentLevel.addEntity(bullet);
+			}
+		}
+		else shootCooldown--;
+	}
+	
 	@Override
 	public String getTextureKey() {
 		return "player";
@@ -29,22 +59,7 @@ public class SIPlayer extends FreeEntity implements IInputListener{
 	}
 
 	@Override
-	public void render(Graphics g) {
-		
-	}
-
-	@Override
-	public void onLoad() {
-		
-	}
-
-	@Override
 	public void onUnload() {
-		
-	}
-
-	@Override
-	public void updateOnTick() {
 		
 	}
 
@@ -56,6 +71,35 @@ public class SIPlayer extends FreeEntity implements IInputListener{
 	@Override
 	public VectorBox getCollisionArea() {
 		return null;
+	}
+	
+	public void keyPressed(KeyEvent arg0) {
+		// Ew, gotta change how this is done
+		if(KeyBindRegistry.getKeyBindValue(KeyBind.MOVE_LEFT).contains(arg0.getKeyCode())) {
+			leftPressed = true;
+		}
+		
+		else if(KeyBindRegistry.getKeyBindValue(KeyBind.MOVE_RIGHT).contains(arg0.getKeyCode())) {
+			rightPressed = true;
+		}
+		
+		else if(KeyBindRegistry.getKeyBindValue(KeyBind.INTERACT).contains(arg0.getKeyCode())) {
+			shootPressed = true;
+		}
+	}
+	
+	public void keyReleased(KeyEvent arg0) {
+		if(KeyBindRegistry.getKeyBindValue(KeyBind.MOVE_LEFT).contains(arg0.getKeyCode())) {
+			leftPressed = false;
+		}
+		
+		else if(KeyBindRegistry.getKeyBindValue(KeyBind.MOVE_RIGHT).contains(arg0.getKeyCode())) {
+			rightPressed = false;
+		}
+		
+		else if(KeyBindRegistry.getKeyBindValue(KeyBind.INTERACT).contains(arg0.getKeyCode())) {
+			shootPressed = false;
+		}
 	}
 
 }
