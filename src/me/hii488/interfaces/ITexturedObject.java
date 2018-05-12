@@ -10,6 +10,14 @@ public interface ITexturedObject extends IRenderable {
 		return TextureRegistry.getTexture(getTextureKey(), getTextureState());
 	}
 	
+	public default int getTextureWidth() {
+		return TextureRegistry.getTextureStats(getTextureKey()).width();
+	}
+	
+	public default int getTextureHeight() {
+		return TextureRegistry.getTextureStats(getTextureKey()).height();
+	}
+	
 	// Highest state should be the highest state you request (starting from 0)
 	public default void initTexture() {
 		TextureRegistry.addTexture(getTextureLocation(), getTextureKey(), getHighestState());

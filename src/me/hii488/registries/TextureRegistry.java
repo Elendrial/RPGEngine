@@ -3,8 +3,7 @@ package me.hii488.registries;
 import java.awt.Image;
 import java.util.HashMap;
 
-import javax.imageio.ImageIO;
-
+import me.hii488.dataTypes.ImageData;
 import me.hii488.logging.LogSeverity;
 import me.hii488.logging.Logger;
 
@@ -18,7 +17,7 @@ public class TextureRegistry {
 		loadedTextures.entrySet().forEach(e ->{
 			e.getValue().framesSinceLastRequested++;
 			if(e.getValue().framesSinceLastRequested > textureUnloadPoint) {
-				e.getValue().image = null;
+				e.getValue().unload();
 				loadedTextures.remove(e.getKey());
 			}
 		});
@@ -28,22 +27,27 @@ public class TextureRegistry {
 		if(loadedTextures.containsKey(key)) {
 			ImageData i = loadedTextures.get(key);
 			i.framesSinceLastRequested = 0;
-			return i.image[state];
+			return i.getImage(state);
 		}
 		
 		if(!allTextures.containsKey(key)) {
 			Logger.getDefault().print(LogSeverity.ERROR, "Tried to load unknown textured \"" + key + "\"");
-			return errorImage();
+			return errorImage().getImage(0);
 		}
 		
 		ImageData i = allTextures.get(key);
 		
-		i.image = loadTexture(i);
+		i.load();
 		i.framesSinceLastRequested = 0;
 		
 		loadedTextures.put(key, i);
 		
-		return i.image[state];
+		return i.getImage(state);
+	}
+	
+	public static ImageData getTextureStats(String key) {
+		if(allTextures.containsKey(key)) return allTextures.get(key);
+		return errorImage();
 	}
 	
 	// No real reason to not use the location as a key, maybe I should? Not sure, maybe you want image loading in a completely different place to what uses it.
@@ -66,7 +70,7 @@ public class TextureRegistry {
 		if(loadedTextures.containsKey(key)) loadedTextures.get(key).framesSinceLastRequested = 0;
 		else if(allTextures.containsKey(key)) {
 			ImageData i = allTextures.get(key);
-			i.image = loadTexture(i);
+			i.load();
 			i.framesSinceLastRequested = 0;
 		}
 		else {
@@ -74,58 +78,9 @@ public class TextureRegistry {
 		}
 	}
 	
-	private static Image[] loadTexture(ImageData i) {
-		Image images[] = new Image[i.states];
-		
-		if(images.length > 1) { // Maybe move this logic to ImageData? This would ensure it's only run once.
-			String[] location = i.imageLocation.split("\\.");
-			String end = location[location.length-1];
-			String beginning = "";
-			
-			if(location.length == 2) beginning = location[0];
-			else for(int n = 0; n < location.length - 1; n++) beginning += location[n];
-			
-			for(int n = 0; n < images.length; n++) {
-				images[n] = loadImage(beginning + "_" + n + end);
-			}
-		}
-		else {
-			images[0] = loadImage(i.imageLocation);
-		}
-		
-		return images;
-	}
-	
-	private static Image loadImage(String location) {
-		Image image = null;
-		
-		try {
-			image = ImageIO.read(TextureRegistry.class.getClassLoader().getResourceAsStream(location));
-		}
-		catch(Exception e) {
-			Logger.getDefault().print(LogSeverity.WARNING, "Failed to load image at \"" + location + "\", using standard error image.");
-			image = errorImage();
-		}
-		
-		return image;
-	}
-	
-	private static Image errorImage() {
+	public static ImageData errorImage() {
 		// TODO
 		return null;
-	}
-	
-	private static class ImageData{
-		public Image[] image;
-		public String imageLocation;
-		
-		public int states; // number of states, works like array length or collection size(), (ie is 1 higher than the highest you can request)
-		public int framesSinceLastRequested;
-		
-		public ImageData(String location, int states) {
-			this.states = states;
-			imageLocation = location;
-		}
 	}
 	
 }

@@ -1,6 +1,5 @@
 package me.example.spaceinvaders.gameObjects.entities;
 
-import me.hii488.dataTypes.VectorBox;
 import me.hii488.gameObjects.entities.FreeEntity;
 
 public class SIBullet extends FreeEntity{
@@ -56,10 +55,4 @@ public class SIBullet extends FreeEntity{
 	
 	@Override
 	public void updateOnSec() {}
-
-	@Override
-	public VectorBox getCollisionArea() {
-		return null;
-	}
-
 }

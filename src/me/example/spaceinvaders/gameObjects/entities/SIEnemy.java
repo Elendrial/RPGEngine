@@ -1,7 +1,6 @@
 package me.example.spaceinvaders.gameObjects.entities;
 
 import me.hii488.controllers.GameController;
-import me.hii488.dataTypes.VectorBox;
 import me.hii488.gameObjects.entities.GridEntity;
 
 public class SIEnemy extends GridEntity{
@@ -58,10 +57,5 @@ public class SIEnemy extends GridEntity{
 
 	@Override
 	public void onUnload() {}
-
-	@Override
-	public VectorBox getCollisionArea() {
-		return null;
-	}
 
 }

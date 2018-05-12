@@ -22,3 +22,4 @@
 - BaseEntity should *never* be directly extended, always use GridEntity/FreeEntity unless you want to completely overwrite all entity code.
 - Tiles do not store their position, so the regular render function is never used by the base engine (it is still called), render(Graphics, Vector) is used for drawing instead. The same could be done with GridEntities, however as they are designed to be able to move, they store their own position as well as the grid storing it.
 - The Tile and Entity registries do not need to be used, however they can be useful at times... probably.
+- All states of a texture should have the same dimensions to avoid errors.

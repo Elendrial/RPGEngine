@@ -1,6 +1,5 @@
 package me.example.spaceinvaders.gameObjects.entities;
 
-import me.hii488.dataTypes.VectorBox;
 import me.hii488.gameObjects.entities.FreeEntity;
 
 public class SIMotherShip extends FreeEntity {
@@ -45,10 +44,5 @@ public class SIMotherShip extends FreeEntity {
 
 	@Override
 	public void updateOnSec() {}
-
-	@Override
-	public VectorBox getCollisionArea() {
-		return null;
-	}
 	
 }

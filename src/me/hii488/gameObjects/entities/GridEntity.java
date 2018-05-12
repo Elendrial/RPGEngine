@@ -2,8 +2,10 @@ package me.hii488.gameObjects.entities;
 
 import java.awt.Graphics;
 
+import me.hii488.EngineSettings;
 import me.hii488.dataTypes.Grid;
 import me.hii488.dataTypes.Vector;
+import me.hii488.dataTypes.VectorBox;
 
 public abstract class GridEntity extends BaseEntity{
 	// Partially unsure about whether this is really needed at all, as it could be implemented entirely in free entity without a grid... this does ensure there aren't two in one spot though.
@@ -32,12 +34,21 @@ public abstract class GridEntity extends BaseEntity{
 	}
 	
 	public Vector getAbsPosition() {
-		// TODO: (make sure to return a copy, not actual location)
-		return null;
+		Vector gridPos = getGridPosition();
+		int tileSize = EngineSettings.Texture.tileSize;
+		
+		return new Vector((gridPos.getX() + 0.5) * tileSize - getTextureWidth()/2, (gridPos.getY() + 0.5) * tileSize - getTextureHeight()/2);
+	}
+
+	@Override
+	public VectorBox getCollisionArea() {
+		Vector absPos = getAbsPosition();
+		
+		return new VectorBox(absPos, absPos.getLocation().translate(getTextureWidth(), getTextureHeight()));
 	}
 	
+	
 	// will probably have to render these "bottom up". IE: position + tileSize - thisTextureSize
-
 
 	@Override
 	public void render(Graphics g) {

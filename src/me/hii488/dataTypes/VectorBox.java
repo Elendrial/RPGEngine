@@ -16,32 +16,36 @@ public class VectorBox {
 	}
 	
 	public VectorBox(Vector cornerA, Vector cornerB) {
-		double x1, x2, y1, y2;
-		if(cornerA.getX() < cornerB.getX()) {
-			x1 = cornerA.getX();
-			x2 = cornerB.getX();
-		}
-		else {
-			x1 = cornerB.getX();
-			x2 = cornerA.getX();
-		}
-		
-		// Higher Y is lower on screen
-		if(cornerA.getY() > cornerB.getY()) {
-			y1 = cornerA.getY();
-			y2 = cornerB.getY();
-		}
-		else {
-			y1 = cornerB.getY();
-			y2 = cornerA.getY();
-		}
-		
-		this.cornerA = new Vector(x1, y1);
-		this.cornerB = new Vector(x2, y2);
+		this(cornerA.getX(), cornerA.getY(), cornerB.getX(), cornerB.getY());
 	}
 	
 	public VectorBox(Vector upperRight, double width, double height) {
 		this(upperRight, upperRight.getLocation().translate(width, height));
+	}
+	
+	public VectorBox(double x1, double y1, double x2, double y2) {
+		double nx1, nx2, ny1, ny2;
+		if(x1 < x2) {
+			nx1 = x1;
+			nx2 = x2;
+		}
+		else {
+			nx1 = x2;
+			nx2 = x1;
+		}
+		
+		// Higher Y is lower on screen
+		if(y1 > y2) {
+			ny1 = y1;
+			ny2 = y2;
+		}
+		else {
+			ny1 = y2;
+			ny2 = y1;
+		}
+		
+		this.cornerA = new Vector(nx1, ny1);
+		this.cornerB = new Vector(nx2, ny2);
 	}
 	
 	// Lower/Upper on screen, not on coordinate.

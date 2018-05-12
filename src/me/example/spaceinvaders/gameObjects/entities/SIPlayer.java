@@ -3,7 +3,6 @@ package me.example.spaceinvaders.gameObjects.entities;
 import java.awt.event.KeyEvent;
 
 import me.hii488.dataTypes.KeyBind;
-import me.hii488.dataTypes.VectorBox;
 import me.hii488.gameObjects.entities.FreeEntity;
 import me.hii488.interfaces.IInputListener;
 import me.hii488.registries.KeyBindRegistry;
@@ -66,11 +65,6 @@ public class SIPlayer extends FreeEntity implements IInputListener{
 	@Override
 	public void updateOnSec() {
 		
-	}
-
-	@Override
-	public VectorBox getCollisionArea() {
-		return null;
 	}
 	
 	public void keyPressed(KeyEvent arg0) {
