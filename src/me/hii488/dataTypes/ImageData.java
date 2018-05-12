@@ -11,7 +11,7 @@ import me.hii488.registries.TextureRegistry;
 // This class allows the storing of an image's data (location, dimensions etc) without having to keep the image loaded the entire time.
 public class ImageData{
 	private Image[] image;
-	private String imageLocation;
+	private String[] imageLocation;
 	
 	private int states; // number of states, works like array length or collection size(), (ie is 1 higher than the highest you can request)
 	public int framesSinceLastRequested;
@@ -20,7 +20,22 @@ public class ImageData{
 	
 	public ImageData(String location, int states) {
 		this.states = states;
-		imageLocation = location;
+		
+		if(states > 1) {
+			String[] l = location.split("\\.");
+			String end = "." + l[l.length-1];
+			String beginning = "";
+			
+			if(l.length == 2) beginning = l[0];
+			else {
+				beginning += l[0];
+				for(int n = 1; n < l.length - 1; n++) beginning += "." + l[n];
+			}
+			
+			imageLocation = new String[] {beginning, end};
+		}
+		else 
+			imageLocation = new String[] {location};
 	}
 	
 	public void setImages(Image[] i) {
@@ -61,10 +76,6 @@ public class ImageData{
 		return states;
 	}
 	
-	public String getImageLocation() {
-		return imageLocation;
-	}
-	
 	public void load() {
 		setImages(loadTexture(this));
 	}
@@ -73,29 +84,22 @@ public class ImageData{
 		image = null;
 	}
 	
-	private static Image[] loadTexture(ImageData i) {
+	private Image[] loadTexture(ImageData i) {
 		Image images[] = new Image[i.getNumberOfStates()];
 		
-		if(images.length > 1) { // Maybe move this logic to ImageData? This would ensure it's only run once.
-			String[] location = i.getImageLocation().split("\\.");
-			String end = location[location.length-1];
-			String beginning = "";
-			
-			if(location.length == 2) beginning = location[0];
-			else for(int n = 0; n < location.length - 1; n++) beginning += location[n];
-			
+		if(images.length > 1) {
 			for(int n = 0; n < images.length; n++) {
-				images[n] = loadImage(beginning + "_" + n + end);
+				images[n] = loadImage(imageLocation[0] + "_" + n + imageLocation[1]);
 			}
 		}
 		else {
-			images[0] = loadImage(i.getImageLocation());
+			images[0] = loadImage(imageLocation[0]);
 		}
 		
 		return images;
 	}
 	
-	private static Image loadImage(String location) {
+	private Image loadImage(String location) {
 		Image image = null;
 		
 		try {
