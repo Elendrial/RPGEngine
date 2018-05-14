@@ -139,4 +139,9 @@ public class Grid<T> implements ITicking, IGameObject, IRenderable{
 		return map.entrySet().stream();
 	}
 
+	// TODO: Currently is unsafe, change so it throws an error properly or something
+	public Vector getPositionOf(T t) {
+		return stream().filter(entry -> entry.getValue() == t).findFirst().get().getKey();
+	}
+
 }

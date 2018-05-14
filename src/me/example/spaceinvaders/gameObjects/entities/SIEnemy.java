@@ -9,8 +9,9 @@ public class SIEnemy extends GridEntity{
 	private int variant;
 	private double shotChance = 0.2;
 	
-	public void setVariant(int i) {
+	public SIEnemy setVariant(int i) {
 		variant = i % 3;
+		return this;
 	}
 	
 	public void setAtBottom(boolean b) {

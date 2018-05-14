@@ -3,7 +3,9 @@ package me.hii488.gameObjects.levels;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import me.hii488.EngineSettings;
 import me.hii488.dataTypes.Grid;
+import me.hii488.dataTypes.VectorBox;
 import me.hii488.gameObjects.entities.BaseEntity;
 import me.hii488.gameObjects.entities.FreeEntity;
 import me.hii488.gameObjects.entities.GridEntity;
@@ -110,6 +112,34 @@ public abstract class BaseLevel implements ITicking, IGameObject, IRenderable{
 
 	public ArrayList<FreeEntity> getFreeEntities() {
 		return entities;
+	}
+
+	// Should _not_ return the entity passed within the list.
+	public ArrayList<BaseEntity> getIntersectingEntities(BaseEntity e) {
+		ArrayList<BaseEntity> collidingWith = new ArrayList<BaseEntity>();
+		
+		VectorBox cb = e.getCollisionArea();
+		
+		entities.stream().filter(entity -> cb.intersectsArea(entity.getCollisionArea())).forEach(collidingWith::add);
+		entityGrid.stream().filter(entry -> cb.intersectsArea(entry.getValue().getCollisionArea())).forEach(entry -> {collidingWith.add(entry.getValue());});
+		
+		return collidingWith;
+	}
+
+	// TODO: Test that this works correctly.
+	public ArrayList<BaseTile> getIntersectingTiles(BaseEntity e) {
+		ArrayList<BaseTile> tiles = new ArrayList<BaseTile>();
+		VectorBox cb = e.getCollisionArea();
+		
+		VectorBox gridBox = new VectorBox(cb);
+		gridBox.scale(1/EngineSettings.Texture.tileSize);
+		for(int i = gridBox.getLowerLeftCorner().getIX(); i < gridBox.getLowerRightCorner().getX(); i++) {
+			for(int j = gridBox.getLowerLeftCorner().getIY(); j < gridBox.getUpperRightCorner().getY(); j++) {
+				tiles.add(tileGrid.getObjectAt(i, j));
+			}
+		}
+		
+		return tiles;
 	}
 	
 }

@@ -23,6 +23,7 @@ public class VectorBox {
 		this(upperRight, upperRight.getLocation().translate(width, height));
 	}
 	
+	// These are two opposite corners, NOT x,y,width,height
 	public VectorBox(double x1, double y1, double x2, double y2) {
 		double nx1, nx2, ny1, ny2;
 		if(x1 < x2) {
@@ -46,6 +47,11 @@ public class VectorBox {
 		
 		this.cornerA = new Vector(nx1, ny1);
 		this.cornerB = new Vector(nx2, ny2);
+	}
+	
+	public VectorBox(VectorBox v) {
+		this.cornerA = v.cornerA.getLocation();
+		this.cornerB = v.cornerB.getLocation();
 	}
 	
 	// Lower/Upper on screen, not on coordinate.
@@ -78,25 +84,44 @@ public class VectorBox {
 	}
 	
 	
-	// TODO
+	// Maybe I should change some of these to actual implementations rather that changing the data and using that?
+	// Would be messier but potentially faster and more memory efficient.
 	public boolean intersectsArea(Rectangle r) {
-		return false;
+		return intersectsArea(new VectorBox(new Vector(r.getX(), r.getY()), r.getWidth(), r.getHeight()));
 	}
 	
 	public boolean intersectsArea(VectorBox v) {
-		return false;
+		if(v.cornerA.getX() > this.cornerB.getX() || this.cornerA.getX() > v.cornerB.getX()) return false;
+		if(v.cornerA.getY() > this.cornerB.getY() || this.cornerA.getY() > v.cornerB.getY()) return false;
+		
+		return true;
 	}
 	
 	public boolean intersectsArea(Vector a, Vector b) {
-		return false;
+		return intersectsArea(new VectorBox(a,b));
 	}
 	
 	public boolean intersectsArea(int x1, int y1, int x2, int y2) {
-		return false;
+		return intersectsArea(new VectorBox(x1, y1, x2, y2));
 	}
 	
 	public boolean intersectsArea(Vector a, int width, int height) {
-		return false;
+		return intersectsArea(new VectorBox(a, width, height));
+	}
+	
+	public void translate(Vector v){
+		translate(v.getX(), v.getY());
+	}
+	
+	public void translate(double x, double y) {
+		cornerA.translate(x,y);
+		cornerB.translate(x,y);
+	}
+	
+	// Scales everything, including the position from origin (top left corner)
+	public void scale(double scale) {
+		cornerA.scale(scale);
+		cornerB.scale(scale);
 	}
 	
 }

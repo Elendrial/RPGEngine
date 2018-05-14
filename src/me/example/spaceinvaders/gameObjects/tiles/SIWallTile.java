@@ -14,7 +14,8 @@ public class SIWallTile extends BaseTile{
 	public void onHit() {
 		damage++;
 		if(damage > 2) {
-			// replace this with a background tile
+			SIBackGroundTile b = new SIBackGroundTile();
+			this.parentGrid.setObjectAt(parentGrid.getPositionOf(this), b);
 		}
 	}
 	

@@ -23,6 +23,10 @@ public abstract class BaseEntity implements ITexturedObject, IGameObject, ITicka
 		return parentLevel;
 	}
 	
+	public void destroy() {
+		parentLevel.removeEntity(this);
+	}
+	
 	public abstract VectorBox getCollisionArea();
 	
 }

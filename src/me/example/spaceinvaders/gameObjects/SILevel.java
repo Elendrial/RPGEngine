@@ -1,5 +1,6 @@
 package me.example.spaceinvaders.gameObjects;
 
+import me.example.spaceinvaders.gameObjects.entities.SIEnemy;
 import me.example.spaceinvaders.gameObjects.tiles.SIBackGroundTile;
 import me.example.spaceinvaders.gameObjects.tiles.SIWallTile;
 import me.hii488.EngineSettings;
@@ -18,6 +19,7 @@ public class SILevel extends BaseLevel{
 		this.getTileGrid().setDimensions(width, height);
 		this.getTileGrid().fillDimensionsWith(0, 0, width, height, SIBackGroundTile.class);
 		
+		this.getEntityGrid().setDimensions(width, height);
 	}
 	
 	public void onLoad() {
@@ -30,7 +32,12 @@ public class SILevel extends BaseLevel{
 			getTileGrid().setObjectAt(i * 6 + startOffset + 3, 3, new SIWallTile());
 		}
 		
-		
+		int halfWidth = getEntityGrid().getDimensions().getIX()/2;
+		for(int i = halfWidth - 6; i < halfWidth + 6; i++) {
+			for(int j = 1; j < 6; j++) {
+				addEntity(new SIEnemy().setVariant((int) ((7 - j)/2D)));
+			}
+		}
 		
 		super.onLoad();
 	}
@@ -44,6 +51,12 @@ public class SILevel extends BaseLevel{
 	
 	public void updateOnSec() {
 		super.updateOnSec();
+		
+		// Move all the enemies and check which are at the bottom.
+	}
+	
+	public void gameOver() {
+		
 	}
 	
 }

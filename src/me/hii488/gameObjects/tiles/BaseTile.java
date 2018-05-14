@@ -4,25 +4,33 @@ import java.awt.Graphics;
 
 import me.hii488.dataTypes.Grid;
 import me.hii488.dataTypes.Vector;
-import me.hii488.gameObjects.entities.GridEntity;
 import me.hii488.interfaces.IGameObject;
 import me.hii488.interfaces.ITexturedObject;
 
 public abstract class BaseTile implements ITexturedObject, IGameObject{
 	
 	protected String tileName;
-	protected Grid<GridEntity> parentGrid;
+	protected Grid<BaseTile> parentGrid;
+	protected boolean canPassThrough;
 	
-	public void setGrid(Grid<GridEntity> g) {
+	public void setGrid(Grid<BaseTile> g) {
 		parentGrid = g;
 	}
 	
-	public Grid<GridEntity> getGrid() {
+	public Grid<BaseTile> getGrid() {
 		return parentGrid;
 	}
 	
 	public String getTileName() {
 		return tileName;
+	}
+	
+	public boolean canPassThrough() {
+		return canPassThrough;
+	}
+	
+	public void setPassThrough(boolean b) {
+		canPassThrough = b;
 	}
 	
 	public void render(Graphics g) {}

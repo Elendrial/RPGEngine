@@ -2,6 +2,7 @@ package me.example.spaceinvaders.gameObjects.entities;
 
 import java.awt.event.KeyEvent;
 
+import me.example.spaceinvaders.gameObjects.SILevel;
 import me.hii488.dataTypes.KeyBind;
 import me.hii488.gameObjects.entities.FreeEntity;
 import me.hii488.interfaces.IInputListener;
@@ -12,11 +13,13 @@ public class SIPlayer extends FreeEntity implements IInputListener{
 	private boolean leftPressed = false, rightPressed = false, shootPressed = false;
 	private double moveSpeed = 0.4;
 	private int shootCooldown, cooldownTime;
+	private int health;
 	
 	@Override
 	public void onLoad() {
 		cooldownTime = 15;
 		shootCooldown = 0;
+		health = 3;
 	}
 	
 	@Override
@@ -35,6 +38,11 @@ public class SIPlayer extends FreeEntity implements IInputListener{
 			}
 		}
 		else shootCooldown--;
+	}
+	
+	public void onHit() {
+		health--;
+		if(health <= 0) ((SILevel) parentLevel).gameOver();
 	}
 	
 	@Override
