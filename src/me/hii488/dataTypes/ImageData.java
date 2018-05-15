@@ -19,6 +19,10 @@ public class ImageData{
 	private int width = -1, height = -1;
 	
 	public ImageData(String location, int states) {
+		if(states <= 0) {
+			states = 1;
+			Logger.getDefault().print(LogSeverity.WARNING, "Variable \"states\" passed as <= 0 for texture at \"" + location + "\". This has been changed to 1 to avoid an error.");
+		}
 		this.states = states;
 		
 		if(states > 1) {
@@ -34,8 +38,9 @@ public class ImageData{
 			
 			imageLocation = new String[] {beginning, end};
 		}
-		else 
+		else {
 			imageLocation = new String[] {location};
+		}
 	}
 	
 	public void setImages(Image[] i) {

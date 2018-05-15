@@ -9,6 +9,14 @@ public class SIEnemy extends GridEntity{
 	private int variant;
 	private double shotChance = 0.2;
 	
+	public SIEnemy() {
+		super();
+	}
+	
+	public SIEnemy(int x, int y) {
+		super(x,y);
+	}
+	
 	public SIEnemy setVariant(int i) {
 		variant = i % 3;
 		return this;
@@ -40,7 +48,7 @@ public class SIEnemy extends GridEntity{
 
 	@Override
 	public String getTextureLocation() {
-		return "siTextures/entities/bullet.png";
+		return "siTextures/entities/standardEnemy.png";
 	}
 
 	@Override

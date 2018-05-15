@@ -17,6 +17,16 @@ public abstract class GridEntity extends BaseEntity{
 		super();
 	}
 	
+	public GridEntity(Vector v) {
+		this();
+		gridPosition = v.getIV();
+	}
+	
+	public GridEntity(int x, int y) {
+		this();
+		gridPosition = new Vector(x,y);
+	}
+	
 	public void setGrid(Grid<GridEntity> g) {
 		parentGrid = g;
 	}
@@ -52,6 +62,9 @@ public abstract class GridEntity extends BaseEntity{
 
 	@Override
 	public void render(Graphics g) {
-		// TODO
+		Vector absPos = getAbsPosition();
+		int tileSize = EngineSettings.Texture.tileSize;
+		
+		g.drawImage(getTexture(), absPos.getIX() + (tileSize - getTextureWidth()) / 2, absPos.getIY() + tileSize - getTextureHeight(), null);
 	}
 }

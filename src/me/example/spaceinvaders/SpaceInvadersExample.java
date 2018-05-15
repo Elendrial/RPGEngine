@@ -15,10 +15,10 @@ import me.hii488.interfaces.IInitialiser;
 import me.hii488.registries.EntityRegistry;
 import me.hii488.registries.TileRegistry;
 
-public class SpaceInvaders implements IInitialiser{
+public class SpaceInvadersExample implements IInitialiser{
 	
 	public static void main(String[] args) {
-		InitialisationController.addInitialiser(new SpaceInvaders());
+		InitialisationController.addInitialiser(new SpaceInvadersExample());
 		
 		EngineSettings.Texture.tileSize = 16;
 		

@@ -8,9 +8,9 @@ import java.util.stream.Stream;
 
 import me.hii488.interfaces.IGameObject;
 import me.hii488.interfaces.IRenderable;
-import me.hii488.interfaces.ITicking;
+import me.hii488.interfaces.ITickable;
 
-public class Grid<T> implements ITicking, IGameObject, IRenderable{
+public class Grid<T> implements ITickable, IGameObject, IRenderable{
 	
 	// TODO: Might need to change this as I may need multiple T's in the same location
 	private Map<Vector, T> map, updatedMap;
@@ -47,12 +47,12 @@ public class Grid<T> implements ITicking, IGameObject, IRenderable{
 
 	@Override
 	public void updateOnTick() {
-		map.values().forEach(t -> {if(t instanceof ITicking) ((ITicking) t).updateOnTick();});
+		map.values().forEach(t -> {if(t instanceof ITickable) ((ITickable) t).updateOnTick();});
 	}
 
 	@Override
 	public void updateOnSec() {
-		map.values().forEach(t -> {if(t instanceof ITicking) ((ITicking) t).updateOnSec();});
+		map.values().forEach(t -> {if(t instanceof ITickable) ((ITickable) t).updateOnSec();});
 	}
 	
 	@Override

@@ -26,7 +26,7 @@ public class SIWallTile extends BaseTile{
 
 	@Override
 	public String getTextureLocation() {
-		return "siTextures/tiles/wall.png";
+		return "siTextures/tiles/block.png";
 	}
 
 	@Override

@@ -13,10 +13,9 @@ import me.hii488.gameObjects.tiles.BaseTile;
 import me.hii488.interfaces.IGameObject;
 import me.hii488.interfaces.IRenderable;
 import me.hii488.interfaces.ITickable;
-import me.hii488.interfaces.ITicking;
 
 // Does this need to be abstract?
-public abstract class BaseLevel implements ITicking, IGameObject, IRenderable{
+public abstract class BaseLevel implements ITickable, IGameObject, IRenderable{
 	
 	// GRID
 	private Grid<BaseTile> tileGrid;
@@ -40,6 +39,8 @@ public abstract class BaseLevel implements ITicking, IGameObject, IRenderable{
 	
 	@Override
 	public void onLoad() {
+		updateLevelContents();
+		
 		tileGrid.onLoad();
 		entityGrid.onLoad();
 		entities.forEach(e -> e.onLoad());
@@ -56,21 +57,25 @@ public abstract class BaseLevel implements ITicking, IGameObject, IRenderable{
 	public void updateOnTick() {
 		tileGrid.updateOnTick();
 		entityGrid.updateOnTick();
-		entities.forEach(e -> {if(e instanceof ITickable) ((ITicking) e).updateOnTick();});
+		entities.forEach(e -> {if(e instanceof ITickable) ((ITickable) e).updateOnTick();});
 	}
 	
 	@Override
 	public void updateOnSec() {
 		tileGrid.updateOnSec();
 		entityGrid.updateOnSec();
-		entities.forEach(e -> {if(e instanceof ITickable) ((ITicking) e).updateOnSec();});
+		entities.forEach(e -> {if(e instanceof ITickable) ((ITickable) e).updateOnSec();});
 	}
 	
 	@Override
 	public void endOfTick() {
+		entities.forEach(e -> {if(e instanceof ITickable) ((ITickable) e).endOfTick();});
+		updateLevelContents();
+	}
+	
+	public void updateLevelContents() {
 		tileGrid.endOfTick();
 		entityGrid.endOfTick();
-		entities.forEach(e -> {if(e instanceof ITickable) ((ITicking) e).endOfTick();});
 		
 		entities.removeAll(entitiesToDelete);
 		entitiesToDelete.forEach(e -> e.setParentLevel(null));
@@ -87,7 +92,6 @@ public abstract class BaseLevel implements ITicking, IGameObject, IRenderable{
 			entityGrid.setObjectAt(((GridEntity) e).getGridPosition(), (GridEntity) e);
 			((GridEntity) e).setGrid(entityGrid);
 		}
-		
 		e.setParentLevel(this);
 	}
 	
@@ -99,6 +103,8 @@ public abstract class BaseLevel implements ITicking, IGameObject, IRenderable{
 	public void render(Graphics g) {
 		tileGrid.render(g);
 		entityGrid.render(g);
+		
+		entities.forEach(e -> e.render(g));
 	}
 	
 

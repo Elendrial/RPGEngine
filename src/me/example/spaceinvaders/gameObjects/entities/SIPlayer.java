@@ -3,7 +3,9 @@ package me.example.spaceinvaders.gameObjects.entities;
 import java.awt.event.KeyEvent;
 
 import me.example.spaceinvaders.gameObjects.SILevel;
+import me.hii488.controllers.GameController;
 import me.hii488.dataTypes.KeyBind;
+import me.hii488.dataTypes.Vector;
 import me.hii488.gameObjects.entities.FreeEntity;
 import me.hii488.interfaces.IInputListener;
 import me.hii488.registries.KeyBindRegistry;
@@ -17,6 +19,7 @@ public class SIPlayer extends FreeEntity implements IInputListener{
 	
 	@Override
 	public void onLoad() {
+		setPosition(new Vector(GameController.getWindow().width/2 - getTextureWidth()/2, GameController.getWindow().height - 20));
 		cooldownTime = 15;
 		shootCooldown = 0;
 		health = 3;
