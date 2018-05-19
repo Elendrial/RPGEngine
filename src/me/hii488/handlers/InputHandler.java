@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import me.hii488.interfaces.IInputListener;
+import me.hii488.registries.KeyBindRegistry;
 
 public class InputHandler implements MouseListener, KeyListener{
 	
@@ -15,23 +16,27 @@ public class InputHandler implements MouseListener, KeyListener{
 	public static InputHandler instance = new InputHandler();
 	public static ArrayList<IInputListener> inputUsers = new ArrayList<IInputListener>();
 	
-	public static void addInputUser(IInputListener i){
+	public static void addInputListener(IInputListener i){
 		inputUsers.add(i);
+	}
+	
+	public static void removeInputListener(IInputListener i) {
+		inputUsers.remove(i);
 	}
 	
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		for(IInputListener i : inputUsers) i.keyPressed(arg0);
+		for(IInputListener i : inputUsers) i.keyPressed(KeyBindRegistry.getKeyBindedTo(arg0.getKeyCode()));
 	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		for(IInputListener i : inputUsers) i.keyReleased(arg0);
+		for(IInputListener i : inputUsers) i.keyReleased(KeyBindRegistry.getKeyBindedTo(arg0.getKeyCode()));
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-		for(IInputListener i : inputUsers) i.keyTyped(arg0);
+		for(IInputListener i : inputUsers) i.keyTyped(KeyBindRegistry.getKeyBindedTo(arg0.getKeyCode()));
 	}
 
 	@Override

@@ -23,4 +23,8 @@ public class KeyBind {
 		this.name = name;
 	}
 	
+	public String toString() {
+		return "Keybind." + name;
+	}
+	
 }

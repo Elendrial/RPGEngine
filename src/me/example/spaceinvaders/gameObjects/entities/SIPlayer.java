@@ -1,24 +1,23 @@
 package me.example.spaceinvaders.gameObjects.entities;
 
-import java.awt.event.KeyEvent;
-
 import me.example.spaceinvaders.gameObjects.SILevel;
 import me.hii488.controllers.GameController;
 import me.hii488.dataTypes.KeyBind;
 import me.hii488.dataTypes.Vector;
 import me.hii488.gameObjects.entities.FreeEntity;
+import me.hii488.handlers.InputHandler;
 import me.hii488.interfaces.IInputListener;
-import me.hii488.registries.KeyBindRegistry;
 
 public class SIPlayer extends FreeEntity implements IInputListener{
 
 	private boolean leftPressed = false, rightPressed = false, shootPressed = false;
-	private double moveSpeed = 0.4;
+	private double moveSpeed = 2;
 	private int shootCooldown, cooldownTime;
 	private int health;
 	
 	@Override
 	public void onLoad() {
+		InputHandler.addInputListener(this);
 		setPosition(new Vector(GameController.getWindow().width/2 - getTextureWidth()/2, GameController.getWindow().height - 20));
 		cooldownTime = 15;
 		shootCooldown = 0;
@@ -70,7 +69,7 @@ public class SIPlayer extends FreeEntity implements IInputListener{
 
 	@Override
 	public void onUnload() {
-		
+		InputHandler.removeInputListener(this);
 	}
 
 	@Override
@@ -78,31 +77,30 @@ public class SIPlayer extends FreeEntity implements IInputListener{
 		
 	}
 	
-	public void keyPressed(KeyEvent arg0) {
-		// Ew, gotta change how this is done
-		if(KeyBindRegistry.getKeyBindValue(KeyBind.MOVE_LEFT).contains(arg0.getKeyCode())) {
+	public void keyPressed(KeyBind k) {
+		if(k == KeyBind.MOVE_LEFT) {
 			leftPressed = true;
 		}
 		
-		else if(KeyBindRegistry.getKeyBindValue(KeyBind.MOVE_RIGHT).contains(arg0.getKeyCode())) {
+		else if(k == KeyBind.MOVE_RIGHT) {
 			rightPressed = true;
 		}
 		
-		else if(KeyBindRegistry.getKeyBindValue(KeyBind.INTERACT).contains(arg0.getKeyCode())) {
+		else if(k == KeyBind.INTERACT) {
 			shootPressed = true;
 		}
 	}
 	
-	public void keyReleased(KeyEvent arg0) {
-		if(KeyBindRegistry.getKeyBindValue(KeyBind.MOVE_LEFT).contains(arg0.getKeyCode())) {
+	public void keyReleased(KeyBind k) {
+		if(k == KeyBind.MOVE_LEFT) {
 			leftPressed = false;
 		}
 		
-		else if(KeyBindRegistry.getKeyBindValue(KeyBind.MOVE_RIGHT).contains(arg0.getKeyCode())) {
+		else if(k == KeyBind.MOVE_RIGHT) {
 			rightPressed = false;
 		}
 		
-		else if(KeyBindRegistry.getKeyBindValue(KeyBind.INTERACT).contains(arg0.getKeyCode())) {
+		else if(k == KeyBind.INTERACT){
 			shootPressed = false;
 		}
 	}

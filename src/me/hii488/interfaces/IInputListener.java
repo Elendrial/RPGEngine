@@ -1,16 +1,15 @@
 package me.hii488.interfaces;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-public interface IInputListener extends MouseListener, KeyListener{
+import me.hii488.dataTypes.KeyBind;
+
+public interface IInputListener {
 	
 	// The default keyword is used to avoid bloating classes which do not need the methods.
-	public default void keyPressed(KeyEvent arg0) {}
-	public default void keyReleased(KeyEvent arg0) {}
-	public default void keyTyped(KeyEvent arg0) {}
+	public default void keyPressed(KeyBind arg0) {}
+	public default void keyReleased(KeyBind arg0) {}
+	public default void keyTyped(KeyBind arg0) {}
 	public default void mouseClicked(MouseEvent arg0) {}
 	public default void mouseEntered(MouseEvent arg0) {}
 	public default void mouseExited(MouseEvent arg0) {}

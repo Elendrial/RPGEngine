@@ -1,5 +1,7 @@
 package me.example.spaceinvaders;
 
+import java.awt.event.KeyEvent;
+
 import me.example.spaceinvaders.gameObjects.SILevel;
 import me.example.spaceinvaders.gameObjects.entities.SIBullet;
 import me.example.spaceinvaders.gameObjects.entities.SIEnemy;
@@ -10,9 +12,11 @@ import me.example.spaceinvaders.gameObjects.tiles.SIWallTile;
 import me.hii488.EngineSettings;
 import me.hii488.controllers.GameController;
 import me.hii488.controllers.InitialisationController;
+import me.hii488.dataTypes.KeyBind;
 import me.hii488.handlers.LevelHandler;
 import me.hii488.interfaces.IInitialiser;
 import me.hii488.registries.EntityRegistry;
+import me.hii488.registries.KeyBindRegistry;
 import me.hii488.registries.TileRegistry;
 
 public class SpaceInvadersExample implements IInitialiser{
@@ -38,7 +42,12 @@ public class SpaceInvadersExample implements IInitialiser{
 	
 	@Override
 	public void init() {
-		LevelHandler.addLevel(new SILevel(), "SpaceInvaderLevel");		
+		LevelHandler.addLevel(new SILevel(), "SpaceInvaderLevel");
+		
+		KeyBindRegistry.setKeyBind(KeyBind.MOVE_LEFT, KeyEvent.VK_L, KeyEvent.VK_LEFT);
+		KeyBindRegistry.setKeyBind(KeyBind.MOVE_RIGHT, KeyEvent.VK_R, KeyEvent.VK_RIGHT);
+		KeyBindRegistry.setKeyBind(KeyBind.INTERACT, KeyEvent.VK_SPACE);
+		
 	}
 	
 	@Override
