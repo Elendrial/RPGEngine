@@ -6,20 +6,25 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Stream;
 
+import me.hii488.controllers.GameController;
 import me.hii488.interfaces.IGameObject;
 import me.hii488.interfaces.IRenderable;
 import me.hii488.interfaces.ITickable;
+import me.hii488.logging.LogSeverity;
+import me.hii488.logging.Logger;
 
 public class Grid<T> implements ITickable, IGameObject, IRenderable{
 	
 	// TODO: Might need to change this as I may need multiple T's in the same location
 	private Map<Vector, T> map, updatedMap;
 	private Vector dimensions;
+	private int gridScale;
 	
 	public Grid() {
 		dimensions = new Vector(0,0);
 		map = new HashMap<Vector, T>();
 		updatedMap = new HashMap<Vector, T>();
+		gridScale = -1;
 	}
 	
 	public Grid(Grid<T> g) {
@@ -31,6 +36,18 @@ public class Grid<T> implements ITickable, IGameObject, IRenderable{
 	public Grid(int x, int y) {
 		this();
 		setDimensions(x, y);
+	}
+	
+	// Works out scale automatically based on window size and dimensions
+	public void autoSetup(int width, int height) {
+		setDimensions(width, height);
+		setGridScale((GameController.getWindow().width/width));
+	}
+	
+	// works out width/height based on window size and scale
+	public void autoSetup(int scale) {
+		setGridScale(scale);
+		setDimensions(GameController.getWindow().width/scale, GameController.getWindow().height/scale);
 	}
 	
 	public void setDimensions(int size) {
@@ -132,7 +149,7 @@ public class Grid<T> implements ITickable, IGameObject, IRenderable{
 
 	@Override
 	public void render(Graphics g) {
-		map.entrySet().stream().forEach(e -> {if(e.getValue() instanceof IRenderable) ((IRenderable) e.getValue()).render(g, e.getKey());});
+		map.entrySet().stream().forEach(e -> {if(e.getValue() instanceof IRenderable) ((IRenderable) e.getValue()).render(g, e.getKey().getIV().scale(gridScale));});
 	}
 	
 	public Stream<Entry<Vector, T>> stream() {
@@ -142,6 +159,25 @@ public class Grid<T> implements ITickable, IGameObject, IRenderable{
 	// TODO: Currently is unsafe, change so it throws an error properly or something
 	public Vector getPositionOf(T t) {
 		return stream().filter(entry -> entry.getValue() == t).findFirst().get().getKey();
+	}
+
+	public int getGridScale() {
+		return gridScale;
+	}
+	
+	public void setGridScale(int scale) {
+		if(gridScale == -1)
+			gridScale = scale;
+		else 
+			Logger.getDefault().print(LogSeverity.MESSAGE, "Grid scale already set, it cannot be overriden.");
+	}
+	
+	public int getWidth() {
+		return dimensions.getIX();
+	}
+	
+	public int getHeight() {
+		return dimensions.getIY();
 	}
 
 }

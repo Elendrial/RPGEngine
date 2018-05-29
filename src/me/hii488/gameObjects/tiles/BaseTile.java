@@ -36,5 +36,6 @@ public abstract class BaseTile implements ITexturedObject, IGameObject{
 	public void render(Graphics g) {}
 	public void render(Graphics g, Vector position) {
 		g.drawImage(getTexture(), position.getIX(), position.getIY(), null);
+		render(g);
 	}
 }

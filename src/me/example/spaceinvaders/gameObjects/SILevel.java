@@ -5,22 +5,17 @@ import me.example.spaceinvaders.gameObjects.entities.SIPlayer;
 import me.example.spaceinvaders.gameObjects.tiles.SIBackGroundTile;
 import me.example.spaceinvaders.gameObjects.tiles.SIWallTile;
 import me.hii488.EngineSettings;
-import me.hii488.controllers.GameController;
 import me.hii488.gameObjects.levels.BaseLevel;
 
 public class SILevel extends BaseLevel{
 	
 	public SILevel() {
 		super();
-		int tileSize = EngineSettings.Texture.tileSize;
-		int width = GameController.getWindow().width/tileSize;
-		int height = GameController.getWindow().height/tileSize;
-		
 		// Setup tiles.
-		this.getTileGrid().setDimensions(width, height);
-		this.getTileGrid().fillDimensionsWith(0, 0, width, height, SIBackGroundTile.class);
+		this.getTileGrid().autoSetup(EngineSettings.Texture.tileSize);
+		this.getTileGrid().fillDimensionsWith(0, 0, getTileGrid().getWidth(), getTileGrid().getHeight(), SIBackGroundTile.class);
 		
-		this.getEntityGrid().setDimensions(width, height);
+		this.getEntityGrid().autoSetup(30);
 	}
 	
 	public void onLoad() {

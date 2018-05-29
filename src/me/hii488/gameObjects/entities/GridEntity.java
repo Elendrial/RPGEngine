@@ -45,9 +45,9 @@ public abstract class GridEntity extends BaseEntity{
 	
 	public Vector getAbsPosition() {
 		Vector gridPos = getGridPosition();
-		int tileSize = EngineSettings.Texture.tileSize;
+		int scale = parentGrid.getGridScale();
 		
-		return new Vector((gridPos.getX() + 0.5) * tileSize - getTextureWidth()/2, (gridPos.getY() + 0.5) * tileSize - getTextureHeight()/2);
+		return new Vector((gridPos.getX() + 0.5) * scale - getTextureWidth()/2, (gridPos.getY() + 0.5) * scale - getTextureHeight()/2);
 	}
 
 	@Override
