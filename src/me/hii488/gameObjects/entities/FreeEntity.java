@@ -27,7 +27,7 @@ public abstract class FreeEntity extends BaseEntity{
 	
 	@Override
 	public VectorBox getCollisionArea() {
-		return new VectorBox(position, position.getLocation().translate(getTexture().getWidth(null), getTexture().getHeight(null)));
+		return new VectorBox(position, position.getLocation().translate(getTextureWidth(), getTextureHeight()));
 	}
 	
 	// TODO: Centre on x pos, y pos, pos functions.

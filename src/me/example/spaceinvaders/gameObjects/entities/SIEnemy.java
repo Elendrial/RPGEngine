@@ -9,6 +9,10 @@ public class SIEnemy extends GridEntity{
 	private int variant;
 	private double shotChance = 0.2;
 	
+	{
+		entityName = "standardEnemy";
+	}
+	
 	public SIEnemy() {
 		super();
 	}
@@ -36,14 +40,9 @@ public class SIEnemy extends GridEntity{
 		if(atBottom && GameController.rand.nextDouble() < shotChance) {
 			SIBullet bullet = new SIBullet();
 			bullet.setBulletType(variant == 2 ? 2 : 1);
-			bullet.setPosition(getAbsPosition().translate(getCollisionArea().getWidth()/2 - bullet.getCollisionArea().getWidth()/2, getCollisionArea().getHeight() + 1));
+			bullet.setPosition(getAbsPosition().translate(getCollisionArea().getWidth()/2 - bullet.getTextureWidth()/2, getCollisionArea().getHeight() + 1));
 			parentLevel.addEntity(bullet);
-		}		
-	}
-	
-	@Override
-	public String getTextureKey() {
-		return "standardEnemy";
+		}	
 	}
 
 	@Override

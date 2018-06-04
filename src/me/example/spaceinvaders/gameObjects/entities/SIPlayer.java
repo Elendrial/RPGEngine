@@ -15,6 +15,10 @@ public class SIPlayer extends FreeEntity implements IInputListener{
 	private int shootCooldown, cooldownTime;
 	private int health;
 	
+	{
+		entityName = "player";
+	}
+	
 	@Override
 	public void onLoad() {
 		InputHandler.addInputListener(this);
@@ -35,7 +39,7 @@ public class SIPlayer extends FreeEntity implements IInputListener{
 				
 				SIBullet bullet = new SIBullet();
 				bullet.setBulletType(-1);
-				bullet.setPosition(getPosition().translate(getCollisionArea().getWidth()/2 - bullet.getCollisionArea().getWidth()/2, -bullet.getCollisionArea().getHeight() - 1));
+				bullet.setPosition(getPosition().translate(getCollisionArea().getWidth()/2 - bullet.getTextureWidth()/2, -bullet.getTextureHeight() - 1));
 				parentLevel.addEntity(bullet);
 			}
 		}
@@ -45,11 +49,6 @@ public class SIPlayer extends FreeEntity implements IInputListener{
 	public void onHit() {
 		health--;
 		if(health <= 0) ((SILevel) parentLevel).gameOver();
-	}
-	
-	@Override
-	public String getTextureKey() {
-		return "player";
 	}
 
 	@Override

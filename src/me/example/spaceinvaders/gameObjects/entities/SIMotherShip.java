@@ -7,6 +7,10 @@ public class SIMotherShip extends FreeEntity {
 	private int direction = 0;
 	private double speed = 0.7;
 	
+	{
+		entityName = "mothership";
+	}
+	
 	public void setDirection(int i) {
 		direction = i;
 	}
@@ -14,11 +18,6 @@ public class SIMotherShip extends FreeEntity {
 	@Override
 	public void updateOnTick() {
 		position.translate(direction * speed, 0);
-	}
-	
-	@Override
-	public String getTextureKey() {
-		return "mothership";
 	}
 
 	@Override

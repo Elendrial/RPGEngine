@@ -12,6 +12,10 @@ public class SIBullet extends FreeEntity{
 	private double normalVelocity = 3;
 	private int bulletType, bulletState, timeUntilStateChange;
 	
+	{
+		entityName = "bullet";
+	}
+	
 	@Override
 	public void onLoad() {
 		bulletState = 0;
@@ -49,11 +53,6 @@ public class SIBullet extends FreeEntity{
 				}
 			}
 		}
-	}
-
-	@Override
-	public String getTextureKey() {
-		return "bullet";
 	}
 
 	@Override
