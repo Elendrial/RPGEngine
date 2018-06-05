@@ -14,6 +14,7 @@ public class SIPlayer extends FreeEntity implements IInputListener{
 	private double moveSpeed = 2;
 	private int shootCooldown, cooldownTime;
 	private int health;
+	private int leftBoundry, rightBoundry;
 	
 	{
 		entityName = "player";
@@ -23,6 +24,8 @@ public class SIPlayer extends FreeEntity implements IInputListener{
 	public void onLoad() {
 		InputHandler.addInputListener(this);
 		setPosition(new Vector(GameController.getWindow().width/2 - getTextureWidth()/2, GameController.getWindow().height - 20));
+		leftBoundry = 0;
+		rightBoundry = GameController.getWindow().width - getTextureWidth();
 		cooldownTime = 15;
 		shootCooldown = 0;
 		health = 3;
@@ -30,8 +33,8 @@ public class SIPlayer extends FreeEntity implements IInputListener{
 	
 	@Override
 	public void updateOnTick() {
-		if(leftPressed && !rightPressed) position.translate(-moveSpeed, 0);
-		else if(rightPressed && !leftPressed) position.translate(moveSpeed, 0);
+		if(leftPressed && !rightPressed && position.getIX() > leftBoundry) position.translate(-moveSpeed, 0);
+		else if(rightPressed && !leftPressed && position.getIX() < rightBoundry) position.translate(moveSpeed, 0);
 		
 		if(shootCooldown <= 0) {
 			if(shootPressed) {

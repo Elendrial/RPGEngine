@@ -11,7 +11,7 @@ public class SILevel extends BaseLevel{
 	
 	public SILevel() {
 		super();
-		// Setup tiles.
+		// Setup the grids.
 		this.getTileGrid().autoSetup(EngineSettings.Texture.tileSize);
 		this.getTileGrid().fillDimensionsWith(0, 0, getTileGrid().getWidth(), getTileGrid().getHeight(), SIBackGroundTile.class);
 		
@@ -19,15 +19,18 @@ public class SILevel extends BaseLevel{
 	}
 	
 	public void onLoad() {
+		// Place the tiles
 		int amountOfBarricades = getTileGrid().getDimensions().getIX()/6;
-		int startOffset = getTileGrid().getDimensions().getIX() % 6 / 2;
+		int startOffset = (getTileGrid().getDimensions().getIX() % 6) / 2;
+		int yOffset = getTileGrid().getDimensions().getIY() - 5;
 		
 		for(int i = 0; i < amountOfBarricades; i++) {
-			getTileGrid().setObjectAt(i * 6 + startOffset, 3, new SIWallTile());
-			for(int j = 0; j < 2; j++) getTileGrid().setObjectAt(i * 6 + startOffset + 1 + j, 4, new SIWallTile());
-			getTileGrid().setObjectAt(i * 6 + startOffset + 3, 3, new SIWallTile());
+			getTileGrid().setObjectAt((i * 6) + startOffset, yOffset, new SIWallTile());
+			for(int j = 0; j < 2; j++) getTileGrid().setObjectAt((i * 6) + startOffset + 1 + j, yOffset - 1, new SIWallTile());
+			getTileGrid().setObjectAt((i * 6) + startOffset + 3, yOffset, new SIWallTile());
 		}
 		
+		// Place down the entities.
 		int halfWidth = getEntityGrid().getDimensions().getIX()/2;
 		for(int i = halfWidth - 6; i < halfWidth + 6; i++) {
 			for(int j = 1; j < 6; j++) {

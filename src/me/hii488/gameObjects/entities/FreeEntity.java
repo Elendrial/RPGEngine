@@ -1,5 +1,6 @@
 package me.hii488.gameObjects.entities;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import me.hii488.dataTypes.Vector;
@@ -23,6 +24,12 @@ public abstract class FreeEntity extends BaseEntity{
 	@Override
 	public void render(Graphics g) {
 		g.drawImage(getTexture(), position.getIX(), position.getIY(), null);
+		
+		VectorBox b = getCollisionArea();
+		Color c = g.getColor();
+		g.setColor(Color.red);
+		g.drawRect(b.getUpperLeftCorner().getIX(), b.getUpperLeftCorner().getIY(), (int) b.getWidth(), (int) b.getHeight());
+		g.setColor(c);
 	}
 	
 	@Override

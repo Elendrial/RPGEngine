@@ -1,5 +1,6 @@
 package me.hii488.gameObjects.entities;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import me.hii488.EngineSettings;
@@ -47,7 +48,7 @@ public abstract class GridEntity extends BaseEntity{
 		Vector gridPos = getGridPosition();
 		int scale = parentGrid.getGridScale();
 		
-		return new Vector((gridPos.getX() + 0.5) * scale - getTextureWidth()/2, (gridPos.getY() + 0.5) * scale - getTextureHeight()/2);
+		return new Vector((gridPos.getX()) * scale - getTextureWidth()/2, (gridPos.getY()) * scale - getTextureHeight()/2);
 	}
 
 	@Override
@@ -66,5 +67,10 @@ public abstract class GridEntity extends BaseEntity{
 		int tileSize = EngineSettings.Texture.tileSize;
 		
 		g.drawImage(getTexture(), absPos.getIX() + (tileSize - getTextureWidth()) / 2, absPos.getIY() + tileSize - getTextureHeight(), null);
+		VectorBox b = getCollisionArea();
+		Color c = g.getColor();
+		g.setColor(Color.red);
+		g.drawRect(b.getUpperLeftCorner().getIX(), b.getUpperLeftCorner().getIY(), (int) b.getWidth(), (int) b.getHeight());
+		g.setColor(c);
 	}
 }

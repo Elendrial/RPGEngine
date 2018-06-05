@@ -9,7 +9,7 @@ import me.hii488.gameObjects.tiles.BaseTile;
 
 public class SIBullet extends FreeEntity{
 
-	private double normalVelocity = 3;
+	private double normalVelocity = 8;
 	private int bulletType, bulletState, timeUntilStateChange;
 	
 	{
@@ -38,6 +38,7 @@ public class SIBullet extends FreeEntity{
 		
 		ArrayList<BaseEntity> intersectingEntities = this.getParentLevel().getIntersectingEntities(this);
 		if(!intersectingEntities.isEmpty()) {
+			System.out.println("Intersecting with other entity");
 			for(BaseEntity b : intersectingEntities) {
 				if(b instanceof SIEnemy || b instanceof SIMotherShip) b.destroy();
 				else if(b instanceof SIPlayer) ((SIPlayer) b).onHit();
@@ -49,6 +50,7 @@ public class SIBullet extends FreeEntity{
 		if(!intersectingTiles.isEmpty()) {
 			for(BaseTile t : intersectingTiles) {
 				if(t instanceof SIWallTile) {
+					System.out.println("Intersecting with tile");
 					((SIWallTile) t).onHit();
 				}
 			}
