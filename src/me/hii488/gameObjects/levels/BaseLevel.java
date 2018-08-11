@@ -14,8 +14,8 @@ import me.hii488.interfaces.IGameObject;
 import me.hii488.interfaces.IRenderable;
 import me.hii488.interfaces.ITickable;
 
-// Does this need to be abstract?
-public abstract class BaseLevel implements ITickable, IGameObject, IRenderable{
+// Does this need to be abstract? I'm saying no, hence the change.
+public class BaseLevel implements ITickable, IGameObject, IRenderable{
 	
 	// GRID
 	private Grid<BaseTile> tileGrid;

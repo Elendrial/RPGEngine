@@ -16,6 +16,7 @@ import me.hii488.logging.Logger;
 public class Grid<T> implements ITickable, IGameObject, IRenderable{
 	
 	// TODO: Might need to change this as I may need multiple T's in the same location
+	// TODO: Maybe have both <T,Vector> and <Vector, T> ? then we have an easy way of finding either from the other?
 	private Map<Vector, T> map, updatedMap;
 	private Vector dimensions;
 	private int gridScale;

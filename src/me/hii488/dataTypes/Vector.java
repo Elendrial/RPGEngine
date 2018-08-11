@@ -133,4 +133,14 @@ public class Vector {
 		y *= d;
 		return this;
 	}
+	
+	public boolean equals(Object v) {
+		if(!(v instanceof Vector)) return false;
+		
+		return ((Vector) v).x == x && ((Vector) v).y == y;
+	}
+	
+	public int hashCode() {
+		return (int) (x*61 + y*163);
+	}
 }

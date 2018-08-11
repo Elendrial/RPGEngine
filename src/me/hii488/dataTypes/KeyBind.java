@@ -24,7 +24,7 @@ public class KeyBind {
 	}
 	
 	public String toString() {
-		return "Keybind." + name;
+		return "Keybind:" + name;
 	}
 	
 }

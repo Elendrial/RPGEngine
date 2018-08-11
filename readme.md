@@ -14,6 +14,7 @@
 - Add an event for when a player does anything (allows for turnbased games)
 - Possibly make registries implement IRegistry? Then you can pass it to things such as the Grid.
 - Rewrite the keybind/input handling stuff.
+- Change initialisation to use annotations, have the engine handle startup etc.
 
 ### Notes:
 
