@@ -18,6 +18,7 @@ public abstract class BaseTile implements ITexturedObject, IGameObject{
 	}
 	
 	public Grid<BaseTile> getGrid() {
+		if(parentGrid == null) throw new RuntimeException("No grid set.");
 		return parentGrid;
 	}
 	

@@ -160,6 +160,10 @@ public class Grid<T> implements ITickable, IGameObject, IRenderable{
 	public Stream<Entry<Vector, T>> stream() {
 		return map.entrySet().stream();
 	}
+	
+	public Stream<Entry<Vector, T>> streamUpdates() {
+		return updatedMap.entrySet().stream();
+	}
 
 	// TODO: Currently is unsafe, change so it throws an error properly or something
 	public Vector getPositionOf(T t) {

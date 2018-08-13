@@ -15,6 +15,7 @@ import me.hii488.interfaces.IRenderable;
 import me.hii488.interfaces.ITickable;
 
 // Does this need to be abstract? I'm saying no, hence the change.
+// TODO: Change all tileGrid and entityGrid to getTileGrid() and getEntityGrid(), so that the can be overwritten without forcing subclasses to copy all this code.
 public class BaseLevel implements ITickable, IGameObject, IRenderable{
 	
 	// GRID
@@ -74,6 +75,7 @@ public class BaseLevel implements ITickable, IGameObject, IRenderable{
 	}
 	
 	public void updateLevelContents() {
+		tileGrid.streamUpdates().forEach(e -> e.getValue().setGrid(getTileGrid()));
 		tileGrid.endOfTick();
 		entityGrid.endOfTick();
 		

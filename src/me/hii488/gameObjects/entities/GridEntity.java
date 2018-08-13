@@ -1,9 +1,7 @@
 package me.hii488.gameObjects.entities;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
-import me.hii488.EngineSettings;
 import me.hii488.dataTypes.Grid;
 import me.hii488.dataTypes.Vector;
 import me.hii488.dataTypes.VectorBox;
@@ -44,11 +42,14 @@ public abstract class GridEntity extends BaseEntity{
 		this.gridPosition = position.getLocation();
 	}
 	
+	/**
+	 * @return The top left corner of the grid space in which the entity is.
+	 */
 	public Vector getAbsPosition() {
 		Vector gridPos = getGridPosition();
 		int scale = parentGrid.getGridScale();
 		
-		return new Vector((gridPos.getX()) * scale - getTextureWidth()/2, (gridPos.getY()) * scale - getTextureHeight()/2);
+		return gridPos.getLocation().scale(scale);
 	}
 
 	@Override
@@ -64,13 +65,9 @@ public abstract class GridEntity extends BaseEntity{
 	@Override
 	public void render(Graphics g) {
 		Vector absPos = getAbsPosition();
-		int tileSize = EngineSettings.Texture.tileSize;
+		int tileSize = parentGrid.getGridScale(); // Grid may not line up with tiles.
 		
+		// Render in the middle of the grid 'tile'
 		g.drawImage(getTexture(), absPos.getIX() + (tileSize - getTextureWidth()) / 2, absPos.getIY() + tileSize - getTextureHeight(), null);
-		VectorBox b = getCollisionArea();
-		Color c = g.getColor();
-		g.setColor(Color.red);
-		g.drawRect(b.getUpperLeftCorner().getIX(), b.getUpperLeftCorner().getIY(), (int) b.getWidth(), (int) b.getHeight());
-		g.setColor(c);
 	}
 }
