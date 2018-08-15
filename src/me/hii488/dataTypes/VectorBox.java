@@ -109,6 +109,14 @@ public class VectorBox {
 		return intersectsArea(new VectorBox(a, width, height));
 	}
 	
+	public boolean containsPoint(Vector v) {
+		return v.getX() > cornerA.getX() && v.getX() < cornerB.getX() && v.getY() > cornerA.getY() && v.getY() < cornerB.getY();
+	}
+	
+	public boolean containsPoint(int x, int y) {
+		return x > cornerA.getX() && x < cornerB.getX() && y > cornerA.getY() && y < cornerB.getY();
+	}
+	
 	public void translate(Vector v){
 		translate(v.getX(), v.getY());
 	}

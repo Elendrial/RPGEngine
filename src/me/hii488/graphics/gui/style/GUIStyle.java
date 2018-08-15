@@ -1,22 +1,17 @@
-package me.hii488.graphics.gui;
+package me.hii488.graphics.gui.style;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.util.HashMap;
 
 public class GUIStyle {
 	
-	public HashMap<String, Style> s = new HashMap<String, Style>();
+	public TextStyle textStyle;
+	public BackgroundStyle backgroundStyle;
 	
-	public class Style{
-		public TextStyle textStyle;
-		public BackgroundStyle backgroundStyle;
-		
-		public Style() {}
-		public Style(TextStyle t, BackgroundStyle b) {
-			textStyle = t;
-			backgroundStyle = b;
-		}
+	public GUIStyle() {}
+	public GUIStyle(TextStyle t, BackgroundStyle b) {
+		textStyle = t;
+		backgroundStyle = b;
 	}
 	
 	public class TextStyle{
@@ -97,7 +92,6 @@ public class GUIStyle {
 			this.textureLocation = textureLocation;
 			return this;
 		}
-		
 	}
 	
 }

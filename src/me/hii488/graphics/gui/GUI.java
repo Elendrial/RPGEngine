@@ -1,9 +1,11 @@
 package me.hii488.graphics.gui;
 
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import me.hii488.dataTypes.KeyBind;
 import me.hii488.interfaces.IInputListener;
 
 public class GUI implements IInputListener{
@@ -36,6 +38,14 @@ public class GUI implements IInputListener{
 	public void showAll() {
 		allHidden = false;
 		sets.forEach(s -> s.unhideAll());
+	}
+	
+	public void mouseClicked(MouseEvent e) {
+		sets.forEach(s -> s.mouseClicked(e));
+	}
+	
+	public void keyTyped(KeyBind event){
+		sets.forEach(s -> s.keyTyped(event));
 	}
 	
 }
