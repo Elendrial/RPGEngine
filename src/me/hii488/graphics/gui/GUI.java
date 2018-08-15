@@ -2,6 +2,7 @@ package me.hii488.graphics.gui;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import me.hii488.interfaces.IInputListener;
 
@@ -15,6 +16,7 @@ public class GUI implements IInputListener{
 	
 	public GUI addGUISet(GUISet s) {
 		sets.add(s);
+		Collections.sort(sets);
 		return this;
 	}
 	
