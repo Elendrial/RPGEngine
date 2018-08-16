@@ -66,21 +66,21 @@ public class GUIStyle {
 	}
 	
 	public class BackgroundStyle{
-		public Color backgroundColor;
-		public String textureLocation;
+		private Color color;
+		private String textureLocation;
 		
 		public BackgroundStyle() {}
 		public BackgroundStyle(Color backgroundColor, String textureLocation) {
-			this.backgroundColor = backgroundColor;
+			this.color = backgroundColor;
 			this.textureLocation = textureLocation;
 		}
 		
 		public Color getBackgroundColor() {
-			return backgroundColor;
+			return color;
 		}
 		
 		public BackgroundStyle setBackgroundColor(Color backgroundColor) {
-			this.backgroundColor = backgroundColor;
+			this.color = backgroundColor;
 			return this;
 		}
 		
@@ -93,5 +93,7 @@ public class GUIStyle {
 			return this;
 		}
 	}
+	
+	// TODO: Maybe include position, dimension etc etc?
 	
 }

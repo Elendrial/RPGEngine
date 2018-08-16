@@ -7,6 +7,7 @@ public class VectorBox {
 	// May remove this and replace all instances with "java.awt.Rectangle", will see.
 	// (Reason why not starting off is due to issues with negative width Rectangles in other projects)
 	
+	// cornerA is lower left corner (x1,y2) and cornerB is upper right corner (x2,y1)
 	private Vector cornerA;
 	private Vector cornerB;
 	
@@ -110,11 +111,11 @@ public class VectorBox {
 	}
 	
 	public boolean containsPoint(Vector v) {
-		return v.getX() > cornerA.getX() && v.getX() < cornerB.getX() && v.getY() > cornerA.getY() && v.getY() < cornerB.getY();
+		return v.getX() > cornerA.getX() && v.getX() < cornerB.getX() && v.getY() < cornerA.getY() && v.getY() > cornerB.getY();
 	}
 	
 	public boolean containsPoint(int x, int y) {
-		return x > cornerA.getX() && x < cornerB.getX() && y > cornerA.getY() && y < cornerB.getY();
+		return x > cornerA.getX() && x < cornerB.getX() && y < cornerA.getY() && y > cornerB.getY();
 	}
 	
 	public void translate(Vector v){
