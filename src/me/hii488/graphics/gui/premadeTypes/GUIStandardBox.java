@@ -7,13 +7,15 @@ import java.awt.event.MouseEvent;
 import me.hii488.graphics.gui.GUIElement;
 import me.hii488.graphics.gui.style.GUIStyle;
 
-public class GUITextBox extends GUIElement {
+public class GUIStandardBox extends GUIElement {
 	
-	public String text;
+	protected String[] text;
+	protected Vector textRenderPosition;
 	
-	public GUITextBox() {}
-	public GUITextBox(GUIStyle s) {
+	public GUIStandardBox() {}
+	public GUIStandardBox(GUIStyle s) {
 		style = s;
+		setText("");
 	}
 	
 	@Override
@@ -29,7 +31,6 @@ public class GUITextBox extends GUIElement {
 		// TODO: Think about changing this so that this is all set to local vars when the style is set/changes.
 		FontMetrics metrics = g.getFontMetrics(g.getFont());
 		
-		String[] s = text.replace("\t", "    ").split("\n");
 		double x,y;
 		
 		for(int i = 0; i < s.length; i++){
@@ -44,12 +45,17 @@ public class GUITextBox extends GUIElement {
 		}
 		
 	}
+	
+	public void updateTextRenderPosition() {
+		
+	}
 
 	@Override
 	public void onClick(MouseEvent e) {}
 
-	public GUITextBox setText(String s) {
-		text = s;
+	public GUIStandardBox setText(String s) {
+		text = s.replace("\t", "    ").split("\n");
+		updateTextRenderPosition();
 		return this;
 	}
 	
