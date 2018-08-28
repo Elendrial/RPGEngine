@@ -1,5 +1,6 @@
 package me.hii488.graphics.gui.premadeTypes;
 
+import me.hii488.graphics.gui.GUISet;
 import me.hii488.graphics.gui.style.GUIStyle;
 
 public class GUIOption extends GUIStandardBox {
@@ -12,5 +13,9 @@ public class GUIOption extends GUIStandardBox {
 	}
 	
 	public void onSelect() {}
-
+	
+	protected void setParentGUISet(GUISet s) {
+		this.parentGuiSet = s;
+	}
+	
 }

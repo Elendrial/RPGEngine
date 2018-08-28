@@ -1,16 +1,18 @@
 package me.hii488.graphics.gui.premadeTypes;
 
+import java.awt.Canvas;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 
+import me.hii488.dataTypes.Vector;
 import me.hii488.graphics.gui.GUIElement;
 import me.hii488.graphics.gui.style.GUIStyle;
 
 public class GUIStandardBox extends GUIElement {
 	
 	protected String[] text;
-	protected Vector textRenderPosition;
+	protected Vector[] textRenderPositions;
 	
 	public GUIStandardBox() {}
 	public GUIStandardBox(GUIStyle s) {
@@ -28,26 +30,29 @@ public class GUIStandardBox extends GUIElement {
 		g.setColor(style.textStyle.textColor);
 		g.setFont(style.textStyle.font);
 		
-		// TODO: Think about changing this so that this is all set to local vars when the style is set/changes.
-		FontMetrics metrics = g.getFontMetrics(g.getFont());
-		
-		double x,y;
-		
-		for(int i = 0; i < s.length; i++){
-			if(style.textStyle.horizontalJustification == 0)       x = position.getX() + (dimensions.getX() - metrics.stringWidth(s[i])) / 2;
-			else if(style.textStyle.horizontalJustification == -1) x = position.getX();
-			else                                  				   x = position.getX() + dimensions.getX() - metrics.stringWidth(s[i]);
-			
-			if(style.textStyle.verticalJustification == 0)       y = position.getY() + ((dimensions.getY() - metrics.getHeight()) / 2) + ((i-s.length/2) * metrics.getHeight()) + metrics.getAscent(); // TODO: Make this centre better
-			else if(style.textStyle.verticalJustification == -1) y = position.getY() + dimensions.getY() + metrics.getHeight() * (i-s.length+1); 
-			else                               					 y = position.getY() - metrics.getHeight() * (i-s.length+1); 
-			g.drawString(s[i], (int)x, (int)y);
+		for(int i = 0; i < text.length; i++) {
+			g.drawString(text[i], textRenderPositions[i].getIX(), textRenderPositions[i].getIY());
 		}
-		
 	}
 	
 	public void updateTextRenderPosition() {
+		textRenderPositions = new Vector[text.length];
 		
+		FontMetrics metrics = new Canvas().getFontMetrics(style.textStyle.getFont());
+		
+		double x,y;
+		
+		for(int i = 0; i < text.length; i++){
+			if(style.textStyle.horizontalJustification == 0)       x = position.getX() + (dimensions.getX() - metrics.stringWidth(text[i])) / 2;
+			else if(style.textStyle.horizontalJustification == -1) x = position.getX();
+			else                                  				   x = position.getX() + dimensions.getX() - metrics.stringWidth(text[i]);
+			
+			if(style.textStyle.verticalJustification == 0)       y = position.getY() + ((dimensions.getY() - metrics.getHeight()) / 2) + ((i-text.length/2) * metrics.getHeight()) + metrics.getAscent(); // TODO: Make this centre better
+			else if(style.textStyle.verticalJustification == -1) y = position.getY() + dimensions.getY() + metrics.getHeight() * (i-text.length+1); 
+			else                               					 y = position.getY() - metrics.getHeight() * (i-text.length+1);
+			
+			textRenderPositions[i] = new Vector(x,y);
+		}
 	}
 
 	@Override

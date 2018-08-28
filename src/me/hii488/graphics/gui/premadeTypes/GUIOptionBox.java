@@ -19,6 +19,7 @@ public class GUIOptionBox extends GUIElement{
 	
 	public void addOption(GUIOption o) {
 		options.add(o);
+		o.setParentGUISet(getParentGuiSet());
 		o.parentBox = this;
 	}
 	
@@ -56,7 +57,7 @@ public class GUIOptionBox extends GUIElement{
 
 	@Override
 	public void render(Graphics g) {
-		
+		// TODO: Set this to be something very similar to GUIStandardBox
 	}
 	
 }

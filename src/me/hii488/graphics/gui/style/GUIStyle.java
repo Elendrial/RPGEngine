@@ -8,13 +8,16 @@ public class GUIStyle {
 	public TextStyle textStyle;
 	public BackgroundStyle backgroundStyle;
 	
-	public GUIStyle() {}
+	public GUIStyle() {
+		textStyle = new TextStyle();
+		backgroundStyle = new BackgroundStyle();
+	}
 	public GUIStyle(TextStyle t, BackgroundStyle b) {
 		textStyle = t;
 		backgroundStyle = b;
 	}
 	
-	public class TextStyle{
+	public static class TextStyle{
 		public int horizontalJustification; // -1 = left, 0 = centred, 1 = right
 		public int verticalJustification;  // -1 = down, 0 = centred, 1 = up
 		public Font font;
@@ -65,7 +68,7 @@ public class GUIStyle {
 		}
 	}
 	
-	public class BackgroundStyle{
+	public static class BackgroundStyle{
 		private Color color;
 		private String textureLocation;
 		

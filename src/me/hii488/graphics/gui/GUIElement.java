@@ -10,6 +10,7 @@ import me.hii488.graphics.gui.style.GUIStyle;
 
 public abstract class GUIElement {
 	
+	protected GUISet parentGuiSet;
 	protected GUIStyle style;
 	protected boolean hidden = false;
 	protected String elementName;
@@ -19,7 +20,8 @@ public abstract class GUIElement {
 	public abstract void render(Graphics g);
 	// These don't _need_ to be implemented, but may need to be in specific situations.
 	public void onClick(MouseEvent e) {}
-	public void onKeyTyped(KeyBind e){}
+	public void onUnclick(MouseEvent e) {} // IE: When anywhere else on the screen is clicked.
+	public void onKeyTyped(KeyBind e) {}
 
 	public void setHidden(boolean b) {
 		hidden = b;
@@ -74,6 +76,10 @@ public abstract class GUIElement {
 	
 	public VectorBox getBoundingBox() {
 		return new VectorBox(position, dimensions);
+	}
+	
+	public GUISet getParentGuiSet() {
+		return parentGuiSet;
 	}
 	
 }

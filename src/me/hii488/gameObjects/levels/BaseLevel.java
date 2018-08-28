@@ -10,6 +10,7 @@ import me.hii488.gameObjects.entities.BaseEntity;
 import me.hii488.gameObjects.entities.FreeEntity;
 import me.hii488.gameObjects.entities.GridEntity;
 import me.hii488.gameObjects.tiles.BaseTile;
+import me.hii488.graphics.gui.GUI;
 import me.hii488.interfaces.IGameObject;
 import me.hii488.interfaces.IRenderable;
 import me.hii488.interfaces.ITickable;
@@ -29,6 +30,9 @@ public class BaseLevel implements ITickable, IGameObject, IRenderable{
 	private ArrayList<FreeEntity> entitiesToAdd;
 	private ArrayList<FreeEntity> entitiesToDelete;
 	
+	// GUI
+	private GUI gui;
+	
 	public BaseLevel() {
 		tileGrid = new Grid<BaseTile>();
 		entityGrid = new Grid<GridEntity>();
@@ -36,6 +40,8 @@ public class BaseLevel implements ITickable, IGameObject, IRenderable{
 		entities = new ArrayList<FreeEntity>();
 		entitiesToAdd = new ArrayList<FreeEntity>();
 		entitiesToDelete = new ArrayList<FreeEntity>();
+		
+		gui = new GUI();
 	}
 	
 	@Override
@@ -148,6 +154,10 @@ public class BaseLevel implements ITickable, IGameObject, IRenderable{
 		}
 		
 		return tiles;
+	}
+	
+	public GUI getGUI() {
+		return gui;
 	}
 	
 }

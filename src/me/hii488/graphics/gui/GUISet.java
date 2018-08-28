@@ -20,6 +20,7 @@ public class GUISet implements Comparable<GUISet>{
 	
 	public GUISet addElement(GUIElement e){
 		elements.add(e);
+		e.parentGuiSet = this;
 		if(e.style == null) e.setStyle(style.getDefault());
 		return this;
 	}
