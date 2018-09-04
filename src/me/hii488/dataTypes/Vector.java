@@ -107,6 +107,9 @@ public class Vector {
 		return rotateRad(Math.PI*degrees/180);
 	}
 	
+	/** Essentially a clone method.
+	 *  
+	 *  @return a copy of this vector. */
 	public Vector getLocation() {
 		return new Vector(x, y);
 	}

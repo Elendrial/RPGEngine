@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import me.hii488.dataTypes.KeyBind;
+import me.hii488.dataTypes.Vector;
 import me.hii488.graphics.gui.GUIElement;
 import me.hii488.graphics.gui.style.GUIStyle;
 
@@ -25,10 +26,26 @@ public class GUIOptionBox extends GUIElement{
 	
 	public void positionOptions(boolean vertical) {
 		if(vertical) {
+			Vector offset = new Vector(0,0);
+			double yDist = (position.getIY() - options.stream().mapToDouble(o -> (o.getBoundingBox().getHeight())).sum()) / (options.size() + 1);
 			
+			for(GUIOption option : options) {
+				offset.setX((this.getBoundingBox().getWidth() - option.getBoundingBox().getWidth())/2);
+				offset.translate(0, yDist);
+				
+				option.setPosition(position.getLocation().translate(offset));
+			}
 		}
 		else {
+			Vector offset = new Vector(0,0);
+			double xDist = (position.getIX() - options.stream().mapToDouble(o -> (o.getBoundingBox().getWidth())).sum()) / (options.size() + 1);
 			
+			for(GUIOption option : options) {
+				offset.setY((this.getBoundingBox().getHeight() - option.getBoundingBox().getHeight())/2);
+				offset.translate(xDist, 0);
+				
+				option.setPosition(position.getLocation().translate(offset));
+			}
 		}
 	}
 	
@@ -57,7 +74,7 @@ public class GUIOptionBox extends GUIElement{
 
 	@Override
 	public void render(Graphics g) {
-		// TODO: Set this to be something very similar to GUIStandardBox
+		options.forEach(o -> o.render(g));
 	}
 	
 }
