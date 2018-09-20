@@ -3,18 +3,63 @@ package me.hii488.graphics.gui.style;
 import java.awt.Color;
 import java.awt.Font;
 
+import me.hii488.dataTypes.Vector;
+
 public class GUIStyle {
 	
 	public TextStyle textStyle;
 	public BackgroundStyle backgroundStyle;
+	public MetaStyle metaStyle;
 	
 	public GUIStyle() {
 		textStyle = new TextStyle();
 		backgroundStyle = new BackgroundStyle();
 	}
-	public GUIStyle(TextStyle t, BackgroundStyle b) {
+	public GUIStyle(MetaStyle s, TextStyle t, BackgroundStyle b) {
 		textStyle = t;
 		backgroundStyle = b;
+		metaStyle = s;
+	}
+	
+
+	public void overwrite(GUIStyle style) {
+		textStyle.overwrite(style.textStyle);
+		backgroundStyle.overwrite(style.backgroundStyle);
+		metaStyle.overwrite(style.metaStyle);
+	}
+	
+	public static class MetaStyle{
+		public Vector position;
+		public Vector dimensions;
+		
+		public MetaStyle(){}
+		public MetaStyle(Vector position, Vector dimensions) {
+			this.position = position.getLocation();
+			this.dimensions = dimensions.getLocation();
+		}
+		
+		public void overwrite(MetaStyle metaStyle) {
+			this.position.setLocation(metaStyle.position);
+			this.dimensions.setLocation(metaStyle.dimensions);
+		}
+		
+		public Vector getPosition() {
+			return position;
+		}
+		
+		public MetaStyle setPosition(Vector position) {
+			this.position = position;
+			return this;
+		}
+		
+		public Vector getDimensions() {
+			return dimensions;
+		}
+		
+		public MetaStyle setDimensions(Vector dimensions) {
+			this.dimensions = dimensions;
+			return this;
+		}
 	}
 	
 	public static class TextStyle{
@@ -31,6 +76,13 @@ public class GUIStyle {
 			setVerticalJustification(vertJustification);
 		}
 
+		public void overwrite(TextStyle textStyle) {
+			this.horizontalJustification = textStyle.horizontalJustification;
+			this.verticalJustification = textStyle.verticalJustification;
+			this.font = textStyle.font;
+			this.textColor = textStyle.textColor;
+		}
+		
 		public Color getTextColor() {
 			return textColor;
 		}
@@ -70,12 +122,18 @@ public class GUIStyle {
 	
 	public static class BackgroundStyle{
 		private Color color;
-		private String textureLocation;
+		private String textureKey;
+		private int textureState;
 		
 		public BackgroundStyle() {}
-		public BackgroundStyle(Color backgroundColor, String textureLocation) {
+		public BackgroundStyle(Color backgroundColor, String textureKey) {
 			this.color = backgroundColor;
-			this.textureLocation = textureLocation;
+			this.textureKey = textureKey;
+		}
+		
+		public void overwrite(BackgroundStyle backgroundStyle) {
+			this.color = backgroundStyle.color;
+			this.textureKey = backgroundStyle.textureKey;
 		}
 		
 		public Color getBackgroundColor() {
@@ -87,16 +145,22 @@ public class GUIStyle {
 			return this;
 		}
 		
-		public String getTextureLocation() {
-			return textureLocation;
+		public String getTextureKey() {
+			return textureKey;
 		}
 		
-		public BackgroundStyle setTextureLocation(String textureLocation) {
-			this.textureLocation = textureLocation;
+		public BackgroundStyle setTextureKey(String textureKey) {
+			this.textureKey = textureKey;
 			return this;
 		}
+		
+		public int getTextureState() {
+			return textureState;
+		}
+		
+		public void setTextureState(int textureState) {
+			this.textureState = textureState;
+		}
 	}
-	
-	// TODO: Maybe include position, dimension etc etc?
 	
 }

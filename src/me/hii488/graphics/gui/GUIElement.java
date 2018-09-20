@@ -2,20 +2,23 @@ package me.hii488.graphics.gui;
 
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
 import me.hii488.dataTypes.KeyBind;
 import me.hii488.dataTypes.Vector;
 import me.hii488.dataTypes.VectorBox;
 import me.hii488.graphics.gui.style.GUIStyle;
+import me.hii488.registries.TextureRegistry;
 
 public abstract class GUIElement {
 	
 	protected GUISet parentGuiSet;
-	protected GUIStyle style;
+	protected GUIStyle style = new GUIStyle();
 	protected boolean hidden = false;
 	protected String elementName;
 	protected Vector position;
 	protected Vector dimensions;
+	private BufferedImage backgroundPicture;
 	
 	public abstract void render(Graphics g);
 	// These don't _need_ to be implemented, but may need to be in specific situations.
@@ -29,10 +32,12 @@ public abstract class GUIElement {
 	
 	public void hide() {
 		hidden = true;
+		unloadBackgroundPicture();
 	}
 	
 	public void show() {
 		hidden = false;
+		loadBackgroundPicture();
 	}
 	
 	public boolean isHidden() {
@@ -71,7 +76,7 @@ public abstract class GUIElement {
 	}
 	
 	public void setStyle(GUIStyle style) {
-		this.style = style;
+		this.style.overwrite(style);
 	}
 	
 	public VectorBox getBoundingBox() {
@@ -80,6 +85,23 @@ public abstract class GUIElement {
 	
 	public GUISet getParentGuiSet() {
 		return parentGuiSet;
+	}
+	
+	public BufferedImage getBackGroundPicture() {
+		if(backgroundPicture == null) return fetchBackGroundPic();
+		return backgroundPicture;
+	}
+	
+	private void loadBackgroundPicture() {
+		backgroundPicture = fetchBackGroundPic();
+	}
+	
+	private void unloadBackgroundPicture() {
+		backgroundPicture = null;
+	}
+	
+	private BufferedImage fetchBackGroundPic() {
+		return (BufferedImage) TextureRegistry.getTexture(style.backgroundStyle.getTextureKey(), style.backgroundStyle.getTextureState());
 	}
 	
 }

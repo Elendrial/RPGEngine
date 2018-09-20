@@ -24,7 +24,7 @@ public class GUIStandardBox extends GUIElement {
 	public void render(Graphics g) {
 		// Background rendering
 		g.setColor(style.backgroundStyle.getBackgroundColor());
-		// TODO: Load picture at some stage and render here (after background colour, before text).
+		g.drawImage(getBackGroundPicture(), this.position.getIX(), this.position.getIY(), this.dimensions.getIX(), this.dimensions.getIY(), null);
 		
 		// Text rendering
 		g.setColor(style.textStyle.textColor);

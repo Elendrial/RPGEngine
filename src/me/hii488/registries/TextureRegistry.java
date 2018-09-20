@@ -78,6 +78,10 @@ public class TextureRegistry {
 		}
 	}
 	
+	public static boolean containsTexture(String location, int states) {
+		return allTextures.containsValue(new ImageData(location, states));
+	}
+	
 	public static ImageData errorImage() {
 		// TODO
 		return null;

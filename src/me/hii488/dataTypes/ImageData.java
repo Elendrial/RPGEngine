@@ -118,4 +118,26 @@ public class ImageData{
 		return image;
 	}
 	
+	public boolean equals(Object o) {
+		if(!(o instanceof ImageData)) return false;
+		
+		if(((ImageData) o).states != states) return false;
+		
+		if(((ImageData) o).imageLocation.length != imageLocation.length) return false;
+		
+		for(int i = 0; i < imageLocation.length; i++) {
+			if(((ImageData) o).imageLocation[i].equals(imageLocation[i])) return false;
+		}
+		
+		return true;
+	}
+	
+	public int hashCode() {
+		String total = "";
+		for(String s : imageLocation)
+			total +=s;
+		
+		return total.hashCode();
+	}
+	
 }
