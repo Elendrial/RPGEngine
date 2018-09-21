@@ -7,9 +7,15 @@ import me.hii488.dataTypes.Vector;
 
 public class GUIStyle {
 	
+	public MetaStyle metaStyle;
 	public TextStyle textStyle;
 	public BackgroundStyle backgroundStyle;
-	public MetaStyle metaStyle;
+	
+	
+	public static GUIStyle getDefault() {
+		return new GUIStyle( MetaStyle.getDefault(), TextStyle.getDefault(), BackgroundStyle.getDefault());
+	}
+	
 	
 	public GUIStyle() {
 		textStyle = new TextStyle();
@@ -21,16 +27,25 @@ public class GUIStyle {
 		metaStyle = s;
 	}
 	
-
+	
 	public void overwrite(GUIStyle style) {
 		textStyle.overwrite(style.textStyle);
 		backgroundStyle.overwrite(style.backgroundStyle);
 		metaStyle.overwrite(style.metaStyle);
 	}
 	
+	public GUIStyle clone() {
+		return new GUIStyle(metaStyle.clone(), textStyle.clone(), backgroundStyle.clone());
+	}
+	
 	public static class MetaStyle{
 		public Vector position;
 		public Vector dimensions;
+		
+		public static MetaStyle getDefault() {
+			return new MetaStyle(new Vector(0,0), new Vector(0,0));
+		}
+		
 		
 		public MetaStyle(){}
 		public MetaStyle(Vector position, Vector dimensions) {
@@ -60,6 +75,10 @@ public class GUIStyle {
 			this.dimensions = dimensions;
 			return this;
 		}
+		
+		public MetaStyle clone() {
+			return new MetaStyle(position, dimensions);
+		}
 	}
 	
 	public static class TextStyle{
@@ -67,6 +86,11 @@ public class GUIStyle {
 		public int verticalJustification;  // -1 = down, 0 = centred, 1 = up
 		public Font font;
 		public Color textColor;
+		
+		public static TextStyle getDefault() {
+			return new TextStyle(Color.BLACK, Font.decode(null), 0,0);
+		}
+		
 		
 		public TextStyle() {}
 		public TextStyle(Color c, Font f, int horiJustification, int vertJustification) {
@@ -118,6 +142,10 @@ public class GUIStyle {
 			this.verticalJustification = verticalJustification;
 			return this;
 		}
+		
+		public TextStyle clone() {
+			return new TextStyle(textColor, font, horizontalJustification, verticalJustification);
+		}
 	}
 	
 	public static class BackgroundStyle{
@@ -125,10 +153,16 @@ public class GUIStyle {
 		private String textureKey;
 		private int textureState;
 		
+		public static BackgroundStyle getDefault() {
+			return new BackgroundStyle(null, null, 0);
+		}
+		
+		
 		public BackgroundStyle() {}
-		public BackgroundStyle(Color backgroundColor, String textureKey) {
+		public BackgroundStyle(Color backgroundColor, String textureKey, int state) {
 			this.color = backgroundColor;
 			this.textureKey = textureKey;
+			setTextureState(state);
 		}
 		
 		public void overwrite(BackgroundStyle backgroundStyle) {
@@ -160,6 +194,10 @@ public class GUIStyle {
 		
 		public void setTextureState(int textureState) {
 			this.textureState = textureState;
+		}
+		
+		public BackgroundStyle clone() {
+			return new BackgroundStyle(color, textureKey, textureState);
 		}
 	}
 	

@@ -13,7 +13,7 @@ import me.hii488.registries.TextureRegistry;
 public abstract class GUIElement {
 	
 	protected GUISet parentGuiSet;
-	protected GUIStyle style = new GUIStyle();
+	protected GUIStyle style = GUIStyle.getDefault();
 	protected boolean hidden = false;
 	protected String elementName;
 	protected Vector position;
@@ -101,7 +101,9 @@ public abstract class GUIElement {
 	}
 	
 	private BufferedImage fetchBackGroundPic() {
+		if(style.backgroundStyle.getTextureKey() != null)
 		return (BufferedImage) TextureRegistry.getTexture(style.backgroundStyle.getTextureKey(), style.backgroundStyle.getTextureState());
+		return null;
 	}
 	
 }

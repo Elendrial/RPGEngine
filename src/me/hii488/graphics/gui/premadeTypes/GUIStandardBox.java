@@ -14,7 +14,7 @@ public class GUIStandardBox extends GUIElement {
 	protected String[] text;
 	protected Vector[] textRenderPositions;
 	
-	public GUIStandardBox() {}
+	public GUIStandardBox() {setText("");}
 	public GUIStandardBox(GUIStyle s) {
 		style = s;
 		setText("");
@@ -23,8 +23,8 @@ public class GUIStandardBox extends GUIElement {
 	@Override
 	public void render(Graphics g) {
 		// Background rendering
-		g.setColor(style.backgroundStyle.getBackgroundColor());
-		g.drawImage(getBackGroundPicture(), this.position.getIX(), this.position.getIY(), this.dimensions.getIX(), this.dimensions.getIY(), null);
+		if(style.backgroundStyle.getBackgroundColor() != null) g.setColor(style.backgroundStyle.getBackgroundColor());
+		if(getBackGroundPicture() != null) g.drawImage(getBackGroundPicture(), this.position.getIX(), this.position.getIY(), this.dimensions.getIX(), this.dimensions.getIY(), null);
 		
 		// Text rendering
 		g.setColor(style.textStyle.textColor);
