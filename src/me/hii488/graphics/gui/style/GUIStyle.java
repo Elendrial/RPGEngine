@@ -7,6 +7,10 @@ import me.hii488.dataTypes.Vector;
 
 public class GUIStyle {
 	
+	// MetaStyle sets the initial GUIElement 'meta' parameters (ie: position/dimension), but the GUIElement can later update this without overriding the MetaStyle.
+	// Both TextStyle and BackgroundStyle attributes are used directly, and so to change the GUIElement parameters, you must change the style attributes.
+	// I am still not certain whether this is the right way to do it. I may change at a later date to all being 'guidelines', like the MetaStyle
+	
 	public MetaStyle metaStyle;
 	public TextStyle textStyle;
 	public BackgroundStyle backgroundStyle;

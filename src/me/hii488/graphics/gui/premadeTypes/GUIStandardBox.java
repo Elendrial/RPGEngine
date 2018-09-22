@@ -16,7 +16,7 @@ public class GUIStandardBox extends GUIElement {
 	
 	public GUIStandardBox() {setText("");}
 	public GUIStandardBox(GUIStyle s) {
-		style = s;
+		setStyle(s);
 		setText("");
 	}
 	

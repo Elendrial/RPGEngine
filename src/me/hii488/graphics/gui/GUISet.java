@@ -6,6 +6,8 @@ import java.util.HashSet;
 
 import me.hii488.dataTypes.KeyBind;
 import me.hii488.graphics.gui.style.GUIStyleGroup;
+import me.hii488.logging.LogSeverity;
+import me.hii488.logging.Logger;
 
 public class GUISet implements Comparable<GUISet>{
 	private boolean hidden = false;
@@ -24,6 +26,22 @@ public class GUISet implements Comparable<GUISet>{
 		if(e.style == null) e.setStyle(style.getDefault());
 		return this;
 	}
+	
+	public void removeElement(GUIElement e) {
+		elements.remove(e);
+	}
+	
+	public void removeElement(String s) {
+		removeElement(getElement(s));
+	}
+	
+	public void hideAllWithTag(String tag) {
+		for(GUIElement e : elements) if(e.hasTag(tag)) e.hide();
+	}
+	
+	public void showAllWithTag(String tag) {
+		for(GUIElement e : elements) if(e.hasTag(tag)) e.show();
+	}
 
 	public void unhideAll() {
 		hidden = false;
@@ -38,6 +56,15 @@ public class GUISet implements Comparable<GUISet>{
 		return this;
 	}
 	
+	public HashSet<GUIElement> getElements(){
+		return elements;
+	}
+	
+	public GUIElement getElement(String name) {
+		for(GUIElement e : elements) if(e.elementName.equals(name)) return e;
+		Logger.getDefault().print(LogSeverity.ERROR, "No element with the name " + name + " contained in this GUISet");
+		return null;
+	}
 	
 	public enum Priority{HIGH, MID, LOW};
 

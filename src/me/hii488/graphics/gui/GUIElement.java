@@ -3,6 +3,7 @@ package me.hii488.graphics.gui;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import me.hii488.dataTypes.KeyBind;
 import me.hii488.dataTypes.Vector;
@@ -18,6 +19,7 @@ public abstract class GUIElement {
 	protected String elementName;
 	protected Vector position;
 	protected Vector dimensions;
+	protected ArrayList<String> tags = new ArrayList<String>();
 	private BufferedImage backgroundPicture;
 	
 	public abstract void render(Graphics g);
@@ -85,6 +87,22 @@ public abstract class GUIElement {
 	
 	public GUISet getParentGuiSet() {
 		return parentGuiSet;
+	}
+	
+	public void addTag(String s) {
+		tags.add(s);
+	}
+	
+	public void removeTag(String s) {
+		tags.remove(s);
+	}
+	
+	public void clearTags() {
+		tags.clear();
+	}
+
+	public boolean hasTag(String s) {
+		return tags.contains(s);
 	}
 	
 	public BufferedImage getBackGroundPicture() {
