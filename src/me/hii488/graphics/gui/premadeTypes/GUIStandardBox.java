@@ -22,16 +22,20 @@ public class GUIStandardBox extends GUIElement {
 	
 	@Override
 	public void render(Graphics g) {
+		render(g, Vector.ORIGIN);
+	}
+	
+	public void render(Graphics g, Vector offset) {
 		// Background rendering
 		if(style.backgroundStyle.getBackgroundColor() != null) g.setColor(style.backgroundStyle.getBackgroundColor());
-		if(getBackGroundPicture() != null) g.drawImage(getBackGroundPicture(), this.position.getIX(), this.position.getIY(), this.dimensions.getIX(), this.dimensions.getIY(), null);
-		
+		if(getBackGroundPicture() != null) g.drawImage(getBackGroundPicture(), this.position.getIX() + offset.getIX(), this.position.getIY() + offset.getIY(), this.dimensions.getIX() + offset.getIX(), this.dimensions.getIY() + offset.getIY(), null);
+
 		// Text rendering
 		g.setColor(style.textStyle.textColor);
 		g.setFont(style.textStyle.font);
-		
+
 		for(int i = 0; i < text.length; i++) {
-			g.drawString(text[i], textRenderPositions[i].getIX(), textRenderPositions[i].getIY());
+			g.drawString(text[i], textRenderPositions[i].getIX() + offset.getIX(), textRenderPositions[i].getIY() + offset.getIY());
 		}
 	}
 	

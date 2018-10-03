@@ -1,5 +1,7 @@
 package me.hii488.graphics.gui.premadeTypes;
 
+import java.awt.Graphics;
+
 import me.hii488.graphics.gui.GUISet;
 import me.hii488.graphics.gui.style.GUIStyle;
 
@@ -16,6 +18,10 @@ public class GUIOption extends GUIStandardBox {
 	
 	protected void setParentGUISet(GUISet s) {
 		this.parentGuiSet = s;
+	}
+	
+	public void render(Graphics g) {
+		render(g, parentBox.getPosition());
 	}
 	
 }

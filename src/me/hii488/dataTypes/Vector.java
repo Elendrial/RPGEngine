@@ -137,6 +137,12 @@ public class Vector {
 		return this;
 	}
 	
+	public Vector scale(double dx, double dy) {
+		x *= dx;
+		y *= dy;
+		return this;
+	}
+	
 	public boolean equals(Object v) {
 		if(!(v instanceof Vector)) return false;
 		
