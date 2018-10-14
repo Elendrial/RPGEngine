@@ -18,6 +18,11 @@ public class GUIOptionBox extends GUIElement{
 		style = s;
 	}
 	
+	public void show() {
+		super.show();
+		options.forEach(e-> e.show());
+	}
+	
 	public void addOption(GUIOption o) {
 		options.add(o);
 		o.setParentGUISet(getParentGuiSet());

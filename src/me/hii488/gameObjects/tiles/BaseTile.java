@@ -34,6 +34,14 @@ public abstract class BaseTile implements ITexturedObject, IGameObject{
 		canPassThrough = b;
 	}
 	
+	public Vector getGridPosition() {
+		return parentGrid.getPositionOf(this).getLocation();
+	}
+	
+	public Vector getPosition() {
+		return getGridPosition().scale(parentGrid.getGridScale());
+	}
+	
 	public void render(Graphics g) {}
 	public void render(Graphics g, Vector position) {
 		g.drawImage(getTexture(), position.getIX(), position.getIY(), null);

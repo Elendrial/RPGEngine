@@ -113,6 +113,8 @@ public class BaseLevel implements ITickable, IGameObject, IRenderable{
 		entityGrid.render(g);
 		
 		entities.forEach(e -> e.render(g));
+		
+		gui.render(g);
 	}
 	
 
