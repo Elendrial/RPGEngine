@@ -21,7 +21,7 @@ public class GUIOption extends GUIStandardBox {
 	}
 	
 	public void render(Graphics g) {
-		render(g, parentBox.getPosition());
+		super.render(g, parentBox.getPosition());
 	}
 	
 }

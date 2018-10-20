@@ -16,7 +16,7 @@ public class GUIStandardBox extends GUIElement {
 	
 	public GUIStandardBox() {setText("");}
 	public GUIStandardBox(GUIStyle s) {
-		setStyle(s);
+		setStyle(s, true);
 		setText("");
 	}
 	
@@ -28,8 +28,9 @@ public class GUIStandardBox extends GUIElement {
 	public void render(Graphics g, Vector offset) {
 		// Background rendering
 		if(style.backgroundStyle.getBackgroundColor() != null) g.setColor(style.backgroundStyle.getBackgroundColor());
-		if(getBackGroundPicture() != null) g.drawImage(getBackGroundPicture(), this.position.getIX() + offset.getIX(), this.position.getIY() + offset.getIY(), this.dimensions.getIX() + offset.getIX(), this.dimensions.getIY() + offset.getIY(), null);
-
+		if(getBackGroundPicture() != null) g.drawImage(getBackGroundPicture(), this.position.getIX() + offset.getIX(), this.position.getIY() + offset.getIY(), this.dimensions.getIX(), this.dimensions.getIY(), null);
+		
+		
 		// Text rendering
 		g.setColor(style.textStyle.textColor);
 		g.setFont(style.textStyle.font);
@@ -45,7 +46,6 @@ public class GUIStandardBox extends GUIElement {
 		FontMetrics metrics = new Canvas().getFontMetrics(style.textStyle.getFont());
 		
 		double x,y;
-		
 		for(int i = 0; i < text.length; i++){
 			if(style.textStyle.horizontalJustification == 0)       x = position.getX() + (dimensions.getX() - metrics.stringWidth(text[i])) / 2;
 			else if(style.textStyle.horizontalJustification == -1) x = position.getX();

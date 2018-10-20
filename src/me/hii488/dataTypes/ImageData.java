@@ -21,7 +21,7 @@ public class ImageData{
 	public ImageData(String location, int states) {
 		if(states <= 0) {
 			states = 1;
-			Logger.getDefault().print(LogSeverity.WARNING, "Variable \"states\" passed as <= 0 for texture at \"" + location + "\". This has been changed to 1 to avoid an error.");
+			Logger.getDefault().print(LogSeverity.WARNING, "Variable \"states\" passed as <= 0 for texture at \"" + location + "\". This should be set as a .size() or .length(), ie: start counting at 1.");
 		}
 		this.states = states;
 		

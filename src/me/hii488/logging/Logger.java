@@ -13,11 +13,11 @@ public class Logger {
 	}
 	
 	public void print(LogSeverity severity, String output) {
-		if(severity.level >= minimumToOutput.level) stream.println(output);
+		if(severity.level >= minimumToOutput.level) stream.println("[" + severity.name() + "] " + output);
 	}
 	
 	public void print(LogSeverity severity, Object output) {
-		print(severity, "[" + severity.name() + "]" + output);
+		print(severity, output.toString());
 	}
 	
 	public void setMinOutput(LogSeverity s) {

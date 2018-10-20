@@ -29,6 +29,10 @@ public class GUIOptionBox extends GUIElement{
 		o.parentBox = this;
 	}
 	
+	public ArrayList<GUIOption> getOptions() {
+		return options;
+	}
+	
 	public void positionOptions(boolean vertical) {
 		if(vertical) {
 			Vector offset = new Vector(0,0);

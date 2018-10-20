@@ -77,8 +77,15 @@ public abstract class GUIElement {
 		return style;
 	}
 	
-	public void setStyle(GUIStyle style) {
+	public void setStyle(GUIStyle style, boolean overWriteMeta) {
 		this.style.overwrite(style);
+		
+		if(overWriteMeta) {
+			this.position = style.metaStyle.getPosition();
+			this.dimensions = style.metaStyle.getDimensions();
+		}
+		
+		
 	}
 	
 	public VectorBox getBoundingBox() {
@@ -120,7 +127,7 @@ public abstract class GUIElement {
 	
 	private BufferedImage fetchBackGroundPic() {
 		if(style.backgroundStyle.getTextureKey() != null)
-		return (BufferedImage) TextureRegistry.getTexture(style.backgroundStyle.getTextureKey(), style.backgroundStyle.getTextureState());
+			return (BufferedImage) TextureRegistry.getTexture(style.backgroundStyle.getTextureKey(), style.backgroundStyle.getTextureState());
 		return null;
 	}
 	
