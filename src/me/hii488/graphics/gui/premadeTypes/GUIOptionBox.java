@@ -84,6 +84,7 @@ public class GUIOptionBox extends GUIElement{
 	@Override
 	public void render(Graphics g) {
 		options.forEach(o -> o.render(g));
+		g.drawLine(0, 0, this.position.getIX(), this.position.getIY());
 	}
 	
 }

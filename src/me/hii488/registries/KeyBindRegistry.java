@@ -4,17 +4,28 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import me.hii488.dataTypes.KeyBind;
+import me.hii488.interfaces.IInputListener;
+import me.hii488.logging.LogSeverity;
+import me.hii488.logging.Logger;
 
-public class KeyBindRegistry {
+public class KeyBindRegistry implements IInputListener{
 	
 	protected static HashMap<KeyBind, ArrayList<Integer>> keybinds = new HashMap<KeyBind, ArrayList<Integer>>();
+	protected static HashMap<KeyBind, Boolean> keyPressed = new HashMap<KeyBind, Boolean>();
+	
+	/// Keybind Registry
 	
 	public static void setKeyBind(KeyBind key, Integer... i) {
+		if(!keybinds.containsKey(key)) {
+			keyPressed.put(key, false);
+		}
+		
 		if(!keybinds.values().stream().anyMatch(v -> {for(int j : i) if(v.contains(j)) return true; return false;})) {
 			keybinds.put(key, getArrayList(i));
 		}
 		else {
 			// TODO: Remove int already in use.
+			Logger.getDefault().print(LogSeverity.DETAIL, "Attempted to rebind key, functionality not currently supported.");
 		}
 	}
 	
@@ -46,5 +57,22 @@ public class KeyBindRegistry {
 		
 		return list;
 	}
+	
+	
+	
+	/// Key down tracker
+	
+	public void keyPressed(KeyBind arg0) {
+		keyPressed.put(arg0, true);
+	}
+	
+	public void keyReleased(KeyBind arg0) {
+		keyPressed.put(arg0, false);
+	}
+	
+	public boolean isPressed(KeyBind key) {
+		return keyPressed.get(key);
+	}
+	
 	
 }

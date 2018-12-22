@@ -1,7 +1,8 @@
 package me.hii488.dataTypes;
 
 public class KeyBind {
-	// TODO: Think about whether this is really necessary at all? Why not just pass around strings?
+	// TODO: Think about whether this is really necessary at all? Why not just pass around strings? 
+	// UPDATE: Think I'll leave this as is, it's neater than strings and allows stuff to be changed without massive code refactorisation.
 	public static final KeyBind NULL_KEY = new KeyBind("NULL_KEY");
 	public static final KeyBind MOVE_UP = new KeyBind("MOVE_UP");
 	public static final KeyBind MOVE_DOWN = new KeyBind("MOVE_DOWN");

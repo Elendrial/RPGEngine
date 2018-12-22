@@ -11,7 +11,7 @@ import me.hii488.registries.KeyBindRegistry;
 
 public class InputHandler implements MouseListener, KeyListener{
 	
-	// TODO: Possibly replace part of this with a lookup? eg from another class: InputHandler.isKeyDown((KeyBind) k);
+	// Possibly replace part of this with a lookup? eg from another class: InputHandler.isKeyDown((KeyBind) k); --- This is in KeyBindRegistry --- (TODO: remove this)
 	
 	public static InputHandler instance = new InputHandler();
 	public static ArrayList<IInputListener> inputUsers = new ArrayList<IInputListener>();
