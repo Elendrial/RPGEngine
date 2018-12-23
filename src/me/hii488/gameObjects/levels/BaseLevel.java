@@ -11,6 +11,7 @@ import me.hii488.gameObjects.entities.FreeEntity;
 import me.hii488.gameObjects.entities.GridEntity;
 import me.hii488.gameObjects.tiles.BaseTile;
 import me.hii488.graphics.gui.GUI;
+import me.hii488.handlers.InputHandler;
 import me.hii488.interfaces.IGameObject;
 import me.hii488.interfaces.IRenderable;
 import me.hii488.interfaces.ITickable;
@@ -42,6 +43,7 @@ public class BaseLevel implements ITickable, IGameObject, IRenderable{
 		entitiesToDelete = new ArrayList<FreeEntity>();
 		
 		gui = new GUI();
+		InputHandler.addInputListener(gui);
 	}
 	
 	@Override
