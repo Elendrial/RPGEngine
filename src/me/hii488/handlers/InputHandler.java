@@ -15,6 +15,7 @@ public class InputHandler implements MouseListener, KeyListener{
 	
 	public static InputHandler instance = new InputHandler();
 	public static ArrayList<IInputListener> inputUsers = new ArrayList<IInputListener>();
+	public static ArrayList<IInputListener> lateInputUsers = new ArrayList<IInputListener>();
 	
 	public static void addInputListener(IInputListener i){
 		inputUsers.add(i);
@@ -24,44 +25,62 @@ public class InputHandler implements MouseListener, KeyListener{
 		inputUsers.remove(i);
 	}
 	
+	public static void addLateInputListener(IInputListener i){
+		lateInputUsers.add(i);
+	}
+	
+	public static void removeLateInputListener(IInputListener i) {
+		lateInputUsers.remove(i);
+	}
+	
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		for(IInputListener i : inputUsers) i.keyPressed(KeyBindRegistry.getKeyBindedTo(arg0.getKeyCode()));
+		for(IInputListener i : lateInputUsers) i.keyPressed(KeyBindRegistry.getKeyBindedTo(arg0.getKeyCode()));
 	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		for(IInputListener i : inputUsers) i.keyReleased(KeyBindRegistry.getKeyBindedTo(arg0.getKeyCode()));
+		for(IInputListener i : lateInputUsers) i.keyReleased(KeyBindRegistry.getKeyBindedTo(arg0.getKeyCode()));
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 		for(IInputListener i : inputUsers) i.keyTyped(KeyBindRegistry.getKeyBindedTo(arg0.getKeyCode()));
+		for(IInputListener i : lateInputUsers) i.keyTyped(KeyBindRegistry.getKeyBindedTo(arg0.getKeyCode()));
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		for(IInputListener i : inputUsers) i.mouseClicked(arg0);
+		boolean blocking = false;
+		for(IInputListener i : inputUsers) blocking = blocking || i.mouseClicked(arg0, blocking);
+		if(blocking) System.out.println("blocking");
+		for(IInputListener i : lateInputUsers) blocking = blocking || i.mouseClicked(arg0, blocking);
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		for(IInputListener i : inputUsers) i.mouseEntered(arg0);
+		for(IInputListener i : lateInputUsers) i.mouseEntered(arg0);
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		for(IInputListener i : inputUsers) i.mouseExited(arg0);
+		for(IInputListener i : lateInputUsers) i.mouseExited(arg0);
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		for(IInputListener i : inputUsers) i.mousePressed(arg0);
+		for(IInputListener i : lateInputUsers) i.mousePressed(arg0);
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		for(IInputListener i : inputUsers) i.mouseReleased(arg0);
+		for(IInputListener i : lateInputUsers) i.mouseReleased(arg0);
 	}
 
 }

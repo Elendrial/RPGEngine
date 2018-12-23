@@ -3,6 +3,7 @@ package me.hii488.graphics.gui;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.util.HashSet;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import me.hii488.dataTypes.KeyBind;
 import me.hii488.graphics.gui.style.GUIStyleGroup;
@@ -78,8 +79,11 @@ public class GUISet implements Comparable<GUISet>{
         	return 0;
 	}
 
-	public void mouseClicked(MouseEvent event) {
-		elements.stream().filter(e -> !e.hidden).filter(e -> e.getBoundingBox().containsPoint(event.getX(), event.getY())).forEach(e -> e.onClick(event));
+	public boolean mouseClicked(MouseEvent event) {
+		AtomicBoolean affected = new AtomicBoolean(false);
+		elements.stream().filter(e -> !e.hidden).filter(e -> e.getBoundingBox().containsPoint(event.getX(), event.getY())).forEach(e -> {affected.set(affected.get() || e.onClick(event));});
+		
+		return affected.get();
 	}
 
 	public void keyTyped(KeyBind event) {

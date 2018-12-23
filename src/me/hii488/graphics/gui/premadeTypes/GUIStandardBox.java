@@ -60,7 +60,7 @@ public class GUIStandardBox extends GUIElement {
 	}
 
 	@Override
-	public void onClick(MouseEvent e) {}
+	public boolean onClick(MouseEvent e) {return false;}
 
 	public GUIStandardBox setText(String s) {
 		text = s.replace("\t", "    ").split("\n");

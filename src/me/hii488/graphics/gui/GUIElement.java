@@ -24,7 +24,7 @@ public abstract class GUIElement {
 	
 	public abstract void render(Graphics g);
 	// These don't _need_ to be implemented, but may need to be in specific situations.
-	public void onClick(MouseEvent e) {}
+	public boolean onClick(MouseEvent e) {return false;}
 	public void onUnclick(MouseEvent e) {} // IE: When anywhere else on the screen is clicked.
 	public void onKeyTyped(KeyBind e) {}
 

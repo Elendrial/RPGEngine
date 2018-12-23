@@ -40,8 +40,13 @@ public class GUI implements IInputListener{
 		sets.forEach(s -> s.unhideAll());
 	}
 	
-	public void mouseClicked(MouseEvent e) {
-		sets.forEach(s -> s.mouseClicked(e));
+	public boolean mouseClicked(MouseEvent e) {
+		boolean affected = false;
+		
+		for(GUISet set : sets)
+			affected = affected || set.mouseClicked(e);
+		
+		return affected;
 	}
 	
 	public void keyTyped(KeyBind event){

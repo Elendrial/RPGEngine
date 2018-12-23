@@ -10,7 +10,9 @@ public interface IInputListener {
 	public default void keyPressed(KeyBind arg0) {}
 	public default void keyReleased(KeyBind arg0) {}
 	public default void keyTyped(KeyBind arg0) {}
-	public default void mouseClicked(MouseEvent arg0) {}
+	
+	public default boolean mouseClicked(MouseEvent arg0) {return false;}
+	public default boolean mouseClicked(MouseEvent arg0, boolean b) {return mouseClicked(arg0);}
 	public default void mouseEntered(MouseEvent arg0) {}
 	public default void mouseExited(MouseEvent arg0) {}
 	public default void mousePressed(MouseEvent arg0) {}
