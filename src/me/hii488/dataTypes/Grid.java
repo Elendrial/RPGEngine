@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import me.hii488.controllers.GameController;
@@ -94,11 +95,19 @@ public class Grid<T> implements ITickable, IGameObject, IRenderable{
 	}
 	
 	public T getObjectAt(Vector v) {
-		return map.get(v);
+		return Optional.of(map.get(v)).orElse(null);
 	}
 	
 	public T getObjectAtRealPosition(Vector v) {
 		return map.get(v.getLocation().scale(1D/this.gridScale).getIV());
+	}
+	
+	public T getObjectAtRealPosition(int x, int y) {
+		return getObjectAtRealPosition(new Vector(x, y));
+	}
+	
+	public Vector getGridVectorFromRealPosition(Vector v) {
+		return v.getLocation().scale(1D/this.gridScale).getIV();
 	}
 	
 	public void setObjectAt(int x, int y, T t) {
