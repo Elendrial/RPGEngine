@@ -28,6 +28,12 @@ public class GUISet implements Comparable<GUISet>{
 		return this;
 	}
 	
+	// TODO: Find a way to work this into the addElement method without having to use tick methods.
+	public GUISet addElementDuringModification(GUIElement e) {
+		
+		return this;
+	}
+	
 	public void removeElement(GUIElement e) {
 		elements.remove(e);
 	}
@@ -81,8 +87,8 @@ public class GUISet implements Comparable<GUISet>{
 
 	public boolean mouseClicked(MouseEvent event) {
 		AtomicBoolean affected = new AtomicBoolean(false);
-		elements.stream().filter(e -> !e.hidden).filter(e -> e.getBoundingBox().containsPoint(event.getX(), event.getY())).forEach(e -> {affected.set(affected.get() || e.onClick(event));});
-		
+		HashSet<GUIElement> elemCopy = new HashSet<GUIElement>(elements); // Should stop Concurrent modification when adding/removing elements
+		elemCopy.stream().filter(e -> !e.hidden).filter(e -> e.getBoundingBox().containsPoint(event.getX(), event.getY())).forEach(e -> {affected.set(affected.get() || e.onClick(event));});
 		return affected.get();
 	}
 

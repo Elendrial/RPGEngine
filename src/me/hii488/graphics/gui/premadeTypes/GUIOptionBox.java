@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import me.hii488.dataTypes.KeyBind;
 import me.hii488.dataTypes.Vector;
+import me.hii488.dataTypes.VectorBox;
 import me.hii488.graphics.gui.GUIElement;
 import me.hii488.graphics.gui.style.GUIStyle;
 
@@ -15,12 +16,27 @@ public class GUIOptionBox extends GUIElement{
 	
 	public GUIOptionBox() {}
 	public GUIOptionBox(GUIStyle s) {
-		style = s;
+		setStyle(s, true);
 	}
 	
 	public void show() {
 		super.show();
 		options.forEach(e-> e.show());
+	}
+	
+	public VectorBox getBoundingBox() {
+		int minX = position.getIX(), maxX = position.getIX() + dimensions.getIX();
+		int minY = position.getIY(), maxY = position.getIY() + dimensions.getIY();
+		
+		for(GUIOption option : options) {
+			if(option.getPosition().getIX() + position.getIX() < minX) minX = option.getPosition().getIX() + position.getIX();
+			if(option.getPosition().getIY() + position.getIY() < minY) minY = option.getPosition().getIY() + position.getIY();
+			
+			if(option.getDimensions().getIX() + position.getIX() + option.getPosition().getIX() > maxX) maxX = option.getDimensions().getIX() + position.getIX() + option.getPosition().getIX();
+			if(option.getDimensions().getIY() + position.getIY() + option.getPosition().getIY() > maxY) maxY = option.getDimensions().getIY() + position.getIY() + option.getPosition().getIY();
+		}
+		
+		return new VectorBox(minX, minY, maxX, maxY);
 	}
 	
 	public void addOption(GUIOption o) {
@@ -85,6 +101,8 @@ public class GUIOptionBox extends GUIElement{
 	public void render(Graphics g) {
 		options.forEach(o -> o.render(g));
 		g.drawLine(0, 0, this.position.getIX(), this.position.getIY());
+		VectorBox v = this.getBoundingBox();
+		g.drawRect(v.getUpperLeftCorner().getIX(), v.getUpperLeftCorner().getIY(), (int) v.getWidth(), (int) v.getHeight());
 	}
 	
 }

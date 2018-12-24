@@ -20,8 +20,8 @@ public class VectorBox {
 		this(cornerA.getX(), cornerA.getY(), cornerB.getX(), cornerB.getY());
 	}
 	
-	public VectorBox(Vector upperRight, double width, double height) {
-		this(upperRight, upperRight.getLocation().translate(width, height));
+	public VectorBox(Vector upperleft, double width, double height) {
+		this(upperleft, upperleft.getLocation().translate(width, height));
 	}
 	
 	// These are two opposite corners, NOT x,y,width,height
