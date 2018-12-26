@@ -89,7 +89,7 @@ public abstract class GUIElement {
 	}
 	
 	public VectorBox getBoundingBox() {
-		return new VectorBox(position, dimensions);
+		return new VectorBox(position, dimensions.getX(), dimensions.getY() );
 	}
 	
 	public GUISet getParentGuiSet() {
