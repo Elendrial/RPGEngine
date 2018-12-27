@@ -100,9 +100,6 @@ public class GUIOptionBox extends GUIElement{
 	@Override
 	public void render(Graphics g) {
 		options.forEach(o -> o.render(g));
-		g.drawLine(0, 0, this.position.getIX(), this.position.getIY());
-		VectorBox v = this.getBoundingBox();
-		g.drawRect(v.getUpperLeftCorner().getIX(), v.getUpperLeftCorner().getIY(), (int) v.getWidth(), (int) v.getHeight());
 	}
 	
 }

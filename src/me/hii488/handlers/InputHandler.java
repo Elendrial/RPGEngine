@@ -53,9 +53,8 @@ public class InputHandler implements MouseListener, KeyListener{
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		boolean blocking = false;
+		boolean blocking = false; // TODO: Maybe make this a string/array? So multiple flags can be passed around 
 		for(IInputListener i : inputUsers) blocking = blocking || i.mouseClicked(arg0, blocking);
-		if(blocking) System.out.println("blocking");
 		for(IInputListener i : lateInputUsers) blocking = blocking || i.mouseClicked(arg0, blocking);
 	}
 

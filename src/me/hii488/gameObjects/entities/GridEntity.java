@@ -42,6 +42,10 @@ public abstract class GridEntity extends BaseEntity{
 		this.gridPosition = position.getLocation();
 	}
 	
+	public void setGridPosition(int  x, int y) {
+		this.gridPosition = new Vector(x, y);
+	}
+	
 	/**
 	 * @return The top left corner of the grid space in which the entity is.
 	 */

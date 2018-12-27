@@ -30,7 +30,6 @@ public class GUIStandardBox extends GUIElement {
 		if(style.backgroundStyle.getBackgroundColor() != null) g.setColor(style.backgroundStyle.getBackgroundColor());
 		if(getBackGroundPicture() != null) g.drawImage(getBackGroundPicture(), this.position.getIX() + offset.getIX(), this.position.getIY() + offset.getIY(), this.dimensions.getIX(), this.dimensions.getIY(), null);
 		
-		
 		// Text rendering
 		g.setColor(style.textStyle.textColor);
 		g.setFont(style.textStyle.font);

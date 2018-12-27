@@ -14,6 +14,7 @@ public class TextureRegistry {
 	private static int textureUnloadPoint = 120; // 4 seconds at 30fps, since fps == tps we can use fps as a time reference, bc it makes more sense in this context than tps.
 	
 	public static void afterRender() {
+		// TODO: Fix the concurrent modification error that happens here. I'm not sure what causes this.
 		loadedTextures.entrySet().forEach(e ->{
 			e.getValue().framesSinceLastRequested++;
 			if(e.getValue().framesSinceLastRequested > textureUnloadPoint) {
@@ -83,7 +84,7 @@ public class TextureRegistry {
 	}
 	
 	public static ImageData errorImage() {
-		// TODO
+		// TODO: Error Image
 		return null;
 	}
 	
