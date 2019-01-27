@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import me.hii488.controllers.GameController;
@@ -18,14 +17,15 @@ public class Grid<T> implements ITickable, IGameObject, IRenderable{
 	
 	// TODO: Might need to change this as I may need multiple T's in the same location
 	// TODO: Maybe have both <T,Vector> and <Vector, T> ? then we have an easy way of finding either from the other?
-	private Map<Vector, T> map, updatedMap;
+	private Map<Vector, T> map, additionMap, deletionMap;
 	private Vector dimensions;
 	private int gridScale;
 	
 	public Grid() {
 		dimensions = new Vector(0,0);
 		map = new HashMap<Vector, T>();
-		updatedMap = new HashMap<Vector, T>();
+		additionMap = new HashMap<Vector, T>();
+		deletionMap = new HashMap<Vector, T>();
 		gridScale = -1;
 	}
 	
@@ -76,8 +76,11 @@ public class Grid<T> implements ITickable, IGameObject, IRenderable{
 	
 	@Override
 	public void endOfTick() {
-		updatedMap.entrySet().stream().forEach(e -> map.put(e.getKey(), e.getValue()));
-		updatedMap.clear();
+		deletionMap.entrySet().stream().forEach(e -> map.remove(e.getKey(), e.getValue()));
+		deletionMap.clear();
+		
+		additionMap.entrySet().stream().forEach(e -> map.put(e.getKey(), e.getValue()));
+		additionMap.clear();
 	}
 
 	@Override
@@ -115,7 +118,20 @@ public class Grid<T> implements ITickable, IGameObject, IRenderable{
 	}
 	
 	public void setObjectAt(Vector v, T t) {
-		updatedMap.put(v.getIV(), t);
+		additionMap.put(v.getIV(), t);
+	}
+	
+	public void removeObject(T t) {
+		stream().forEach(e -> {if(e.getValue().equals(t)) deletionMap.put(e.getKey(), e.getValue());});
+	}
+	
+	public void removeObject(Vector v) {
+		stream().forEach(e -> {if(e.getKey().equals(v)) deletionMap.put(e.getKey(), e.getValue());});
+	}
+	
+	public void moveObject(T t, Vector v) {
+		removeObject(t);
+		setObjectAt(v,t);
 	}
 	
 	// TODO: Write overloading methods for this.
@@ -154,11 +170,11 @@ public class Grid<T> implements ITickable, IGameObject, IRenderable{
 	
 	public void clear() {
 		this.map.clear();
-		this.updatedMap.clear();
+		this.additionMap.clear();
 	}
 	
 	public void markToClear() {
-		this.updatedMap.clear();
+		this.additionMap.clear();
 	}
 
 	@Override
@@ -171,7 +187,7 @@ public class Grid<T> implements ITickable, IGameObject, IRenderable{
 	}
 	
 	public Stream<Entry<Vector, T>> streamUpdates() {
-		return updatedMap.entrySet().stream();
+		return additionMap.entrySet().stream();
 	}
 
 	// TODO: Currently is unsafe, change so it throws an error properly or something

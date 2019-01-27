@@ -40,6 +40,7 @@ public abstract class GridEntity extends BaseEntity{
 
 	public void setGridPosition(Vector position) {
 		this.gridPosition = position.getLocation();
+		if(parentGrid != null) this.parentGrid.moveObject(this, position);
 	}
 	
 	public void setGridPosition(int  x, int y) {
@@ -74,4 +75,20 @@ public abstract class GridEntity extends BaseEntity{
 		// Render in the middle of the grid 'tile'
 		g.drawImage(getTexture(), absPos.getIX() + (tileSize - getTextureWidth()) / 2, absPos.getIY() + tileSize - getTextureHeight(), null);
 	}
+	
+	public boolean equals(Object o) {
+		if(!(o instanceof GridEntity)) return false;
+		
+		GridEntity e = (GridEntity) o;
+		if(!e.entityName.equals(entityName)) return false;
+		if(!e.gridPosition.equals(gridPosition)) return false;
+		if(e.parentLevel != parentLevel) return false; // Can use == here rather than .equals because it needs to literally be the same object, not just something that's functionally the same
+		
+		return true;
+	}
+	
+	public int hashCode() {
+		return entityName.hashCode() + 7*gridPosition.hashCode();
+	}
+	
 }
