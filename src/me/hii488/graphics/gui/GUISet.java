@@ -14,7 +14,7 @@ public class GUISet implements Comparable<GUISet>{
 	private boolean hidden = false;
 	private HashSet<GUIElement> elements = new HashSet<GUIElement>();
 	private GUIStyleGroup style;
-	private Priority priority;
+	private Priority priority = Priority.LOW;
 	
 	
 	public void render(Graphics g) {
@@ -71,6 +71,10 @@ public class GUISet implements Comparable<GUISet>{
 		for(GUIElement e : elements) if(e.elementName.equals(name)) return e;
 		Logger.getDefault().print(LogSeverity.ERROR, "No element with the name " + name + " contained in this GUISet");
 		return null;
+	}
+	
+	public void empty() {
+		elements.clear();
 	}
 	
 	public enum Priority{HIGH, MID, LOW};

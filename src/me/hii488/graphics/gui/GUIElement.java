@@ -84,8 +84,6 @@ public abstract class GUIElement {
 			this.position = style.metaStyle.getPosition();
 			this.dimensions = style.metaStyle.getDimensions();
 		}
-		
-		
 	}
 	
 	public VectorBox getBoundingBox() {

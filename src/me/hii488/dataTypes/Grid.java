@@ -95,7 +95,7 @@ public class Grid<T> implements ITickable, IGameObject, IRenderable{
 	}
 	
 	public T getObjectAt(Vector v) {
-		return Optional.of(map.get(v)).orElse(null);
+		return map.get(v);
 	}
 	
 	public T getObjectAtRealPosition(Vector v) {

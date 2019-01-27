@@ -8,8 +8,8 @@
 - Vastly improve saving system
 - Rewrite guis to allow for easier formatting
     - Allow for all gui elements to have a background picture
-    - Use a 'gui style' to set text justification, colour, font etc etc etc
     - Add an "onShow" method, similar to onLoad, maybe have guis hidden by default until show is called?
+    - Not have it dependent on GUIStyles
 - Make a pokemon clone in it. I demand future self makes a pokemon clone
 - Add an event for when a player does anything (allows for turnbased games)
 - Possibly make registries implement IRegistry? Then you can pass it to things such as the Grid.
