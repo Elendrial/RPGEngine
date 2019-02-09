@@ -18,4 +18,7 @@ public interface IInputListener {
 	public default void mousePressed(MouseEvent arg0) {}
 	public default void mouseReleased(MouseEvent arg0) {}
 	
+	public default void mouseDragged(MouseEvent arg0) {}
+	public default void mouseMoved(MouseEvent arg0) {}
+	
 }

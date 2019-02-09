@@ -4,18 +4,21 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 import me.hii488.interfaces.IInputListener;
 import me.hii488.registries.KeyBindRegistry;
 
-public class InputHandler implements MouseListener, KeyListener{
+public class InputHandler implements MouseListener, KeyListener, MouseMotionListener{
 	
 	// Possibly replace part of this with a lookup? eg from another class: InputHandler.isKeyDown((KeyBind) k); --- This is in KeyBindRegistry --- (TODO: remove this)
 	
 	public static InputHandler instance = new InputHandler();
 	public static ArrayList<IInputListener> inputUsers = new ArrayList<IInputListener>();
 	public static ArrayList<IInputListener> lateInputUsers = new ArrayList<IInputListener>();
+	
+	public static int mouseX, mouseY;
 	
 	public static void addInputListener(IInputListener i){
 		inputUsers.add(i);
@@ -80,6 +83,18 @@ public class InputHandler implements MouseListener, KeyListener{
 	public void mouseReleased(MouseEvent arg0) {
 		for(IInputListener i : inputUsers) i.mouseReleased(arg0);
 		for(IInputListener i : lateInputUsers) i.mouseReleased(arg0);
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+		for(IInputListener i : inputUsers) i.mouseDragged(arg0);
+		for(IInputListener i : lateInputUsers) i.mouseDragged(arg0);
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+		for(IInputListener i : inputUsers) i.mouseMoved(arg0);
+		for(IInputListener i : lateInputUsers) i.mouseMoved(arg0);
 	}
 
 }
