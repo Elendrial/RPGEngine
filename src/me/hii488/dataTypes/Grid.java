@@ -13,7 +13,7 @@ import me.hii488.interfaces.ITickable;
 import me.hii488.logging.LogSeverity;
 import me.hii488.logging.Logger;
 
-public class Grid<T> implements ITickable, IGameObject, IRenderable{
+public class Grid<T extends IGridObject> implements ITickable, IGameObject, IRenderable{
 	
 	// TODO: Might need to change this as I may need multiple T's in the same location
 	// TODO: Maybe have both <T,Vector> and <Vector, T> ? then we have an easy way of finding either from the other?
@@ -46,7 +46,7 @@ public class Grid<T> implements ITickable, IGameObject, IRenderable{
 		setGridScale((GameController.getWindow().width/width));
 	}
 	
-	// works out width/height based on window size and scale
+	// Works out width/height based on window size and scale
 	public void autoSetup(int scale) {
 		setGridScale(scale);
 		setDimensions(GameController.getWindow().width/scale, GameController.getWindow().height/scale);
@@ -93,6 +93,18 @@ public class Grid<T> implements ITickable, IGameObject, IRenderable{
 		map.values().forEach(t -> {if(t instanceof IGameObject) ((IGameObject) t).onUnload();});
 	}
 	
+	public boolean hasObjectAt(int x, int y) {
+		return hasObjectAt(new Vector(x,y));
+	}
+	
+	public boolean hasObjectAt(Vector v) {
+		return map.containsKey(v);
+	}
+	
+	public boolean hasObject(T t) {
+		return map.containsValue(t);
+	}
+	
 	public T getObjectAt(int x, int y) {
 		return getObjectAt(new Vector(x,y));
 	}
@@ -118,10 +130,19 @@ public class Grid<T> implements ITickable, IGameObject, IRenderable{
 	}
 	
 	public void setObjectAt(Vector v, T t) {
+		if(hasObjectAt(v)) getObjectAt(v).onReplace();
 		additionMap.put(v.getIV(), t);
 	}
 	
 	public void removeObject(T t) {
+		stream().forEach(e -> {if(e.getValue().equals(t)) {
+			deletionMap.put(e.getKey(), e.getValue());
+			e.getValue().onRemove();
+		}});
+	}
+	
+	// This is just the same as removeObject, but does not call onRemove() for the object.
+	private void silentRemoveObject(T t) {
 		stream().forEach(e -> {if(e.getValue().equals(t)) deletionMap.put(e.getKey(), e.getValue());});
 	}
 	
@@ -130,7 +151,8 @@ public class Grid<T> implements ITickable, IGameObject, IRenderable{
 	}
 	
 	public void moveObject(T t, Vector v) {
-		removeObject(t);
+		t.onMove();
+		silentRemoveObject(t);
 		setObjectAt(v,t);
 	}
 	
@@ -192,6 +214,7 @@ public class Grid<T> implements ITickable, IGameObject, IRenderable{
 
 	// TODO: Currently is unsafe, change so it throws an error properly or something
 	public Vector getPositionOf(T t) {
+		if(!hasObject(t)) throw new RuntimeException("Object not found within the grid.");
 		return stream().filter(entry -> entry.getValue() == t).findFirst().get().getKey();
 	}
 
