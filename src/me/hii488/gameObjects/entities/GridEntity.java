@@ -27,11 +27,12 @@ public abstract class GridEntity extends BaseEntity implements IGridObject{
 		gridPosition = new Vector(x,y);
 	}
 	
-	public void setGrid(Grid<GridEntity> g) {
-		parentGrid = g;
+	@SuppressWarnings("unchecked")
+	public void setParentGrid(Grid<? extends IGridObject> g) {
+		parentGrid = (Grid<GridEntity>) g;
 	}
 	
-	public Grid<GridEntity> getGrid() {
+	public Grid<GridEntity> getParentGrid() {
 		return parentGrid;
 	}
 	

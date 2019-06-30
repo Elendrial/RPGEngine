@@ -14,11 +14,12 @@ public abstract class BaseTile implements ITexturedObject, IGameObject, IGridObj
 	protected Grid<BaseTile> parentGrid;
 	protected boolean canPassThrough;
 	
-	public void setGrid(Grid<BaseTile> g) {
-		parentGrid = g;
+	@SuppressWarnings("unchecked")
+	public void setParentGrid(Grid<? extends IGridObject> g) {
+		parentGrid = (Grid<BaseTile>) g;
 	}
 	
-	public Grid<BaseTile> getGrid() {
+	public Grid<BaseTile> getParentGrid() {
 		if(parentGrid == null) throw new RuntimeException("No grid set.");
 		return parentGrid;
 	}

@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import java.util.stream.Stream;
 
 import me.hii488.controllers.GameController;
+import me.hii488.gameObjects.levels.BaseLevel;
 import me.hii488.interfaces.IGameObject;
 import me.hii488.interfaces.IRenderable;
 import me.hii488.interfaces.ITickable;
@@ -20,6 +21,8 @@ public class Grid<T extends IGridObject> implements ITickable, IGameObject, IRen
 	private Map<Vector, T> map, additionMap, deletionMap;
 	private Vector dimensions;
 	private int gridScale;
+	
+	private BaseLevel parentLevel;
 	
 	public Grid() {
 		dimensions = new Vector(0,0);
@@ -131,11 +134,12 @@ public class Grid<T extends IGridObject> implements ITickable, IGameObject, IRen
 	
 	public void setObjectAt(Vector v, T t) {
 		if(hasObjectAt(v)) getObjectAt(v).onReplace();
+		silentSetObjectAt(v, t);
 		t.onPlace();
-		additionMap.put(v.getIV(), t);
 	}
 	
 	private void silentSetObjectAt(Vector v, T t) {
+		t.setParentGrid(this);
 		additionMap.put(v.getIV(), t);
 	}
 	
@@ -242,6 +246,14 @@ public class Grid<T extends IGridObject> implements ITickable, IGameObject, IRen
 	
 	public int getHeight() {
 		return dimensions.getIY();
+	}
+	
+	public BaseLevel getParentLevel() {
+		return parentLevel;
+	}
+	
+	public void setLevel(BaseLevel l) {
+		parentLevel = l;
 	}
 
 }

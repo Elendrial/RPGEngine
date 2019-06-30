@@ -42,6 +42,9 @@ public class BaseLevel implements ITickable, IGameObject, IRenderable{
 		entitiesToAdd = new ArrayList<FreeEntity>();
 		entitiesToDelete = new ArrayList<FreeEntity>();
 		
+		tileGrid.setLevel(this);
+		tileGrid.setLevel(this);
+		
 		gui = new GUI();
 		InputHandler.addInputListener(gui);
 	}
@@ -83,7 +86,7 @@ public class BaseLevel implements ITickable, IGameObject, IRenderable{
 	}
 	
 	public void updateLevelContents() {
-		tileGrid.streamUpdates().forEach(e -> e.getValue().setGrid(getTileGrid()));
+		tileGrid.streamUpdates().forEach(e -> e.getValue().setParentGrid(getTileGrid()));
 		tileGrid.endOfTick();
 		entityGrid.endOfTick();
 		
@@ -100,14 +103,14 @@ public class BaseLevel implements ITickable, IGameObject, IRenderable{
 		if(e instanceof FreeEntity)	entitiesToAdd.add((FreeEntity) e);
 		else {
 			entityGrid.setObjectAt(((GridEntity) e).getGridPosition(), (GridEntity) e);
-			((GridEntity) e).setGrid(entityGrid);
+			((GridEntity) e).setParentGrid(entityGrid);
 		}
 		e.setParentLevel(this);
 	}
 	
 	public void removeEntity(BaseEntity e) {
 		if(e instanceof FreeEntity)	entitiesToDelete.add((FreeEntity) e);
-		else entityGrid.setObjectAt(((GridEntity) e).getGridPosition(), null);
+		else entityGrid.removeObject((GridEntity) e); //setObjectAt(((GridEntity) e).getGridPosition(), null);
 	}
 	
 	public void render(Graphics g) {
