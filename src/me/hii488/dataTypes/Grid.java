@@ -32,7 +32,7 @@ public class Grid<T extends IGridObject> implements ITickable, IGameObject, IRen
 	public Grid(Grid<T> g) {
 		this.dimensions = g.dimensions;
 				
-		g.map.forEach((v, t) -> map.put(v.getIV(), t)); 
+		g.map.forEach((v, t) -> map.put(v.getIV(), t));
 	}
 	
 	public Grid(int x, int y) {
@@ -131,6 +131,11 @@ public class Grid<T extends IGridObject> implements ITickable, IGameObject, IRen
 	
 	public void setObjectAt(Vector v, T t) {
 		if(hasObjectAt(v)) getObjectAt(v).onReplace();
+		t.onPlace();
+		additionMap.put(v.getIV(), t);
+	}
+	
+	private void silentSetObjectAt(Vector v, T t) {
 		additionMap.put(v.getIV(), t);
 	}
 	
@@ -153,7 +158,9 @@ public class Grid<T extends IGridObject> implements ITickable, IGameObject, IRen
 	public void moveObject(T t, Vector v) {
 		t.onMove();
 		silentRemoveObject(t);
-		setObjectAt(v,t);
+		
+		if(hasObjectAt(v)) getObjectAt(v).onReplace();
+		silentSetObjectAt(v,t);
 	}
 	
 	// TODO: Write overloading methods for this.
