@@ -110,7 +110,7 @@ public class BaseLevel implements ITickable, IGameObject, IRenderable{
 	
 	public void removeEntity(BaseEntity e) {
 		if(e instanceof FreeEntity)	entitiesToDelete.add((FreeEntity) e);
-		else entityGrid.removeObject((GridEntity) e); //setObjectAt(((GridEntity) e).getGridPosition(), null);
+		else entityGrid.removeObject((GridEntity) e);
 	}
 	
 	public void render(Graphics g) {

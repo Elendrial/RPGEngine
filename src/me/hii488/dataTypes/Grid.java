@@ -128,6 +128,10 @@ public class Grid<T extends IGridObject> implements ITickable, IGameObject, IRen
 		return v.getLocation().scale(1D/this.gridScale).getIV();
 	}
 	
+	public Vector getRealPositionFromGridVector(Vector v) {
+		return v.getLocation().scale(this.gridScale).getIV();
+	}
+	
 	public void setObjectAt(int x, int y, T t) {
 		setObjectAt(new Vector(x,y), t);
 	}

@@ -54,6 +54,15 @@ public class GUISet implements Comparable<GUISet>{
 		hidden = false;
 	}
 	
+	public GUISet setPriority(Priority p) {
+		this.priority = p;
+		return this;
+	}
+	
+	public Priority getPriority() {
+		return this.priority;
+	}
+	
 	public GUIStyleGroup getGUIStyle() {
 		return style;
 	}
