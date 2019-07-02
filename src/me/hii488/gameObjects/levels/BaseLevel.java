@@ -43,7 +43,7 @@ public class BaseLevel implements ITickable, IGameObject, IRenderable{
 		entitiesToDelete = new ArrayList<FreeEntity>();
 		
 		tileGrid.setLevel(this);
-		tileGrid.setLevel(this);
+		entityGrid.setLevel(this);
 		
 		gui = new GUI();
 		InputHandler.addInputListener(gui);
