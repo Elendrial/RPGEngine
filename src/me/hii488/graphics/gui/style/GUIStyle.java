@@ -87,7 +87,7 @@ public class GUIStyle {
 	
 	public static class TextStyle{
 		public int horizontalJustification; // -1 = left, 0 = centred, 1 = right
-		public int verticalJustification;  // -1 = down, 0 = centred, 1 = up
+		public int verticalJustification;   // -1 = down, 0 = centred, 1 = up
 		public Font font;
 		public Color textColor;
 		
@@ -154,17 +154,19 @@ public class GUIStyle {
 	
 	public static class BackgroundStyle{
 		private Color color;
+		private Color borderColor;
 		private String textureKey;
 		private int textureState;
 		
 		public static BackgroundStyle getDefault() {
-			return new BackgroundStyle(null, null, 0);
+			return new BackgroundStyle(null, null, null, 0);
 		}
 		
 		
 		public BackgroundStyle() {}
-		public BackgroundStyle(Color backgroundColor, String textureKey, int state) {
+		public BackgroundStyle(Color backgroundColor, Color borderColor, String textureKey, int state) {
 			this.color = backgroundColor;
+			this.borderColor = borderColor;
 			this.textureKey = textureKey;
 			setTextureState(state);
 		}
@@ -180,6 +182,15 @@ public class GUIStyle {
 		
 		public BackgroundStyle setBackgroundColor(Color backgroundColor) {
 			this.color = backgroundColor;
+			return this;
+		}
+		
+		public Color getBorderColor() {
+			return borderColor;
+		}
+		
+		public BackgroundStyle setBorderColor(Color borderColor) {
+			this.borderColor = borderColor;
 			return this;
 		}
 		
@@ -201,7 +212,7 @@ public class GUIStyle {
 		}
 		
 		public BackgroundStyle clone() {
-			return new BackgroundStyle(color, textureKey, textureState);
+			return new BackgroundStyle(color, borderColor, textureKey, textureState);
 		}
 	}
 	

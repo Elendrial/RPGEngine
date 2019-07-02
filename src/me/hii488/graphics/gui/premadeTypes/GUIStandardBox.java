@@ -27,8 +27,18 @@ public class GUIStandardBox extends GUIElement {
 	
 	public void render(Graphics g, Vector offset) {
 		// Background rendering
-		if(style.backgroundStyle.getBackgroundColor() != null) g.setColor(style.backgroundStyle.getBackgroundColor());
+		if(style.backgroundStyle.getBackgroundColor() != null) {
+			g.setColor(style.backgroundStyle.getBackgroundColor());
+			g.fillRect(this.position.getIX() + offset.getIX(), this.position.getIY() + offset.getIY(), this.dimensions.getIX(), this.dimensions.getIY());
+		}
+		
 		if(getBackGroundPicture() != null) g.drawImage(getBackGroundPicture(), this.position.getIX() + offset.getIX(), this.position.getIY() + offset.getIY(), this.dimensions.getIX(), this.dimensions.getIY(), null);
+		
+		if(style.backgroundStyle.getBorderColor() != null) {
+			System.out.println("bordc");
+			g.setColor(style.backgroundStyle.getBorderColor());
+			g.drawRect(this.position.getIX() + offset.getIX(), this.position.getIY() + offset.getIY(), this.dimensions.getIX(), this.dimensions.getIY());
+		}
 		
 		// Text rendering
 		g.setColor(style.textStyle.textColor);
@@ -63,6 +73,18 @@ public class GUIStandardBox extends GUIElement {
 
 	public GUIStandardBox setText(String s) {
 		text = s.replace("\t", "    ").split("\n");
+		updateTextRenderPosition();
+		return this;
+	}
+	
+	public GUIElement setPosition(Vector v) {
+		position = v.getIV();
+		updateTextRenderPosition();
+		return this;
+	}
+	
+	public GUIElement setDimensions(Vector v) {
+		dimensions = v.getIV();
 		updateTextRenderPosition();
 		return this;
 	}
