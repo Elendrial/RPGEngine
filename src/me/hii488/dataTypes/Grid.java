@@ -196,11 +196,49 @@ public class Grid<T extends IGridObject> implements ITickable, IGameObject, IRen
 			for(int j = ny1; j < ny2; j++) {
 				try {
 					setObjectAt(new Vector(i,j), c.newInstance());
-				} catch (InstantiationException e) {
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
+				} catch (InstantiationException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
+			}
+		}
+	}
+	
+	public void wallDimensionsWith(int x1, int y1, int x2, int y2, Class<? extends T> c) {
+		int nx1, nx2, ny1, ny2;
+		if(x1 < x2) {
+			nx1 = x1;
+			nx2 = x2;
+		}
+		else {
+			nx1 = x2;
+			nx2 = x1;
+		}
+		
+		if(y1 < y2) {
+			ny1 = y1;
+			ny2 = y2;
+		}
+		else {
+			ny1 = y2;
+			ny2 = y1;
+		}
+		
+		for(int i = nx1; i < nx2; i++) {
+			try {
+				setObjectAt(new Vector(i,ny1), c.newInstance());
+				setObjectAt(new Vector(i,ny2), c.newInstance());
+			} catch (InstantiationException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		
+		}
+
+		for(int j = ny1; j < ny2; j++) {
+			try {
+				setObjectAt(new Vector(nx1,j), c.newInstance());
+				setObjectAt(new Vector(nx2,j), c.newInstance());
+			} catch (InstantiationException | IllegalAccessException e) {
+				e.printStackTrace();
 			}
 		}
 	}

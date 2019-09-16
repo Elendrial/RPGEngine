@@ -1,12 +1,9 @@
 package me.hii488.dataTypes;
 
 import java.awt.Image;
-
-import javax.imageio.ImageIO;
-
 import me.hii488.logging.LogSeverity;
 import me.hii488.logging.Logger;
-import me.hii488.registries.TextureRegistry;
+import static me.hii488.handlers.FileHandler.loadImage;
 
 // This class allows the storing of an image's data (location, dimensions etc) without having to keep the image loaded the entire time.
 public class ImageData{
@@ -104,19 +101,7 @@ public class ImageData{
 		return images;
 	}
 	
-	private Image loadImage(String location) {
-		Image image = null;
-		
-		try {
-			image = ImageIO.read(TextureRegistry.class.getClassLoader().getResourceAsStream(location));
-		}
-		catch(Exception e) {
-			Logger.getDefault().print(LogSeverity.WARNING, "Failed to load image at \"" + location + "\", using standard error image.");
-			image = TextureRegistry.errorImage().getImage(0);
-		}
-		
-		return image;
-	}
+	
 	
 	public boolean equals(Object o) {
 		if(!(o instanceof ImageData)) return false;

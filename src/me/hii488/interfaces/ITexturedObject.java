@@ -26,6 +26,11 @@ public interface ITexturedObject extends IRenderable {
 	public String getTextureKey();
 	public String getTextureLocation();
 	public int getTextureState();
+	
+	/**
+	 * 
+	 * @return the amount of states, __starting from 0__ ie: THIS IS NOT LIKE .size()
+	 */
 	public int getHighestState();
 	
 }
