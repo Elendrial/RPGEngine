@@ -53,8 +53,8 @@ public class GUIStyle {
 		
 		public MetaStyle(){}
 		public MetaStyle(Vector position, Vector dimensions) {
-			this.position = position.getLocation();
-			this.dimensions = dimensions.getLocation();
+			this.position = position.getCopy();
+			this.dimensions = dimensions.getCopy();
 		}
 		
 		public void overwrite(MetaStyle metaStyle) {

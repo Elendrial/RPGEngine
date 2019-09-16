@@ -37,11 +37,11 @@ public abstract class GridEntity extends BaseEntity implements IGridObject{
 	}
 	
 	public Vector getGridPosition() {
-		return gridPosition.getLocation();
+		return gridPosition.getCopy();
 	}
 
 	public void setGridPosition(Vector position) {
-		this.gridPosition = position.getLocation();
+		this.gridPosition = position.getCopy();
 		if(parentGrid != null) this.parentGrid.moveObject(this, position);
 	}
 	
@@ -56,14 +56,14 @@ public abstract class GridEntity extends BaseEntity implements IGridObject{
 		Vector gridPos = getGridPosition();
 		int scale = parentGrid.getGridScale();
 		
-		return gridPos.getLocation().scale(scale);
+		return gridPos.getCopy().scale(scale);
 	}
 
 	@Override
 	public VectorBox getCollisionArea() {
 		Vector absPos = getAbsPosition();
 		
-		return new VectorBox(absPos, absPos.getLocation().translate(getTextureWidth(), getTextureHeight()));
+		return new VectorBox(absPos, absPos.getCopy().translate(getTextureWidth(), getTextureHeight()));
 	}
 	
 	

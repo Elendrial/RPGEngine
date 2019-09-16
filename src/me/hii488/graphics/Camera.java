@@ -26,23 +26,23 @@ public class Camera {
 	}
 	
 	public static Vector getPosition() {
-		return oldPosition.getLocation();
+		return oldPosition.getCopy();
 	}
 	
 	public static Vector getWorldVectorFromGraphicVector(Vector v) {
-		return v.getLocation().translate(cameraPosition);
+		return v.getCopy().translate(cameraPosition);
 	}
 	
 	public static Vector getWorldVectorFromGraphicVector(int x, int y) {
-		return cameraPosition.getLocation().translate(x, y);
+		return cameraPosition.getCopy().translate(x, y);
 	}
 	
 	public static Vector getGraphicVectorFromWorldVector(Vector v) {
-		return v.getLocation().translate(cameraPosition.negated());
+		return v.getCopy().translate(cameraPosition.negated());
 	}
 	
 	public static Vector getGraphicVectorFromWorldVector(int x, int y) {
-		return cameraPosition.getLocation().negated().translate(x, y);
+		return cameraPosition.getCopy().negated().translate(x, y);
 	}
 	
 }

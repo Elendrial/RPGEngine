@@ -64,7 +64,7 @@ public class Grid<T extends IGridObject> implements ITickable, IGameObject, IRen
 	}
 	
 	public Vector getDimensions() {
-		return dimensions.getLocation();
+		return dimensions.getCopy();
 	}
 
 	@Override
@@ -117,7 +117,7 @@ public class Grid<T extends IGridObject> implements ITickable, IGameObject, IRen
 	}
 	
 	public T getObjectAtRealPosition(Vector v) {
-		return map.get(v.getLocation().scale(1D/this.gridScale).getIV());
+		return map.get(v.getCopy().scale(1D/this.gridScale).getIV());
 	}
 	
 	public T getObjectAtRealPosition(int x, int y) {
@@ -125,11 +125,11 @@ public class Grid<T extends IGridObject> implements ITickable, IGameObject, IRen
 	}
 	
 	public Vector getGridVectorFromRealPosition(Vector v) {
-		return v.getLocation().scale(1D/this.gridScale).getIV();
+		return v.getCopy().scale(1D/this.gridScale).getIV();
 	}
 	
 	public Vector getRealPositionFromGridVector(Vector v) {
-		return v.getLocation().scale(this.gridScale).getIV();
+		return v.getCopy().scale(this.gridScale).getIV();
 	}
 	
 	public void setObjectAt(int x, int y, T t) {

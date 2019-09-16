@@ -1,6 +1,7 @@
 package me.hii488.dataTypes;
 
 import java.awt.Rectangle;
+import java.util.Objects;
 
 public class Vector {
 	public final static Vector ORIGIN = new Vector(0,0);
@@ -110,7 +111,7 @@ public class Vector {
 	/** Essentially a clone method.
 	 *  
 	 *  @return a copy of this vector. */
-	public Vector getLocation() {
+	public Vector getCopy() {
 		return new Vector(x, y);
 	}
 	
@@ -143,6 +144,17 @@ public class Vector {
 		return this;
 	}
 	
+	public boolean isWithin(Vector a, Vector b) {
+		double x1 = a.x < b.x ? a.x : b.x, x2 = a.x > b.x ? a.x : b.x;
+		double y1 = a.y < b.y ? a.y : b.y, y2 = a.y > b.y ? a.y : b.y;
+		
+		return x >= x1 && x <= x2 && y >= y1 && y <= y2;
+	}
+	
+	public boolean isValid() {
+		return Double.isFinite(x) && Double.isFinite(y);
+	}
+	
 	public boolean equals(Object v) {
 		if(!(v instanceof Vector)) return false;
 		
@@ -150,6 +162,6 @@ public class Vector {
 	}
 	
 	public int hashCode() {
-		return (int) (x*61 + y*163);
+		return Objects.hash(x, y);
 	}
 }

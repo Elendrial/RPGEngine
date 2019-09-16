@@ -58,7 +58,7 @@ public class GUIOptionBox extends GUIElement{
 				offset.setX((this.getBoundingBox().getWidth() - option.getBoundingBox().getWidth())/2);
 				offset.translate(0, yDist);
 				
-				option.setPosition(position.getLocation().translate(offset));
+				option.setPosition(position.getCopy().translate(offset));
 			}
 		}
 		else {
@@ -69,7 +69,7 @@ public class GUIOptionBox extends GUIElement{
 				offset.setY((this.getBoundingBox().getHeight() - option.getBoundingBox().getHeight())/2);
 				offset.translate(xDist, 0);
 				
-				option.setPosition(position.getLocation().translate(offset));
+				option.setPosition(position.getCopy().translate(offset));
 			}
 		}
 	}

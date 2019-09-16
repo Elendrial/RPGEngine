@@ -14,11 +14,11 @@ public abstract class FreeEntity extends BaseEntity{
 	}
 	
 	public Vector getPosition() {
-		return position.getLocation();
+		return position.getCopy();
 	}
 
 	public void setPosition(Vector position) {
-		this.position = position.getLocation();
+		this.position = position.getCopy();
 	}
 	
 	@Override
@@ -34,7 +34,7 @@ public abstract class FreeEntity extends BaseEntity{
 	
 	@Override
 	public VectorBox getCollisionArea() {
-		return new VectorBox(position, position.getLocation().translate(getTextureWidth(), getTextureHeight()));
+		return new VectorBox(position, position.getCopy().translate(getTextureWidth(), getTextureHeight()));
 	}
 	
 	// TODO: Centre on x pos, y pos, pos functions.

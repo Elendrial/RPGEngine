@@ -21,7 +21,7 @@ public class VectorBox {
 	}
 	
 	public VectorBox(Vector upperleft, double width, double height) {
-		this(upperleft, upperleft.getLocation().translate(width, height));
+		this(upperleft, upperleft.getCopy().translate(width, height));
 	}
 	
 	// These are two opposite corners, NOT x,y,width,height
@@ -51,13 +51,13 @@ public class VectorBox {
 	}
 	
 	public VectorBox(VectorBox v) {
-		this.cornerA = v.cornerA.getLocation();
-		this.cornerB = v.cornerB.getLocation();
+		this.cornerA = v.cornerA.getCopy();
+		this.cornerB = v.cornerB.getCopy();
 	}
 	
 	// Lower/Upper on screen, not on coordinate.
 	public Vector getLowerLeftCorner() {
-		return cornerA.getLocation();
+		return cornerA.getCopy();
 	}
 	
 	public Vector getUpperLeftCorner() {

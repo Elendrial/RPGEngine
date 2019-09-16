@@ -37,7 +37,7 @@ public abstract class BaseTile implements ITexturedObject, IGameObject, IGridObj
 	}
 	
 	public Vector getGridPosition() {
-		return parentGrid.getPositionOf(this).getLocation();
+		return parentGrid.getPositionOf(this).getCopy();
 	}
 	
 	public Vector getPosition() {
