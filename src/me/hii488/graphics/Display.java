@@ -15,8 +15,9 @@ public class Display extends Canvas{
 	}
 	
 	public void render(Graphics g){
+		g.translate(-Camera.getCamPosition().getIX(), -Camera.getCamPosition().getIY());
 		g.setColor(EngineSettings.Texture.background);
-		g.fillRect(0, 0, getWidth(), getHeight());
+		g.fillRect(Camera.getCamPosition().getIX(), Camera.getCamPosition().getIY(), getWidth(), getHeight());
 		try{
 			LevelHandler.getCurrentLevel().render(g);
 			TextureRegistry.afterRender();

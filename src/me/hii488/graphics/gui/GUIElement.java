@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import me.hii488.dataTypes.KeyBind;
 import me.hii488.dataTypes.Vector;
 import me.hii488.dataTypes.VectorBox;
+import me.hii488.graphics.Camera;
 import me.hii488.graphics.gui.style.GUIStyle;
+import me.hii488.interfaces.IGUIAnchor;
 import me.hii488.registries.TextureRegistry;
 
 public abstract class GUIElement {
@@ -20,11 +22,13 @@ public abstract class GUIElement {
 	protected Vector position;
 	protected Vector dimensions;
 	protected ArrayList<String> tags = new ArrayList<String>();
+	protected IGUIAnchor anchor = Camera.get();
 	private BufferedImage backgroundPicture;
 	
 	public abstract void render(Graphics g);
 	// These don't _need_ to be implemented, but may need to be in specific situations.
 	public boolean onClick(MouseEvent e) {return false;}
+	public boolean onClick(MouseEvent e, Vector ingameLocation) {return onClick(e);}
 	public void onUnclick(MouseEvent e) {} // IE: When anywhere else on the screen is clicked.
 	public void onKeyTyped(KeyBind e) {}
 
@@ -61,8 +65,13 @@ public abstract class GUIElement {
 		return this;
 	}
 	
+	// IE: getPositionFromAnchor()
 	public Vector getPosition() {
 		return position;
+	}
+	
+	public Vector getRealPositionInLevel() {
+		return anchor.getRealPositionFromAnchoredPosition(getPosition());
 	}
 	
 	public Vector getDimensions() {
@@ -108,6 +117,11 @@ public abstract class GUIElement {
 
 	public boolean hasTag(String s) {
 		return tags.contains(s);
+	}
+	
+	public GUIElement setAnchor(IGUIAnchor a) {
+		anchor = a;
+		return this;
 	}
 	
 	public BufferedImage getBackGroundPicture() {

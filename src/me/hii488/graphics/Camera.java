@@ -2,47 +2,68 @@ package me.hii488.graphics;
 
 import me.hii488.EngineSettings;
 import me.hii488.dataTypes.Vector;
+import me.hii488.interfaces.IGUIAnchor;
 
-public class Camera {
+public class Camera implements IGUIAnchor{
 	
-	// TODO: Maybe make separate cameras with each level? Then you can set the camera per level
+	private Vector finalPosition = new Vector(0,0);
+	private int ticksLeft = -1;
+	private Vector cameraPosition = new Vector(0,0);
+	public float scale = 1;
 	
-	private static Vector cameraPosition = new Vector(0,0);
-	private static Vector oldPosition = new Vector(0,0);
-	public static float scale = 1;
+	private static Camera cam;
 	
-	public static void update() {
-		oldPosition.setLocation(cameraPosition);
+	public static Camera get() {
+		return cam == null ? (cam = new Camera()) : cam;
 	}
 	
-	public static void moveTo(Vector v){
-		if(EngineSettings.Camera.movable) cameraPosition.setLocation(v);
-	}
-	
-	public static void smoothMoveTo(Vector v, int milliSeconds){
-		if(EngineSettings.Camera.movable) {
-			//TODO: Smooth move			
+	public void update() {
+		if(ticksLeft > 0) {
+			cameraPosition.translate(finalPosition.getCopy().translate(cameraPosition.negated()).scale(1d/(double)ticksLeft));
+			ticksLeft--;
 		}
 	}
 	
-	public static Vector getPosition() {
-		return oldPosition.getCopy();
+	@Override
+	public Vector getPosition() {
+		return cameraPosition.getCopy();
 	}
 	
-	public static Vector getWorldVectorFromGraphicVector(Vector v) {
-		return v.getCopy().translate(cameraPosition);
+	
+	/// Static methods to make everything happy
+	public static void setPosition(Vector v){
+		setPosition(v.getX(), v.getY());
 	}
 	
-	public static Vector getWorldVectorFromGraphicVector(int x, int y) {
-		return cameraPosition.getCopy().translate(x, y);
+	public static void setPosition(double x, double y) {
+		if(EngineSettings.Camera.movable) get().cameraPosition.setLocation(x, y);
 	}
 	
-	public static Vector getGraphicVectorFromWorldVector(Vector v) {
-		return v.getCopy().translate(cameraPosition.negated());
+	public void consistentMoveTo(Vector v, int ticks){
+		if(EngineSettings.Camera.movable) {
+			ticksLeft = ticks;
+			finalPosition.setLocation(v);
+		}
 	}
 	
-	public static Vector getGraphicVectorFromWorldVector(int x, int y) {
-		return cameraPosition.getCopy().negated().translate(x, y);
+	public static Vector getCamPosition() {
+		return get().cameraPosition.getCopy();
+	}
+	
+	public static Vector getRealVectorFromScreenVector(Vector v) {
+		return get().getRealPositionFromAnchoredPosition(v);
+	}
+	
+	public static Vector getRealVectorFromScreenVector(int x, int y) {
+		return get().getRealPositionFromAnchoredPosition(x,y);
+	}
+	
+	public static Vector getScreenVectorFromRealVector(Vector v) {
+		return get().getAnchoredPositionFromRealPosition(v);
+	}
+	
+	public static Vector getScreenVectorFromRealVector(int x, int y) {
+		return  get().getAnchoredPositionFromRealPosition(x, y);
 	}
 	
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import me.hii488.EngineSettings;
 import me.hii488.dataTypes.Grid;
+import me.hii488.dataTypes.Vector;
 import me.hii488.dataTypes.VectorBox;
 import me.hii488.gameObjects.entities.BaseEntity;
 import me.hii488.gameObjects.entities.FreeEntity;
@@ -12,13 +13,13 @@ import me.hii488.gameObjects.entities.GridEntity;
 import me.hii488.gameObjects.tiles.BaseTile;
 import me.hii488.graphics.gui.GUI;
 import me.hii488.handlers.InputHandler;
+import me.hii488.interfaces.IGUIAnchor;
 import me.hii488.interfaces.IGameObject;
 import me.hii488.interfaces.IRenderable;
 import me.hii488.interfaces.ITickable;
 
 // Does this need to be abstract? I'm saying no, hence the change.
-// TODO: Change all tileGrid and entityGrid to getTileGrid() and getEntityGrid(), so that the can be overwritten without forcing subclasses to copy all this code.
-public class BaseLevel implements ITickable, IGameObject, IRenderable{
+public class BaseLevel implements ITickable, IGameObject, IRenderable, IGUIAnchor{
 	
 	// GRID
 	private Grid<BaseTile> tileGrid;
@@ -26,7 +27,7 @@ public class BaseLevel implements ITickable, IGameObject, IRenderable{
 	// ENTITY GRID - TODO: determine if this is really necessary, the constraints could be in GridEntity itself?
 	private Grid<GridEntity> entityGrid;
 	
-	// FREE FLOATING ENTITIES - TODO: possibly split entities into ticking and non-ticking?
+	// FREE FLOATING ENTITIES
 	private ArrayList<FreeEntity> entities;
 	private ArrayList<FreeEntity> entitiesToAdd;
 	private ArrayList<FreeEntity> entitiesToDelete;
@@ -53,29 +54,29 @@ public class BaseLevel implements ITickable, IGameObject, IRenderable{
 	public void onLoad() {
 		updateLevelContents();
 		
-		tileGrid.onLoad();
-		entityGrid.onLoad();
+		getTileGrid().onLoad();
+		getEntityGrid().onLoad();
 		entities.forEach(e -> e.onLoad());
 	}
 	
 	@Override
 	public void onUnload() {
-		tileGrid.onUnload();
-		entityGrid.onUnload();
+		getTileGrid().onUnload();
+		getEntityGrid().onUnload();
 		entities.forEach(e -> e.onUnload());
 	}
 	
 	@Override
 	public void updateOnTick() {
-		tileGrid.updateOnTick();
-		entityGrid.updateOnTick();
+		getTileGrid().updateOnTick();
+		getEntityGrid().updateOnTick();
 		entities.forEach(e -> {if(e instanceof ITickable) ((ITickable) e).updateOnTick();});
 	}
 	
 	@Override
 	public void updateOnSec() {
-		tileGrid.updateOnSec();
-		entityGrid.updateOnSec();
+		getTileGrid().updateOnSec();
+		getEntityGrid().updateOnSec();
 		entities.forEach(e -> {if(e instanceof ITickable) ((ITickable) e).updateOnSec();});
 	}
 	
@@ -86,9 +87,9 @@ public class BaseLevel implements ITickable, IGameObject, IRenderable{
 	}
 	
 	public void updateLevelContents() {
-		tileGrid.streamUpdates().forEach(e -> e.getValue().setParentGrid(getTileGrid()));
-		tileGrid.endOfTick();
-		entityGrid.endOfTick();
+		getTileGrid().streamUpdates().forEach(e -> e.getValue().setParentGrid(getTileGrid()));
+		getTileGrid().endOfTick();
+		getEntityGrid().endOfTick();
 		
 		entities.removeAll(entitiesToDelete);
 		entitiesToDelete.forEach(e -> e.setParentLevel(null));
@@ -102,20 +103,20 @@ public class BaseLevel implements ITickable, IGameObject, IRenderable{
 	public void addEntity(BaseEntity e) {
 		if(e instanceof FreeEntity)	entitiesToAdd.add((FreeEntity) e);
 		else {
-			entityGrid.setObjectAt(((GridEntity) e).getGridPosition(), (GridEntity) e);
-			((GridEntity) e).setParentGrid(entityGrid);
+			getEntityGrid().setObjectAt(((GridEntity) e).getGridPosition(), (GridEntity) e);
+			((GridEntity) e).setParentGrid(getEntityGrid());
 		}
 		e.setParentLevel(this);
 	}
 	
 	public void removeEntity(BaseEntity e) {
 		if(e instanceof FreeEntity)	entitiesToDelete.add((FreeEntity) e);
-		else entityGrid.removeObject((GridEntity) e);
+		else getEntityGrid().removeObject((GridEntity) e);
 	}
 	
 	public void render(Graphics g) {
-		tileGrid.render(g);
-		entityGrid.render(g);
+		getTileGrid().render(g);
+		getEntityGrid().render(g);
 		
 		entities.forEach(e -> e.render(g));
 		
@@ -165,6 +166,11 @@ public class BaseLevel implements ITickable, IGameObject, IRenderable{
 	
 	public GUI getGUI() {
 		return gui;
+	}
+
+	@Override
+	public Vector getPosition() {
+		return Vector.ORIGIN; // Assume the top left of the level is 0,0.
 	}
 	
 }

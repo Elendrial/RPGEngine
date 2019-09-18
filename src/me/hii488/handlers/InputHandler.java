@@ -7,6 +7,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
+import me.hii488.dataTypes.Vector;
+import me.hii488.graphics.Camera;
 import me.hii488.interfaces.IInputListener;
 import me.hii488.registries.KeyBindRegistry;
 
@@ -57,8 +59,9 @@ public class InputHandler implements MouseListener, KeyListener, MouseMotionList
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		boolean blocking = false; // TODO: Maybe make this a string/array? So multiple flags can be passed around 
-		for(IInputListener i : inputUsers) blocking = blocking || i.mouseClicked(arg0, blocking);
-		for(IInputListener i : lateInputUsers) blocking = blocking || i.mouseClicked(arg0, blocking);
+		Vector ingameLocation = Camera.getRealVectorFromScreenVector(arg0.getX(), arg0.getY());
+		for(IInputListener i : inputUsers) blocking = blocking || i.mouseClicked(arg0, ingameLocation, blocking);
+		for(IInputListener i : lateInputUsers) blocking = blocking || i.mouseClicked(arg0, ingameLocation, blocking);
 	}
 
 	@Override
@@ -75,14 +78,16 @@ public class InputHandler implements MouseListener, KeyListener, MouseMotionList
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		for(IInputListener i : inputUsers) i.mousePressed(arg0);
-		for(IInputListener i : lateInputUsers) i.mousePressed(arg0);
+		Vector ingameLocation = Camera.getRealVectorFromScreenVector(arg0.getX(), arg0.getY());
+		for(IInputListener i : inputUsers) i.mousePressed(arg0, ingameLocation);
+		for(IInputListener i : lateInputUsers) i.mousePressed(arg0, ingameLocation);
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		for(IInputListener i : inputUsers) i.mouseReleased(arg0);
-		for(IInputListener i : lateInputUsers) i.mouseReleased(arg0);
+		Vector ingameLocation = Camera.getRealVectorFromScreenVector(arg0.getX(), arg0.getY());
+		for(IInputListener i : inputUsers) i.mouseReleased(arg0, ingameLocation);
+		for(IInputListener i : lateInputUsers) i.mouseReleased(arg0, ingameLocation);
 	}
 
 	@Override

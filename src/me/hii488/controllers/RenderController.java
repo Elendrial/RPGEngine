@@ -71,7 +71,7 @@ public class RenderController implements Runnable{
 		while (GameController.isRunning) {
 			waitForUpdate();
 			if(isRunning) render();
-			Camera.update();
+			Camera.get().update();
 			UpdateController.instance.renderDone();
 		}
 		

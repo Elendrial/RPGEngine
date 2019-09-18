@@ -154,7 +154,7 @@ public class Grid<T extends IGridObject> implements ITickable, IGameObject, IRen
 		}});
 	}
 	
-	// This is just the same as removeObject, but does not call onRemove() for the object.
+	// This is the same as removeObject, but does not call onRemove() for the object.
 	private void silentRemoveObject(T t) {
 		stream().forEach(e -> {if(e.getValue().equals(t)) deletionMap.put(e.getKey(), e.getValue());});
 	}
@@ -171,7 +171,6 @@ public class Grid<T extends IGridObject> implements ITickable, IGameObject, IRen
 		silentSetObjectAt(v,t);
 	}
 	
-	// TODO: Write overloading methods for this.
 	public void fillDimensionsWith(int x1, int y1, int x2, int y2, Class<? extends T> c) {
 		int nx1, nx2, ny1, ny2;
 		if(x1 < x2) {
@@ -201,6 +200,19 @@ public class Grid<T extends IGridObject> implements ITickable, IGameObject, IRen
 				}
 			}
 		}
+	}
+	
+	public void fillDimensionsWith(Vector a, Vector b, Class<? extends T> c) {
+		fillDimensionsWith(a.getIX(), a.getIY(), b.getIX(), b.getIY(), c);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void fillDimensionsWith(int x1, int y1, int x2, int y2, T c) {
+		fillDimensionsWith(x1, y1, x2, y2, (Class<? extends T>) c.getClass());
+	}
+	
+	public void fillDimensionsWith(Vector a, Vector b, T c) {
+		fillDimensionsWith(a.getIX(), a.getIY(), b.getIX(), b.getIY(), c);
 	}
 	
 	public void wallDimensionsWith(int x1, int y1, int x2, int y2, Class<? extends T> c) {
@@ -241,6 +253,19 @@ public class Grid<T extends IGridObject> implements ITickable, IGameObject, IRen
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public void wallDimensionsWith(Vector a, Vector b, Class<? extends T> c) {
+		wallDimensionsWith(a.getIX(), a.getIY(), b.getIX(), b.getIY(), c);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void wallDimensionsWith(int x1, int y1, int x2, int y2, T c) {
+		wallDimensionsWith(x1, y1, x2, y2, (Class<? extends T>) c.getClass());
+	}
+	
+	public void wallDimensionsWith(Vector a, Vector b, T c) {
+		wallDimensionsWith(a.getIX(), a.getIY(), b.getIX(), b.getIY(), c);
 	}
 	
 	public void clear() {

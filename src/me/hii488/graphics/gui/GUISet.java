@@ -101,7 +101,7 @@ public class GUISet implements Comparable<GUISet>{
 	public boolean mouseClicked(MouseEvent event) {
 		AtomicBoolean affected = new AtomicBoolean(false);
 		HashSet<GUIElement> elemCopy = new HashSet<GUIElement>(elements); // Should stop Concurrent modification when adding/removing elements
-		elemCopy.stream().filter(e -> !e.hidden).filter(e -> e.getBoundingBox().containsPoint(event.getX(), event.getY())).forEach(e -> {affected.set(affected.get() || e.onClick(event));});
+		elemCopy.stream().filter(e -> !e.hidden).filter(e -> e.getBoundingBox().containsPoint(e.anchor.getAnchoredPositionFromScreenPosition(event.getX(), event.getY()))).forEach(e -> {affected.set(affected.get() || e.onClick(event));});
 		return affected.get();
 	}
 
