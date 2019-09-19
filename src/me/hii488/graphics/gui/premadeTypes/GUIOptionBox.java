@@ -8,6 +8,7 @@ import me.hii488.dataTypes.Vector;
 import me.hii488.dataTypes.VectorBox;
 import me.hii488.graphics.gui.GUIElement;
 import me.hii488.graphics.gui.style.GUIStyle;
+import me.hii488.interfaces.IGUIAnchor;
 
 public class GUIOptionBox extends GUIElement{
 	
@@ -43,16 +44,17 @@ public class GUIOptionBox extends GUIElement{
 		options.add(o);
 		o.setParentGUISet(getParentGuiSet());
 		o.parentBox = this;
+		o.setAnchor(this);
 	}
 	
 	public ArrayList<GUIOption> getOptions() {
 		return options;
 	}
 	
-	public void positionOptions(boolean vertical) {
+	public void positionOptions(boolean vertical) { // TODO: Test this
 		if(vertical) {
 			Vector offset = new Vector(0,0);
-			double yDist = (position.getIY() - options.stream().mapToDouble(o -> (o.getBoundingBox().getHeight())).sum()) / (options.size() + 1);
+			double yDist = (- options.stream().mapToDouble(o -> (o.getBoundingBox().getHeight())).sum()) / (options.size() + 1);
 			
 			for(GUIOption option : options) {
 				offset.setX((this.getBoundingBox().getWidth() - option.getBoundingBox().getWidth())/2);
@@ -63,7 +65,7 @@ public class GUIOptionBox extends GUIElement{
 		}
 		else {
 			Vector offset = new Vector(0,0);
-			double xDist = (position.getIX() - options.stream().mapToDouble(o -> (o.getBoundingBox().getWidth())).sum()) / (options.size() + 1);
+			double xDist = (- options.stream().mapToDouble(o -> (o.getBoundingBox().getWidth())).sum()) / (options.size() + 1);
 			
 			for(GUIOption option : options) {
 				offset.setY((this.getBoundingBox().getHeight() - option.getBoundingBox().getHeight())/2);

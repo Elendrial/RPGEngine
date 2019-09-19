@@ -13,7 +13,7 @@ import me.hii488.graphics.gui.style.GUIStyle;
 import me.hii488.interfaces.IGUIAnchor;
 import me.hii488.registries.TextureRegistry;
 
-public abstract class GUIElement {
+public abstract class GUIElement implements IGUIAnchor{
 	
 	protected GUISet parentGuiSet;
 	protected GUIStyle style = GUIStyle.getDefault();
@@ -124,6 +124,10 @@ public abstract class GUIElement {
 		return this;
 	}
 	
+	public IGUIAnchor getAnchor() {
+		return anchor;
+	}
+	
 	public BufferedImage getBackGroundPicture() {
 		if(backgroundPicture == null) return fetchBackGroundPic();
 		return backgroundPicture;
@@ -141,6 +145,48 @@ public abstract class GUIElement {
 		if(style.backgroundStyle.getTextureKey() != null)
 			return (BufferedImage) TextureRegistry.getTexture(style.backgroundStyle.getTextureKey(), style.backgroundStyle.getTextureState());
 		return null;
+	}
+	
+	// Here so that no one tries to use the other methods below to get this element's various positions
+	public Vector getRealPosition() {
+		return anchor.getRealPositionFromAnchoredPosition(getPosition());
+	}
+	
+	public Vector getScreenPosition() {
+		return anchor.getScreenPositionFromAnchoredPosition(getPosition());
+	}
+	
+	// Changed these to deal with nested anchors.
+	/**
+	 * Gets the real, in world, position from a position that uses this element as an anchor.
+	 * WARNING: THESE ARE ONLY FOR OBJECTS THAT USE THIS ELEMENT AS AN ANCHOR
+	 */
+	public Vector getRealPositionFromAnchoredPosition(Vector v) {
+		return anchor.getRealPositionFromAnchoredPosition(getPosition()).translate(v);
+	}
+	
+	/**
+	 * Gets the real, in world, position from a position that uses this element as an anchor.
+	 * WARNING: THESE ARE ONLY FOR OBJECTS THAT USE THIS ELEMENT AS AN ANCHOR
+	 */
+	public Vector getRealPositionFromAnchoredPosition(int x, int y) {
+		return anchor.getRealPositionFromAnchoredPosition(getPosition()).translate(x,y);
+	}
+	
+	/**
+	 * Gets the anchored position from a "real", in world, position. Uses this element as the anchor.
+	 * WARNING: THESE ARE ONLY FOR OBJECTS THAT USE THIS ELEMENT AS AN ANCHOR
+	 */
+	public Vector getAnchoredPositionFromRealPosition(Vector v) {
+		return anchor.getAnchoredPositionFromRealPosition(v).translate(getPosition().negated());
+	}
+	
+	/**
+	 * Gets the anchored position from a "real", in world, position. Uses this element as the anchor.
+	 * WARNING: THESE ARE ONLY FOR OBJECTS THAT USE THIS ELEMENT AS AN ANCHOR
+	 */
+	public Vector getAnchoredPositionFromRealPosition(int x, int y) {
+		return anchor.getAnchoredPositionFromRealPosition(x,y).translate(getPosition().negated());
 	}
 	
 }

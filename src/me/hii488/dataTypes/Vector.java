@@ -86,7 +86,7 @@ public class Vector {
 	}
 	
 	public boolean isUnitVector() {
-		return distance(ORIGIN) == 1;
+		return distance(ORIGIN) == 1; // TODO: Properly test this, maybe need to change it to magnitude < 1.0001 and magnitude > 0.9999 or something, bc computers ain't perfect...
 	}
 	
 	public Vector rotateRad(double radians, Vector v){

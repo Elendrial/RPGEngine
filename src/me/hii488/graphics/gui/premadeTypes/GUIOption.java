@@ -2,6 +2,7 @@ package me.hii488.graphics.gui.premadeTypes;
 
 import java.awt.Graphics;
 
+import me.hii488.dataTypes.Vector;
 import me.hii488.graphics.gui.GUISet;
 import me.hii488.graphics.gui.style.GUIStyle;
 
@@ -21,7 +22,7 @@ public class GUIOption extends GUIStandardBox {
 	}
 	
 	public void render(Graphics g) {
-		super.render(g, parentBox.getPosition());
+		super.render(g, Vector.ORIGIN);
 	}
 	
 }
