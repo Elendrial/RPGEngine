@@ -8,7 +8,6 @@ import me.hii488.dataTypes.Vector;
 import me.hii488.dataTypes.VectorBox;
 import me.hii488.graphics.gui.GUIElement;
 import me.hii488.graphics.gui.style.GUIStyle;
-import me.hii488.interfaces.IGUIAnchor;
 
 public class GUIOptionBox extends GUIElement{
 	

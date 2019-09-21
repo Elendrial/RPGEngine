@@ -6,7 +6,7 @@ import me.hii488.dataTypes.Vector;
 import me.hii488.graphics.gui.GUISet;
 import me.hii488.graphics.gui.style.GUIStyle;
 
-public class GUIOption extends GUIStandardBox {
+public class GUIOption extends GUIStandardBox { // TODO: Maybe make this a wrapper instead?
 
 	protected GUIOptionBox parentBox;
 	

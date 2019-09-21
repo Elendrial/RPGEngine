@@ -45,7 +45,8 @@ public class GUIStandardBox extends GUIElement {
 		g.setFont(style.textStyle.font);
 
 		for(int i = 0; i < text.length; i++) {
-			g.drawString(text[i], textRenderPositions[i].getIX() + offset.getIX(), textRenderPositions[i].getIY() + offset.getIY());
+			Vector v = anchor.getRealPositionFromAnchoredPosition(textRenderPositions[i]);
+			g.drawString(text[i], v.getIX() + offset.getIX(), v.getIY() + offset.getIY());
 		}
 	}
 	
@@ -53,7 +54,7 @@ public class GUIStandardBox extends GUIElement {
 		textRenderPositions = new Vector[text.length];
 		
 		FontMetrics metrics = new Canvas().getFontMetrics(style.textStyle.getFont());
-		Vector renderPos = anchor.getRealPositionFromAnchoredPosition(getPosition());
+		Vector renderPos = getPosition();
 		
 		double x,y;
 		for(int i = 0; i < text.length; i++){

@@ -70,8 +70,14 @@ public class KeyBindRegistry implements IInputListener{
 		keyPressed.put(arg0, false);
 	}
 	
-	public boolean isPressed(KeyBind key) {
+	
+	// TODO: Think about moving this?
+	public static boolean isPressed(KeyBind key) {
 		return keyPressed.get(key);
+	}
+	
+	public static boolean isPressed(String s) {
+		return isPressed(getKeyBind(s));
 	}
 	
 	

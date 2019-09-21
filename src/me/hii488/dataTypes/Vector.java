@@ -155,6 +155,10 @@ public class Vector {
 		return Double.isFinite(x) && Double.isFinite(y);
 	}
 	
+	public boolean isNotNothing() {
+		return !(x == 0 && y == 0);
+	}
+	
 	public boolean equals(Object v) {
 		if(!(v instanceof Vector)) return false;
 		

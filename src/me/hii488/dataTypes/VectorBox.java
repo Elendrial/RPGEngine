@@ -133,4 +133,8 @@ public class VectorBox {
 		cornerB.scale(scale);
 	}
 	
+	public String toString(){
+		return cornerA + ", " + cornerB;
+	}
+	
 }

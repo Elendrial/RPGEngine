@@ -39,6 +39,14 @@ public class Camera implements IGUIAnchor{
 		if(EngineSettings.Camera.movable) get().cameraPosition.setLocation(x, y);
 	}
 	
+	public static void translate(Vector v) {
+		get().cameraPosition.translate(v);
+	}
+	
+	public static void translate(double x, double y) {
+		get().cameraPosition.translate(x,y);
+	}
+	
 	public void consistentMoveTo(Vector v, int ticks){
 		if(EngineSettings.Camera.movable) {
 			ticksLeft = ticks;
